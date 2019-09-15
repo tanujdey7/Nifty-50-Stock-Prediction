@@ -13,6 +13,7 @@ html {
 .row {
     max-width: 1140px;
     margin: 0 auto;
+    
 }
 .row1 {
     max-width: 1140px;
@@ -196,7 +197,7 @@ h3 {
 }
 .btn-full:hover,
 .btn-full:active {
-     background-color: #294479; 
+     background-color: #2d3138; 
     color: aliceblue;
 }
 .btn-ghost:hover,
@@ -205,6 +206,9 @@ h3 {
     color: aliceblue;
 }
 .logo {
+    margin-left: 200px;
+    margin-top: 30px;
+    fill: #294479;
     height: 100px;
     width: auto;
     float: left;
