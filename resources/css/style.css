@@ -204,6 +204,11 @@ h3 {
     border: 1px solid #294479;
     color: aliceblue;
 }
+.logo {
+    height: 100px;
+    width: auto;
+    float: left;
+}
 .main-nav {
     float: right;
     margin-right: 0px;
