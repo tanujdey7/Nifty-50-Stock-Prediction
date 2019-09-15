@@ -246,3 +246,42 @@ footer x {
 .social-links {
     text-align: center;
 }
+.footer
+{
+  background: white;
+  color: black;
+  padding: 0% 10%;
+  width: 100%;
+  position: relative;
+}
+.footer .footer-section
+{
+  color: #000;
+  float: left;
+  width: 33.33%;
+  padding: 0% 5%;
+}
+.footer-section a{
+  color: #000;
+}
+.footer-section a:hover
+{
+  color: #686868;
+  cursor: pointer;
+  text-decoration: none;
+}
+.footer-section img
+{
+  margin-right: 10px;
+  height: 20px;
+  width: 20px;
+}
+.footer-bottom
+{
+  color: #686868;
+  height: 50px;
+  text-align: center;
+  padding-top: 20px;
+  width: 100%;
+  float: left;
+}
