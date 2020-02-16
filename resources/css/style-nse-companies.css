@@ -98,3 +98,8 @@ nav {
 .toggle .line3 {
     transform: rotate(45deg) translate(-5px,-6px);
 }
+.nav-links li a:hover,
+.nav-links li a:active{
+    border-bottom: 2px solid #169e83;
+    color: #26138e;
+}
