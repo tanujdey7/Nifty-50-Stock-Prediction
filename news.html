@@ -151,6 +151,36 @@
             <div class="line3"></div>
         </div>
     </nav>
+        
+    <div class="container">
+      
+        <!-- <h3 class="center" style="margin-bottom:20px;"><i class="material-icons medium hide-on-small-only" id="icons"></i></h3> -->
+        
+        <form>
+            <div class="input-field">
+                <i class="material-icons prefix">public</i>
+                <input type="text" id="searchquery">
+                <label>Find what's happening in the India......</label>
+            </div>
+            
+            <div class="row">
+               <input type="submit" id="searchbtn" class="btn col m2 s12" value="search">
+               <input type="reset" id="searchbtn" class="btn col m2 s12 red right" value="clear"  style="margin-top:6px;">
+            </div>
+            
+        </form>
+        
+        <div id="loader" style="display:none;">
+          <div class="progress">
+            <div class="indeterminate"></div>
+          </div>
+        </div>
+        
+        <div class="row">
+           <div id="newsResults"></div>
+        </div>      
+     </div>
+  
 	<div class="container">
         <div class="row">
             <div id="newsResults"></div>
