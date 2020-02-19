@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -17,8 +20,9 @@
                         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your email for registration</span>
-                    <input type="text" placeholder="Name" name="name"/>
-                    <input type="email" placeholder="Email" name="email"/>
+                    <input type="text" placeholder="Name" name="name" required/>
+                    <input type="email" placeholder="Email" name="email" required/>
+                    <input type="password" placeholder="Password" name="password" required/>
                     <input class = "submit" type="submit" name="signup" value="Sign Up"/>
                 </form>
             </div>
@@ -31,8 +35,8 @@
                         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                     <span>or use your account</span>
-                    <input type="text" placeholder="Email" name="username"/>
-                    <input type="password" placeholder="Password" name="pass"/>
+                    <input type="text" placeholder="Email" name="username" required/>
+                    <input type="password" placeholder="Password" name="pass" required/>
                     <a href="#">Forgot your password?</a>
                     <input type="submit" class = "submit" name="signin" value="Sign In"/>
                 </form>
@@ -69,19 +73,26 @@
         echo $con->error;
         $uid = mysqli_fetch_row($r);
         $userid = $uid[0] + 1;
-        $s1 = "INSERT INTO user(First_Name,Email,Password,User_ID) VALUES('" . $a . "','" . $b . "','" . $c . "'," . $userid . ");";
-        $con->query($s1);
-        echo $con->error;
+        $s1 = "INSERT INTO user(First_Name,Email,Password) VALUES('" . $a . "','" . $b . "','" . $c . "');";
+        $s2 = "INSERT INTO login(Email,Password) VALUES('" . $b . "','" . $c . "');";
+        if($con->query($s1) && $con->query($s2))
+        {
+            $_SESSION["username"] = $b;
+            $_SESSION["password"] = $c;
+            header("Location: nifty-companies.php");
+        }   
     }
     if(isset($_POST["signin"]))
     {
         $d = $_POST["username"];
         $e = $_POST["pass"];
-        $s1 = "SELECT Password FROM user where Username = '" . $d . "' OR Email='" . $d . "';";
+        $s1 = "SELECT Password FROM login where Username = '" . $d . "' OR Email='" . $d . "';";
         $result = $con->query($s1);
         $ans = mysqli_fetch_row($result);
         if($e == $ans[0])
         {
+            $_SESSION["username"] = $d;
+            $_SESSION["password"] = $e;
             header("Location: nifty-companies.php");
         }
         else
