@@ -1,4 +1,4 @@
-Plotly.d3.csv("BAJFINANCE.NS.csv", function (err, rows) {
+Plotly.d3.csv("https://raw.githubusercontent.com/tanujdey7/Project/master/stock_dfs/ASIANPAINT.NS.csv", function (err, rows) {
 
     function unpack(rows, key) {
         return rows.map(function (row) { return row[key]; });
@@ -29,7 +29,7 @@ Plotly.d3.csv("BAJFINANCE.NS.csv", function (err, rows) {
         title: 'bajaj',
         xaxis: {
             autorange: true,
-            range: ['2012-11-22', '2018-11-22'],
+            range: ['2008-11-22', '2018-11-22'],
             rangeselector: {
                 buttons: [
                     {
