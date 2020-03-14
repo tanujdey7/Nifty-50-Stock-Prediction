@@ -1,6 +1,7 @@
 <?php
     session_start();
     //echo $_SESSION["username"];
+    //print_r($_SESSION);
     $con = mysqli_connect("localhost","root","","predictor");
     if(!$con)
          die("Connection error:- " + mysqli_connect_error());
@@ -43,8 +44,8 @@
         </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="index.html" onclick="<?php session_destroy(); ?>">Log out</a></li>
+            <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="logout.php">Log out</a></li>
         </ul>
         <div class="burger">
             <div class="line1"></div>
