@@ -43,6 +43,10 @@
         </div>
     </nav>
     <center>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5a84889235f32a1847bb2a8d906bcc1a2ca25cdc
         <table class="content-table">
             <style>.content-table {
                 border-collapse: collapse;
@@ -53,12 +57,17 @@
                 overflow: hidden;
                 box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
             }
+<<<<<<< HEAD
             
+=======
+
+>>>>>>> 5a84889235f32a1847bb2a8d906bcc1a2ca25cdc
             .content-table thead tr {
                 background-color: #009879;
                 color: #ffffff;
                 text-align: left;
                 font-weight: bold;
+<<<<<<< HEAD
             }
             
             .content-table th,
@@ -69,22 +78,48 @@
             .content-table tbody tr {
                 border-bottom: 1px solid #dddddd;
             }
+=======
+            }
+
+            .content-table th,
+            .content-table td {
+                padding: 12px 15px;
+            }
+
+            .content-table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+>>>>>>> 5a84889235f32a1847bb2a8d906bcc1a2ca25cdc
             
             .content-table tbody tr:nth-of-type(even) {
                 background-color: #f3f3f3;
             }
+<<<<<<< HEAD
             
             .content-table tbody tr:last-of-type {
                 border-bottom: 2px solid #009879;
             }
             
+=======
+
+            .content-table tbody tr:last-of-type {
+                border-bottom: 2px solid #009879;
+            }
+
+>>>>>>> 5a84889235f32a1847bb2a8d906bcc1a2ca25cdc
             .content-table tbody tr.active-row {
                 font-weight: bold;
                 color: #009879;
             }
+<<<<<<< HEAD
             </style>
         <thead>
             
+=======
+        </style>
+        <thead>
+                
+>>>>>>> 5a84889235f32a1847bb2a8d906bcc1a2ca25cdc
             <tr>
                 <th>Serial Number</th>
                 <th>Name</th>
@@ -111,7 +146,11 @@
                                         <tr class="active-row">
                                             <style>.link{color:#009879;}</style>
                                             <td> <?php echo $i?></td>
+<<<<<<< HEAD
                                             <td><a href="stock_data/graph.php?id=<?php echo $row[1];?>" class="link"> <?php echo $row[0] ?></a></td>
+=======
+                                            <td><a href="#" class="link"> <?php echo $row[0] ?></a></td>
+>>>>>>> 5a84889235f32a1847bb2a8d906bcc1a2ca25cdc
                                             <?php
                                     }
                                     else {
@@ -119,7 +158,11 @@
                                         <tr>
                                             <style>.link1{color:black;}</style>
                                             <td> <?php echo $i?></td>
+<<<<<<< HEAD
                                             <td><a href="stock_data/graph.php?id=<?php echo $row[1];?>" class="link1"> <?php echo $row[0] ?></a></td>
+=======
+                                            <td><a href="#" class="link1"> <?php echo $row[0] ?></a></td>
+>>>>>>> 5a84889235f32a1847bb2a8d906bcc1a2ca25cdc
                                             <?php
                                     }
                                     ?>
