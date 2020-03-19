@@ -38,7 +38,7 @@
 					<td><?php echo $s_c_detailss['Symbol']?></td>
 					<td><?php echo $s_c_detailss['Series']?></td>
 					<td><?php echo $s_c_detailss['ISIN_Code']?></td>
-					<td><?php echo $s_c_detailss['Img']?></td>
+					<td><?php echo $s_c_detailss['Img']?></td>1
 						<td><a href="edit-s_c_details.php?act=edit&id=<?php echo $s_c_detailss['Comp_ID']?>"><i class="glyphicon glyphicon-edit"></i></i></a></td>
 						<td><a href="save.php?act=delete&id=<?php echo $s_c_detailss['Comp_ID']?>&cat=s_c_details" onclick="return navConfirm(this.href);"><i class="glyphicon glyphicon-trash"></i></a></td>
 						</tr>

@@ -1,10 +1,5 @@
     <?php
-    session_start();
-  //  echo $_SESSION["username"];
-    //print_r($_SESSION);
-    $con = mysqli_connect("localhost","root","","predictor");
-    if(!$con)
-         die("Connection error:- " + mysqli_connect_error());
+    include 'database.php';
     if(isset($_SESSION["username"]))
     {
        $s1 = "SELECT * FROM login WHERE Username = '" . $_SESSION["username"] . "' AND Password='" . $_SESSION["password"] . "';";
@@ -29,12 +24,12 @@
             <div class="form-container sign-up-container">
                 <form action="" method="POST">
                     <h1>Create Account</h1>
-                    <div class="social-container">
+                    <!-- <div class="social-container">
                         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <span>or use your email for registration</span>
+                    </div> -->
+                    <span>or use your email for registration</span><br>
                     <input type="text" placeholder="Name" name="name" required/>
                     <input type="email" placeholder="Email" name="email" required/>
                     <input type="password" placeholder="Password" name="password" required/>
@@ -44,12 +39,12 @@
             <div class="form-container sign-in-container">
                 <form action="" method="POST">
                     <h1>Sign in</h1>
-                    <div class="social-container">
+                    <!-- <div class="social-container">
                         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
                         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <span>or use your account</span>
+                    </div> -->
+                    <span>or use your account</span><br>
                     <input type="text" placeholder="Email" name="username" required/>
                     <input type="password" placeholder="Password" name="pass" required/>
                     <a href="#">Forgot your password?</a>
@@ -75,9 +70,6 @@
 </body>
 </html>
 <?php
-     $con = mysqli_connect("localhost","root","","predictor");
-     if(!$con)
-         die("Connection error:- " + mysqli_connect_error());
     if(isset($_POST["signup"]))
     {        
         $a = $_POST["name"];
