@@ -2,7 +2,7 @@
     session_start();
   //  echo $_SESSION["username"];
     //print_r($_SESSION);
-    $con = mysqli_connect("localhost","root","","predictor");
+    $con = mysqli_connect("localhost","root","root","predictor");
     if(!$con)
          die("Connection error:- " + mysqli_connect_error());
     if(isset($_SESSION["username"]))
