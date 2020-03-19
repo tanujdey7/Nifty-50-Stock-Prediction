@@ -1,10 +1,10 @@
-Plotly.d3.csv("https://raw.githubusercontent.com/tanujdey7/Project/master/stock_dfs/ASIANPAINT.NS.csv", function (err, rows) {
+Plotly.d3.csv("https://raw.githubusercontent.com/tanujdey7/Project/master/stock_data/ASIANPAINT.NS.csv", function (err, rows) {
 
     function unpack(rows, key) {
         return rows.map(function (row) { return row[key]; });
     }
 
-
+    console.log(unpack(rows, 'Date'));
     var trace1 = {
         type: "scatter",
         mode: "lines",

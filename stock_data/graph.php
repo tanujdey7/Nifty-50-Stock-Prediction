@@ -1,19 +1,92 @@
-<!DOCTYPE html>
-<html>
-
+<?php
+    $id = $_GET['id'];
+    // echo $id;
+?>
 <head>
-	<title>News Api</title>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" href="vendors/css/materialize.min.css">
-    <style type="text/css">
-		#loader {
-			height: 100vh;
-			align-items: center;
-			display: flex;
-			justify-content: center;
+    <!-- Load plotly.js into the DOM -->
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <script>
+        Plotly.d3.csv('<?php echo $id.".csv"?>', function(err, rows){
+            function unpack(rows, key) {
+            return rows.map(function(row) {
+                return row[key];
+            });
+            }
 
-		}
-                *{
+            var trace = {
+            x: unpack(rows, 'Date'),
+            close: unpack(rows, 'Close'),
+            high: unpack(rows, 'High'),
+            low: unpack(rows, 'Low'),
+            open: unpack(rows, 'Open'),   
+
+            // cutomise colors
+            //   increasing: {line: {color: }},
+            increasing: {line: {color: '#17BECF'}}, 
+            decreasing: {line: {color: '#7F7F7F'}},
+            line: {color: 'rgba(31,119,180,1)'},  
+            //   decreasing: {line: {color: 'red'}},
+
+            type: 'candlestick',
+            xaxis: 'x',
+            yaxis: 'y'
+            };
+
+            var data = [trace];
+
+            var layout = {
+            dragmode: 'zoom', 
+            margin: {
+                r: 10, 
+                t: 25, 
+                b: 40, 
+                l: 60
+            }, 
+            showlegend: false, 
+            xaxis: {
+                autorange: true,
+                title: '<?php echo $id?>',
+                rangeselector: {
+                    x: 0,
+                    y: 1.2,
+                    xanchor: 'left',
+                    font: {size:12},
+                    buttons: [{
+                        step: 'month',
+                        stepmode: 'backward',
+                        count: 1,
+                        label: '1 month'
+                    }, {
+                        step: 'month',
+                        stepmode: 'backward',
+                        count: 6,
+                        label: '6 months'
+                    },{
+                        step: 'month',
+                        stepmode: 'backward',
+                        count: 12,
+                        label: '1 Year'
+                    }]
+                }
+            },
+            yaxis: {
+                autorange: true,
+            }
+            };
+
+            Plotly.newPlot('myDiv', data, layout);
+});
+
+    </script>
+    <style type="text/css">
+        .modebar{
+            display: none !important;
+        }
+        .graph{
+            display: grid;
+            grid-template-columns: 30%;
+        }
+		 *{
             margin: 0px;
             padding: 0px;
             box-sizing: border-box;
@@ -117,18 +190,7 @@
         .nav-links li a:active{
             border-bottom: 2px solid #169e83;
             color: #26138e;
-}
-		.progress {
-			display: none;
-		}
-
-		.errorMsg {
-			font-size: 34px;
-			height: 100vh;
-			align-items: center;
-			display: flex;
-			justify-content: center;
-		}
+        }
 	</style>
 </head>
 
@@ -140,10 +202,10 @@
             </i>
         </div>
         <ul class="nav-links">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="news.html">News</a></li>
-            <li><a href="#">Log out</a></li>
+            <li><a href="../index.php">Home</a></li>
+            <li><a href="../dashboard.php">Dashboard</a></li>
+            <li><a href="../news.html">News</a></li>
+            <li><a href="../logout.php">Log out</a></li>
         </ul>
         <div class="burger">
             <div class="line1"></div>
@@ -151,53 +213,8 @@
             <div class="line3"></div>
         </div>
     </nav>
-        
-    <div class="container">
-      
-        <!-- <h3 class="center" style="margin-bottom:20px;"><i class="material-icons medium hide-on-small-only" id="icons"></i></h3> -->
-        
-        <form>
-            <div class="input-field">
-                <i class="material-icons prefix">public</i>
-                <input type="text" id="searchquery">
-                <label>Find what's happening in the India......</label>
-            </div>
-            
-            <div class="row">
-               <input type="submit" id="searchbtn" class="btn col m2 s12" value="search">
-               <input type="reset" id="searchbtn" class="btn col m2 s12 red right" value="clear"  style="margin-top:6px;">
-            </div>
-            
-        </form>
-        
-        <div id="loader" style="display:none;">
-          <div class="progress">
-            <div class="indeterminate"></div>
-          </div>
-        </div>
-        
-        <div class="row">
-           <div id="newsResults"></div>
-        </div>      
-     </div>
-  
-	<div class="container">
-        <div class="row">
-            <div id="newsResults"></div>
-		</div>
-        
-		<div id="loader">
-            <div class="progress">
-                <div class="indeterminate"></div>
-			</div>
-		</div>
-        
-	</div>
-    
-	<script src="vendors/js/jquery-3.3.1.min.js"></script>
-	<script src="vendors/js/materialize.min.js"></script>
-	<script src="resources/js/newsapp.js"></script>
-    <script src="resources/css/nse.js"></script>
+    <div class="graph"><style></style>
+    <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+    </div>
+    <!-- <script src="graph.js"></script> -->
 </body>
-
-</html>
