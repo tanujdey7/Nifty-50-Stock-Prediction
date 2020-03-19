@@ -1,39 +1,54 @@
 <?php
-    session_start();
-    //echo $_SESSION["username"];
-    //print_r($_SESSION);
-    $con = mysqli_connect("localhost","root","","predictor");
-    if(!$con)
-         die("Connection error:- " + mysqli_connect_error());
-    $flag = true;
+    include 'database.php';
     if(isset($_SESSION["username"]))
     {
-        $s1 = "SELECT * FROM login";
+        $s1 = "SELECT * FROM login WHERE Username = '" . $_SESSION["username"] . "' AND Password='" . $_SESSION["password"] . "';";
         $result = $con->query($s1);
-        if($result->num_rows > 0)
+        $num_rows = mysqli_num_rows($result);
+        if($num_rows != 1)
         {
-            while($row = mysqli_fetch_row($result))
-            {
-                if(($row[1] == $_SESSION["username"] || $row[2] == $_SESSION["username"]) && $row[3] == $_SESSION["password"])
-                {
-                    $flag = true;
-                }
-            }
+            header("Location: login.php");
         }
-    }    
-    if($flag == false)
+    }
+    else
     {
         header("Location: login.php");
     }
     $s2 = "SELECT * FROM user WHERE Username = '" . $_SESSION["username"] . "' OR Email = '" . $_SESSION["username"] . "';";
     $result = $con->query($s2);
     $row = mysqli_fetch_row($result);
-    if(isset($_POST["submit"]))
+    if($row[7]=="")
     {
-        $s3 = "UPDATE user SET Last_Name='" . $_POST["Last_Name"] . "', Age = ' " . $_POST["Age"] . " ', Username='" . $_POST["Username"] . "' WHERE Email = '" . $row[4] . "';";
-        $con->query($s3);
+        $img = "resources/img/profile_img.jpg";
     }
-
+    else
+    {
+        $img = $row[7];
+    }
+    $s4 = "SELECT * from s_c_details;";
+    $result_c = $con->query($s4);
+if(isset($_POST["submit"]))
+{
+    if(isset($_FILES['fileToUpload']))
+    {
+        $target_path = "resources/img/profile/"; 
+        $target_path = $target_path.basename( $_FILES['fileToUpload']['name']); 
+        if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_path))
+        {
+            unlink($row[7]);
+        }
+        else
+        {
+            $target_path = $row[7];
+        }
+    }
+    if($target_path == "resources/img/profile/")
+    {
+    }
+    $s3 = "UPDATE user SET Last_Name='" . $_POST["Last_Name"] . "', Age = ' " . $_POST["Age"] . " ', Username='" . $_POST["Username"] . "', img = '" . $target_path . "' WHERE Email = '" . $row[4] . "';";
+    $con->query($s3);
+    echo '<meta http-equiv="refresh" content="0">';
+}   
 ?>
 <!DOCTYPE html>
 <html>
@@ -75,7 +90,7 @@
             <h1>YOUR PROFILE DASHBOARD</h1>
             <h2>Profile</h2>
             <div class="per_info">
-                <img src="resources/img/profile_img.jpg" class="img_profile">
+                <img src="<?php echo $img ?>" class="img_profile" style="min-width:150px;min-height:100px;">
                 <p><?php echo $row[4]; ?></p>
                 <button id="show" style="border:none;background:none;color:#06A2D7;margin-left:40px;">Update Account Information</button>
             </div>
@@ -88,7 +103,7 @@
         </div>
         <dialog id="myFirstDialog" style="width:50%;background-color:#F4FFEF;border:1px dotted black;">  
             <h2>Update Information</h2>
-            <form action="" method="POST">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <table>
                     <tr>
                         <td><span>First Name:- </span></td>
@@ -111,6 +126,10 @@
                         <td><input type="text" name="Username" value="<?php echo $row[5]; ?>" class="dinput" required/></td>
                     </tr>
                     <tr>
+                        <td><span>Select Image:-</span></td>
+                        <td><input type="file" name="fileToUpload"/></td>
+                    </tr>    
+                    <tr>
                         <td><input type="submit" name="submit" value="Update"/></td>
                         <td><button id="hide">Close</button></td>
                     </tr>
@@ -129,44 +148,16 @@
         })();   
     </script>
         <div class="activity">
-            <h1>Your Activity</h1>
-            <div>
-               <!-- <table>
-                <tr height="50px">
-                    <td rowspan="2"><h3>November 2019</h3></td>
-                </tr>
-                <tr height="120px">
-                    <td><div class="vertical"></div></td>
-                    <td><div class="act_content">
-                        qwertyuiopppasdfghjklzxcvbnm
-                    </div></td>
-                </tr>
-                <tr height="100px">    
-                    <td rowspan="2"><h3>December 2019</h3></td>
-                </tr>
-                <tr height="130px">
-                    <td><div class="vertical"></div></td>
-                    <td><div class="act_content">
-                        zxcvbnmasdfghjklqwertyuiopzxcvbnmasdfghj<br>
-                        qwertyuiopasdfghjklmnbvcxzlkjhgfdsapoiuytrewq
-                    </div></td>
-                </tr>
-                <tr>
-                    <td rowspan="2"><h3>January 2020</h3></td>
-                </tr>
-                </table>-->
-                <h3>October 2019</h3>
-                <div class="vertical">asdfghjklpoiuytrewqzxcvbnm</div>
-                <h3>November 2019</h3>
-                <div class="vertical">qwertyuiiopasdfghjklzxcvbnm<br>
-                    asdfghjklzxcvbnmqwertyuiop
-                </div>
-                <h3>December 2019</h3>
-                <hr>
-                <h2>Suggested Companies <a href="#" class="Companies"><small>View all &gt;</small></a></h2>
-
-            </div>
-        </div>
+        <h2>Suggested Companies <a href="#" class="Companies"><small>View all &gt;</small></a></h2>
+        <?php
+        for($i=1;$i<5;$i++)
+        {
+            $row = mysqli_fetch_row($result_c);
+            echo "<div>";
+            echo '<img src = "' . $row[9] . '" class="img_comp">';
+            echo "</div>";
+        }
+        ?>
     </div>
 </body>
 </html>

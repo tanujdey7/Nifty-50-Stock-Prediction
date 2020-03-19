@@ -1,5 +1,20 @@
-<?php
+    <?php
     session_start();
+  //  echo $_SESSION["username"];
+    //print_r($_SESSION);
+    $con = mysqli_connect("localhost","root","","predictor");
+    if(!$con)
+         die("Connection error:- " + mysqli_connect_error());
+    if(isset($_SESSION["username"]))
+    {
+       $s1 = "SELECT * FROM login WHERE Username = '" . $_SESSION["username"] . "' AND Password='" . $_SESSION["password"] . "';";
+       $result = $con->query($s1);
+       $num_rows = mysqli_num_rows($result);
+       if($num_rows == 1)
+        {
+            header("Location: dashboard.php");
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

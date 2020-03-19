@@ -1,27 +1,16 @@
 <?php
-    session_start();
-    //echo $_SESSION["username"];
-    //print_r($_SESSION);
-    $con = mysqli_connect("localhost","root","","predictor");
-    if(!$con)
-         die("Connection error:- " + mysqli_connect_error());
-    $flag = false;
+    include 'database.php';
     if(isset($_SESSION["username"]))
     {
-        $s1 = "SELECT * FROM login";
+        $s1 = "SELECT * FROM login WHERE Username = '" . $_SESSION["username"] . "' AND Password='" . $_SESSION["password"] . "';";
         $result = $con->query($s1);
-        if($result->num_rows > 0)
+        $num_rows = mysqli_num_rows($result);
+        if($num_rows != 1)
         {
-            while($row = mysqli_fetch_row($result))
-            {
-                if(($row[1] == $_SESSION["username"] || $row[2] == $_SESSION["username"]) && $row[3] == $_SESSION["password"])
-                {
-                    $flag = true;
-                }
-            }
+            header("Location: login.php");
         }
-    }    
-    if($flag == false)
+    }
+    else
     {
         header("Location: login.php");
     }
@@ -43,7 +32,7 @@
             </i>
         </div>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="dashboard.php">Dashboard</a></li>
             <li><a href="logout.php">Log out</a></li>
         </ul>
@@ -54,5 +43,37 @@
         </div>
     </nav>
     <script src="resources/css/nse.js"></script>
+    <table class="nifty">
+        <tr>
+            <th>Serial Number</th>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Open</th>
+            <th>Close</th>
+            <th>Volume</th>
+        </tr>
+        <?php
+            $st1 = "select s_c_details.Comp_Name,stock_details.Symbol,stock_details.Open,stock_details.Close,stock_details.Volume
+                        from s_c_details JOIN stock_details ON s_c_details.Comp_ID=stock_details.Comp_ID;";
+            $res1 = $con->query($st1);
+            echo $con->error;
+            $i = 1;
+            if($res1->num_rows > 0)
+            {
+                while($row = mysqli_fetch_row($res1))
+                {
+                    echo "<tr>";
+                    echo "<td>" . $i ."</td>";
+                    echo "<td>" . $row[0] . "</td>";
+                    echo "<td>" . $row[1] . "</td>";
+                    echo "<td>" . $row[2] . "</td>";
+                    echo "<td>" . $row[3] . "</td>";
+                    echo "<td>" . $row[4] . "</td>";
+                    echo "</tr>";
+                    $i+=1;
+                }
+            }
+
+        ?>
 </body>
 </html>
