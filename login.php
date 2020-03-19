@@ -1,5 +1,14 @@
     <?php
+<<<<<<< HEAD
     include 'database.php';
+=======
+    session_start();
+  //  echo $_SESSION["username"];
+    //print_r($_SESSION);
+    $con = mysqli_connect("localhost","root","root","predictor");
+    if(!$con)
+         die("Connection error:- " + mysqli_connect_error());
+>>>>>>> 9516e910e8cddc2f4d7dfada20455782f1db70bb
     if(isset($_SESSION["username"]))
     {
        $s1 = "SELECT * FROM login WHERE Username = '" . $_SESSION["username"] . "' AND Password='" . $_SESSION["password"] . "';";
