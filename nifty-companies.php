@@ -213,6 +213,7 @@ nav {
                 <th>Serial Number</th>
                 <th>Name</th>
                 <th>Symbol</th>
+                <th>Percentage Change</th>
                 <th>Open</th>
                 <th>Close</th>
                 <th>Volume</th>
@@ -224,6 +225,7 @@ nav {
                         from s_c_details JOIN stock_details ON s_c_details.Comp_ID=stock_details.Comp_ID;";
                         $res1 = $con->query($st1);
                         echo $con->error;
+                        $file = fopen("extra/percentage.csv","r");
                         $i = 1;
                         if($res1->num_rows > 0)
                         {
@@ -246,8 +248,21 @@ nav {
                                             <td><a href="stock_data/graph.php?id=<?php echo $row[1];?>" class="link1"> <?php echo $row[0] ?></a></td>
                                             <?php
                                     }
+                                    $a1 = fgetcsv($file);
+                                    $a2 = fgetcsv($file);
+                                    $a4 = round($a1[4],3);
+                                    $a3 = round((round($a2[4] - $a1[4],3)*100)/$a4,2);
                                     ?>
                                     <td> <?php echo $row[1] ?></td>
+                                    <?php 
+                                        if($a3 < 0)
+                                        {
+                                            echo "<td style='color:red;'>" . $a3 . "</td>";
+                                        }
+                                        else{
+                                            echo "<td style='color:green;'>" . $a3 . "</td>";
+                                        }
+                                    ?>
                                     <td> <?php echo $row[2] ?></td>
                                     <td> <?php echo $row[3] ?></td>
                                     <td> <?php echo $row[4] ?></td>

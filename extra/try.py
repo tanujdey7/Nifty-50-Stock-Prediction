@@ -28,6 +28,6 @@ for x in myresult:
 
 for i in range(0,50):
     ibm = DataReader(s[i],  'yahoo', datetime(2012, 1, 1), datetime.now())
-    str = "stock_data/" + a[i] + ".csv"
+    str = "../stock_data/" + a[i] + ".csv"
     ibm.to_csv(str)
 
