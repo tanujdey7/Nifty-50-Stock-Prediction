@@ -39,7 +39,7 @@
             margin: {
                 r: 10, 
                 t: 25, 
-                b: 40, 
+                b: 60, 
                 l: 60
             }, 
             showlegend: false, 
