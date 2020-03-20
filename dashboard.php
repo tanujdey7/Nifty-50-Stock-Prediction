@@ -200,6 +200,25 @@ if(isset($_POST["submit"]))
 			display: flex;
 			justify-content: center;
 		}
+        .comp_info .img
+        {
+            width:150px;
+            float:left;
+        }
+        .comp_info
+        {
+            width:500px;
+            height:150px;
+            font-size:15px;
+            padding: 20px;
+            vertical-align: center;
+        }
+        .grid-container
+        {
+            display: grid;
+            grid-template-columns: auto auto;
+            padding: 10px;
+        }
     </style>    
 </head>
 <body>
@@ -290,16 +309,21 @@ if(isset($_POST["submit"]))
         })();   
     </script>
         <div class="activity">
+        <h2>NSE Stock</h2>
+        <hr>
         <h2>Suggested Companies <a href="nifty-companies.php" class="Companies"><small>View all &gt;</small></a></h2>
+        <div class="grid-container">
         <?php
         for($i=1;$i<5;$i++)
         {
             $row = mysqli_fetch_row($result_c);
-            echo "<div>";
-            echo '<img src = "' . $row[9] . '" class="img_comp">';
+            echo "<div class='comp_info'>";
+            echo '<img class="img" src = "' . $row[9] . '">';
+            echo "<div style='padding:5px;'>" . $row[6] . "<br>" . $row[5]. "</div>";
             echo "</div>";
         }
         ?>
+        </div>
     </div>
 </body>
 </html>
