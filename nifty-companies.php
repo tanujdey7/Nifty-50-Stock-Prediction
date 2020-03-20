@@ -22,8 +22,111 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NSE</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="resources/css/style-nse-companies.css">
-</head>
+    <style>
+        *{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+html {
+    font-weight: 300;
+    font-size: 20px;
+    text-rendering: optimizeLegibility;
+    font-family: 'Raleway','Arial',sans-serif;
+}
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 8vh;
+    background-color: #26138e;
+}
+
+.logo {
+    fill: aliceblue;
+}
+.nav-links {
+    display: flex;
+    justify-content: space-around;  
+    width: 25%;  
+    list-style: none;
+}
+.nav-links a {
+    color: aliceblue;
+    text-decoration: none;
+    letter-spacing: 3px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.burger {
+    display: none;
+}
+.burger div{
+    width: 25px;
+    height: 3px;
+    background-color: rgb(226,226,226);
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+@media screen and (max-width:1024px) {
+    .nav-links {
+        width: 40%;  
+    }
+}
+@media screen and (max-width:768px) {
+    body {
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .nav-links {
+        position: absolute;
+        right: 0px;
+        height: 92vh;
+        top: 8vh;
+        background-color:  #1abc9c;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+    }
+    .nav-links li {
+        opacity: 0;
+    }
+    .burger {
+        display: block;
+    }
+}
+.nav-active{
+    transform: translateX(0%);
+}
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0px);
+    }
+}
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px,6px);
+}
+.toggle .line2 {
+    opacity: 0;
+}
+.toggle .line3 {
+    transform: rotate(45deg) translate(-5px,-6px);
+}
+.nav-links li a:hover,
+.nav-links li a:active{
+    border-bottom: 2px solid #169e83;
+    color: #26138e;
+}
+    </style>
+    </head>
 <body>
     <nav>
         <div class="logo">
@@ -42,38 +145,122 @@
             <div class="line3"></div>
         </div>
     </nav>
-    <script src="resources/css/nse.js"></script>
-    <table class="nifty">
-        <tr>
-            <th>Serial Number</th>
-            <th>Name</th>
-            <th>Symbol</th>
-            <th>Open</th>
-            <th>Close</th>
-            <th>Volume</th>
-        </tr>
-        <?php
-            $st1 = "select s_c_details.Comp_Name,stock_details.Symbol,stock_details.Open,stock_details.Close,stock_details.Volume
-                        from s_c_details JOIN stock_details ON s_c_details.Comp_ID=stock_details.Comp_ID;";
-            $res1 = $con->query($st1);
-            echo $con->error;
-            $i = 1;
-            if($res1->num_rows > 0)
-            {
-                while($row = mysqli_fetch_row($res1))
-                {
-                    echo "<tr>";
-                    echo "<td>" . $i ."</td>";
-                    echo "<td>" . $row[0] . "</td>";
-                    echo "<td>" . $row[1] . "</td>";
-                    echo "<td>" . $row[2] . "</td>";
-                    echo "<td>" . $row[3] . "</td>";
-                    echo "<td>" . $row[4] . "</td>";
-                    echo "</tr>";
-                    $i+=1;
-                }
+    <style>.parallax {
+    /* background-image:  */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),url("resources/css/img/nse-join2.jpg");
+    /* min-height: 500px; */
+    background-attachment:fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}</style>
+    <div class="parallax">
+    <center>
+        <br>
+        <table class="content-table">
+            <style>.content-table {
+                border-collapse: collapse;
+                margin: 25px 0;
+                font-size: 0.9em;
+                min-width: 400px;
+                border-radius: 5px 5px 0 0;
+                overflow: hidden;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+            }
+            
+            .content-table thead tr {
+                background-color: #1a0d60;
+                color: #ffffff;
+                text-align: left;
+                font-weight: bold;
+            }
+            
+            .content-table th,
+            .content-table td {
+                padding: 12px 15px;
+            }
+            
+            .content-table tbody tr {
+                border-bottom: 1px solid #dddddd;
+            }
+            
+            .content-table tbody tr:nth-of-type(even) {
+                background-color: #f3f3f3;
+                /* background-color: #f3f3f3; */
+            }            
+            .content-table tbody tr{
+                background-color: rgba(226,226,240,0.9);
+                /* background-color: #f3f3f3; */
+            }            
+            .content-table tbody tr:last-of-type {
+                border-bottom: 2px solid #1a0d60;
+            }
+            
+            .content-table tbody tr:last-of-type {
+                border-bottom: 2px solid #1a0d60;
+            }
+            .content-table tbody tr.active-row {
+                font-weight: bold;
+                color: #1a0d60;
             }
 
-        ?>
-</body>
-</html>
+            </style>
+        <thead>
+            
+        </style>
+        <thead>
+            <tr>
+                <th>Serial Number</th>
+                <th>Name</th>
+                <th>Symbol</th>
+                <th>Open</th>
+                <th>Close</th>
+                <th>Volume</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                        $st1 = "select s_c_details.Comp_Name,stock_details.Symbol,stock_details.Open,stock_details.Close,stock_details.Volume
+                        from s_c_details JOIN stock_details ON s_c_details.Comp_ID=stock_details.Comp_ID;";
+                        $res1 = $con->query($st1);
+                        echo $con->error;
+                        $i = 1;
+                        if($res1->num_rows > 0)
+                        {
+                            while($row = mysqli_fetch_row($res1))
+                            {?>
+                                <?php
+                                    if($i % 2 == 0) {
+                                        ?>
+                                        <tr class="active-row">
+                                            <style>.link{color:#1a0d60;}</style>
+                                            <td> <?php echo $i?></td>
+                                            <td><a href="stock_data/graph.php?id=<?php echo $row[1];?>" class="link"> <?php echo $row[0] ?></a></td>
+                                            <?php
+                                    }
+                                    else {
+                                        ?>
+                                        <tr>
+                                            <style>.link1{color:black;}</style>
+                                            <td> <?php echo $i?></td>
+                                            <td><a href="stock_data/graph.php?id=<?php echo $row[1];?>" class="link1"> <?php echo $row[0] ?></a></td>
+                                            <?php
+                                    }
+                                    ?>
+                                    <td> <?php echo $row[1] ?></td>
+                                    <td> <?php echo $row[2] ?></td>
+                                    <td> <?php echo $row[3] ?></td>
+                                    <td> <?php echo $row[4] ?></td>
+                                </tr>
+                                <?php $i+=1;
+                            }
+                        }
+                        
+                        ?>
+            </tbody>
+        </table>
+    </center>
+    </div>
+        <script src="resources/css/nse.js"></script>
+    </body>
+    </html>

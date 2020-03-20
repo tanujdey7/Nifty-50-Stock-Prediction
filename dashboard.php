@@ -290,7 +290,7 @@ if(isset($_POST["submit"]))
         })();   
     </script>
         <div class="activity">
-        <h2>Suggested Companies <a href="#" class="Companies"><small>View all &gt;</small></a></h2>
+        <h2>Suggested Companies <a href="nifty-companies.php" class="Companies"><small>View all &gt;</small></a></h2>
         <?php
         for($i=1;$i<5;$i++)
         {
