@@ -1,7 +1,7 @@
 <?php
 		error_reporting(0);
 		session_start();
-		if ($_SESSION["username"] != "admin"){
+		if ($_SESSION["username1"] != "admin"){
 			header("location:"."./");
 		}
 			include("includes/connect.php");
