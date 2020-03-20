@@ -123,7 +123,7 @@ nav {
 .nav-links li a:hover,
 .nav-links li a:active{
     border-bottom: 2px solid #169e83;
-    color: #26138e;
+    color: #169e83;
 }
     </style>
     </head>
@@ -137,6 +137,7 @@ nav {
         <ul class="nav-links">
             <li><a href="index.php">Home</a></li>
             <li><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="news.html">News    </a></li>
             <li><a href="logout.php">Log out</a></li>
         </ul>
         <div class="burger">

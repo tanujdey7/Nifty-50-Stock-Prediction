@@ -45,8 +45,8 @@
         $ans = mysqli_fetch_row($result);
         if($e == $ans[0])
         {
-            $_SESSION["username"] = $d;
-            $_SESSION["password"] = $e;
+            $_SESSION["username1"] = $d;
+            $_SESSION["password2"] = $e;
             header("Location: home.php");
         }
         else
