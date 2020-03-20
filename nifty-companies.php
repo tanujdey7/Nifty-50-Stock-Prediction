@@ -2,7 +2,7 @@
     include 'database.php';
     if(isset($_SESSION["username"]))
     {
-        $s1 = "SELECT * FROM login WHERE Username = '" . $_SESSION["username"] . "' AND Password='" . $_SESSION["password"] . "';";
+        $s1 = "SELECT * FROM login WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
         $result = $con->query($s1);
         $num_rows = mysqli_num_rows($result);
         if($num_rows != 1)
@@ -137,7 +137,7 @@ nav {
         <ul class="nav-links">
             <li><a href="index.php">Home</a></li>
             <li><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="news.html">News    </a></li>
+            <li><a href="news.php">News    </a></li>
             <li><a href="logout.php">Log out</a></li>
         </ul>
         <div class="burger">

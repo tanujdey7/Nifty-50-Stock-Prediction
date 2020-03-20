@@ -2,7 +2,7 @@
     include 'database.php';
     if(isset($_SESSION["username"]))
     {
-        $s1 = "SELECT * FROM login WHERE Username = '" . $_SESSION["username"] . "' AND Password='" . $_SESSION["password"] . "';";
+        $s1 = "SELECT * FROM login WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
         $result = $con->query($s1);
         $num_rows = mysqli_num_rows($result);
         if($num_rows != 1)
@@ -200,6 +200,25 @@ if(isset($_POST["submit"]))
 			display: flex;
 			justify-content: center;
 		}
+        .comp_info .img
+        {
+            width:150px;
+            float:left;
+        }
+        .comp_info
+        {
+            width:500px;
+            height:150px;
+            font-size:15px;
+            padding: 20px;
+            vertical-align: center;
+        }
+        .grid-container
+        {
+            display: grid;
+            grid-template-columns: auto auto;
+            padding: 10px;
+        }
     </style>    
 </head>
 <body>
@@ -213,7 +232,7 @@ if(isset($_POST["submit"]))
         <ul class="nav-links">
             <li><a href="index.php">Home</a></li>
             <li><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="news.html">News</a></li>
+            <li><a href="news.php">News</a></li>
             <li><a href="logout.php">Log out</a></li>
         </ul>
         <div class="burger">
@@ -290,16 +309,21 @@ if(isset($_POST["submit"]))
         })();   
     </script>
         <div class="activity">
+        <h2>NSE Stock</h2>
+        <hr>
         <h2>Suggested Companies <a href="nifty-companies.php" class="Companies"><small>View all &gt;</small></a></h2>
+        <div class="grid-container">
         <?php
         for($i=1;$i<5;$i++)
         {
             $row = mysqli_fetch_row($result_c);
-            echo "<div>";
-            echo '<img src = "' . $row[9] . '" class="img_comp">';
+            echo "<div class='comp_info'>";
+            echo '<img class="img" src = "' . $row[9] . '">';
+            echo "<div style='padding:5px;'>" . $row[6] . "<br>" . $row[5]. "</div>";
             echo "</div>";
         }
         ?>
+        </div>
     </div>
 </body>
 </html>

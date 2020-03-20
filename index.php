@@ -2,7 +2,7 @@
     include 'database.php';
     if(isset($_SESSION["username"]))
     {
-        $s1 = "SELECT * FROM login WHERE Username = '" . $_SESSION["username"] . "' AND Password='" . $_SESSION["password"] . "';";
+        $s1 = "SELECT * FROM login WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
         $result = $con->query($s1);
         $num_rows = mysqli_num_rows($result);
         if($num_rows != 1)
@@ -38,7 +38,7 @@
             <div class="row1">
                 <ul class="main-nav">
                     <li><a href="#features">Features</a></li>
-                    <li><a href="news.html">News</a></li>
+                    <li><a href="news.php">News</a></li>
                     <!-- <li><a href="nifty-companies.html">NIFTY</a></li> -->
                     <li><a href="#">Contact</a></li>
                     <?php echo $ss1; ?>
