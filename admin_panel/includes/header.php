@@ -57,6 +57,7 @@
 <li><a href="s_c_details.php"> <i class="glyphicon glyphicon-calendar"></i>Stock Company details <span class="pull-right"><?=counting("s_c_details", "id")?></span></a></li>
 <li><a href="stock_details.php"> <i class="glyphicon glyphicon-tower"></i>Stock Details <span class="pull-right"><?=counting("stock_details", "id")?></span></a></li>
 <li><a href="user.php"> <i class="glyphicon glyphicon-lamp"></i>User <span class="pull-right"><?=counting("user", "id")?></span></a></li>
+<li><a href="update.php"><i class="glyphicon glyphicon-lamp"></i> Update</a></li>
 <li><a href="logout.php"><i class="glyphicon glyphicon-log-out"></i> Logout</a></li>
 				</ul>
 			</nav><!-- /end sidebar -->
