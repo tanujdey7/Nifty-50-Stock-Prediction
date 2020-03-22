@@ -15,6 +15,7 @@
 			<th>Open</th>
 			<th>Close</th>
 			<th>Volume</th>
+			<th>Previous Close</th>
 
 				<th class="not">Edit</th>
 				<th class="not">Delete</th>
@@ -31,6 +32,7 @@
 						<td><?php echo $stock_detailss['Open']?></td>
 						<td><?php echo $stock_detailss['Close']?></td>
 						<td><?php echo $stock_detailss['Volume']?></td>
+						<td><?php echo $stock_detailss['prev_close']?></td>
 						<td><a href="edit-stock_details.php?act=edit&id=<?php echo $stock_detailss['Comp_ID']?>"><i class="glyphicon glyphicon-edit"></i></a></td>
 						<td><a href="save.php?act=delete&id=<?php echo $stock_detailss['Comp_ID']?>&cat=stock_details" onclick="return navConfirm(this.href);"><i class="glyphicon glyphicon-trash"></i></a></td>
 						</tr>
