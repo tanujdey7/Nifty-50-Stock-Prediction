@@ -63,8 +63,8 @@ include "includes/header.php";
                     $s2 = "UPDATE stock_details SET Open='" . round($r[3],3) . "',Close='" . round($r[4],3) . "',Volume='". round($r[5],3) . "' WHERE Symbol='" . $row[0]. "';";
                     $con->query($s2);
                   }
-              }
-            }
+             }
+           }
           $k++;
           $percent = intval($k/50 * 100)."%";
           echo '<script language="javascript">
@@ -77,7 +77,7 @@ include "includes/header.php";
 ?>
 <?php
 echo '<script language="javascript">
-          document.getElementById("progress").innerHTML="<div style=\"width:'.$percent.';background-color:#1abc9c;height:30px;border-radius:15px;text-align:center;padding-top:0px;color:#26138e;font-size:20px;font-weight:bold;\">'. "Data Updated Successfully" .'</div>";
+          document.getElementById("progress").innerHTML="<div style=\"width:'.'100%'.';background-color:#1abc9c;height:30px;border-radius:15px;text-align:center;padding-top:0px;color:#26138e;font-size:20px;font-weight:bold;\">'. "Data Updated Successfully" .'</div>";
           </script>';?>
 </body>
 </html>
