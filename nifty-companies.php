@@ -137,7 +137,7 @@ nav {
         <ul class="nav-links">
             <li><a href="index.php">Home</a></li>
             <li><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="news.php">News    </a></li>
+            <li><a href="news.php">News</a></li>
             <li><a href="logout.php">Log out</a></li>
         </ul>
         <div class="burger">
