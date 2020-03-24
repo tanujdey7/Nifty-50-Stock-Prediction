@@ -200,24 +200,41 @@ if(isset($_POST["submit"]))
 			display: flex;
 			justify-content: center;
 		}
-        .comp_info .img
-        {
-            width:150px;
-            float:left;
-        }
         .comp_info
         {
             width:500px;
             height:150px;
-            font-size:15px;
             padding: 20px;
             vertical-align: center;
+            font-weight: 300;
+            font-size: 20px;
+            text-rendering: optimizeLegibility;
+            font-family: 'Raleway','Arial',sans-serif;
         }
         .grid-container
         {
             display: grid;
             grid-template-columns: auto auto;
             padding: 10px;
+        }
+        .comp_info .row
+        {
+            width: 180px;
+            height: 100px;
+            margin: 20px;
+            float:left;
+            position: relative;
+        }
+        .comp_info .row .img
+        {
+            max-height: 100%;  
+            max-width: 100%; 
+            position: absolute;  
+            top: 0;  
+            bottom: 0;  
+            left: 0;  
+            right: 0;  
+            margin: auto;
         }
     </style>    
 </head>
@@ -311,15 +328,15 @@ if(isset($_POST["submit"]))
         <div class="activity">
         <h2>NSE Stock</h2>
         <hr>
-        <h2>Suggested Companies <a href="nifty-companies.php" class="Companies"><small>View all &gt;</small></a></h2>
+        <h2>Wishlisted Companies <a href="nifty-companies.php" class="Companies"><small>View all &gt;</small></a></h2>
         <div class="grid-container">
         <?php
         for($i=1;$i<5;$i++)
         {
             $row = mysqli_fetch_row($result_c);
             echo "<div class='comp_info'>";
-            echo '<img class="img" src = "' . $row[9] . '">';
-            echo "<div style='padding:5px;'>" . $row[6] . "<br>" . $row[5]. "</div>";
+            echo '<div class="row"><img class="img" src = "' . $row[9] . '"></div>';
+            echo "<div style='padding:40px 0px;'>" . $row[6] . "<br>" . $row[5]. "</div>";
             echo "</div>";
         }
         ?>
