@@ -31,6 +31,9 @@
 							
 							<label>Volume</label>
 							<input class="form-control" type="text" name="Volume" value="<?=$stock_details['Volume']?>" /><br>
+
+							<label>Previous Close</label>
+							<input class="form-control" type="text" name="prev_close" value="<?=$stock_details['prev_close']?>" /><br>
 							<br>
 					<input type="submit" value=" Save " class="btn btn-success">
 					</form>

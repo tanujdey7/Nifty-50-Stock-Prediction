@@ -35,7 +35,7 @@ include "includes/header.php";
   if(isset($_POST["Submit"]))
   {
       echo '<script>
-            document.getElementById("progress").style="display:block;height:52px;width:700px;border:1px solid #26138e;border-radius:15px;";
+            document.getElementById("progress").style="display:block;height:32px;width:700px;border:1px solid #26138e;border-radius:15px;";
             document.getElementById("information").style="display:block;font-size:50px;color:#26138e;";
             </script>';
       $result = $con->query($s1);
@@ -63,12 +63,12 @@ include "includes/header.php";
                     $s2 = "UPDATE stock_details SET Open='" . round($r[3],3) . "',Close='" . round($r[4],3) . "',Volume='". round($r[5],3) . "' WHERE Symbol='" . $row[0]. "';";
                     $con->query($s2);
                   }
-              }
-            }
+             }
+           }
           $k++;
           $percent = intval($k/50 * 100)."%";
           echo '<script language="javascript">
-          document.getElementById("progress").innerHTML="<div style=\"width:'.$percent.';background-color:#1abc9c;height:50px;border-radius:15px;text-align:center;padding-top:8px;color:#26138e;font-size:25px;font-weight:bold;\">'. $k*2 . '%' .'</div>";
+          document.getElementById("progress").innerHTML="<div style=\"width:'.$percent.';background-color:#1abc9c;height:30px;border-radius:15px;text-align:center;padding-top:0px;color:#26138e;font-size:20px;font-weight:bold;\">'. $k*2 . '%' .'</div>";
           </script>';
           flush();
         }
@@ -77,7 +77,7 @@ include "includes/header.php";
 ?>
 <?php
 echo '<script language="javascript">
-          document.getElementById("progress").innerHTML="<div style=\"width:'.$percent.';background-color:#1abc9c;height:50px;border-radius:15px;text-align:center;padding-top:8px;color:#26138e;font-size:25px;font-weight:bold;\">'. "Data Updated Successfully" .'</div>";
+          document.getElementById("progress").innerHTML="<div style=\"width:'.'100%'.';background-color:#1abc9c;height:30px;border-radius:15px;text-align:center;padding-top:0px;color:#26138e;font-size:20px;font-weight:bold;\">'. "Data Updated Successfully" .'</div>";
           </script>';?>
 </body>
 </html>
