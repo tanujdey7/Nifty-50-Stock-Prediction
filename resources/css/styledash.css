@@ -1,70 +1,60 @@
-body{
-    background: linear-gradient(to right, #1abc9c 20%,#26138e 100%);
+body {
+  background: linear-gradient(to right, #1abc9c 20%, #26138e 100%);
 }
-.dash
-{
-    padding: 40px;
+.dash {
+  padding: 40px;
 }
-.profile
-{
-    width: 600px;
-    background-color: white;
-    border-radius: 25px;
-    padding: 30px;
-    float: left;
-    margin-left: 40px;
+.profile {
+  width: 600px;
+  background-color: white;
+  border-radius: 25px;
+  padding: 30px;
+  float: left;
+  margin-left: 40px;
 }
-.per_info .img_profile
-{
-    width: 150px;
-    border-radius: 80px;
-    float: left;
+.per_info .img_profile {
+  width: 150px;
+  border-radius: 80px;
+  float: left;
 }
-.per_info p
-{
-    padding:50px 0px 0px 200px;
+.per_info p {
+  padding: 50px 0px 0px 200px;
 }
-.per_info
-{
-    padding-bottom: 40px;
+.per_info {
+  padding-bottom: 40px;
 }
-.per_info a
-{
-    padding: 0px 0px 0px 50px;
-    color:#068097;
-    text-decoration: none;
+.per_info a {
+  padding: 0px 0px 0px 50px;
+  color: #068097;
+  text-decoration: none;
 }
-.profile hr
-{
-    text-align: left;
-    margin-left: 0;
-    width: 200px;
+.profile hr {
+  text-align: left;
+  margin-left: 0;
+  width: 200px;
 }
-.activity
-{
-    width: 1020px;
-    background-color: white;
-    border-radius: 25px;
-    padding: 30px;
-    margin-left: 40px;
-    float: left;
+.activity {
+  width: 1020px;
+  background-color: white;
+  border-radius: 25px;
+  padding: 30px;
+  margin-left: 40px;
+  float: left;
 }
-.vertical { 
-    border-left: 1px solid black; 
-    min-height: 100px;
-    padding: 10px 0 0 100px;
-    position:relative;
-    left: 5%;
+.vertical {
+  border-left: 1px solid black;
+  min-height: 100px;
+  padding: 10px 0 0 100px;
+  position: relative;
+  left: 5%;
 }
-.act_content
-{
-    position: absolute;
-    left:50%;
+.act_content {
+  position: absolute;
+  left: 50%;
 }
-.Companies
-{
-    text-decoration: none;
-    color: #068097;
+.Companies {
+  text-decoration: none;
+  color: #068097;
 }
 /* *{
     margin: 0px;
@@ -78,97 +68,139 @@ html {
     font-family: 'Raleway','Arial',sans-serif;
 } */
 nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    min-height: 8vh;
-    background: linear-gradient(to right, #1abc9c 20%,#26138e 100%);
-    /* background-color:  #1abc9c; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 8vh;
+  background: linear-gradient(to right, #1abc9c 20%, #26138e 100%);
+  /* background-color:  #1abc9c; */
 }
 
 .logo {
-    color: aliceblue;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    font-size: 20px;
+  color: aliceblue;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 20px;
 }
 .nav-links {
-    display: flex;
-    justify-content: space-around;  
-    width: 25%;  
-    list-style: none;
+  display: flex;
+  justify-content: space-around;
+  width: 25%;
+  list-style: none;
 }
 .nav-links a {
-    color: aliceblue;
-    text-decoration: none;
-    letter-spacing: 3px;
-    font-weight: bold;
-    font-size: 14px;
+  color: aliceblue;
+  text-decoration: none;
+  letter-spacing: 3px;
+  font-weight: bold;
+  font-size: 14px;
 }
 .burger {
-    display: none;
+  display: none;
 }
-.burger div{
-    width: 25px;
-    height: 3px;
-    background-color: rgb(226,226,226);
-    margin: 5px;
-    transition: all 0.3s ease;
+.burger div {
+  width: 25px;
+  height: 3px;
+  background-color: rgb(226, 226, 226);
+  margin: 5px;
+  transition: all 0.3s ease;
 }
-@media screen and (max-width:1024px) {
-    .nav-links {
-        width: 40%;  
-    }
+@media screen and (max-width: 1024px) {
+  .nav-links {
+    width: 40%;
+  }
 }
-@media screen and (max-width:768px) {
-    body {
-        overflow: hidden;
-        cursor: pointer;
-    }
-    .nav-links {
-        position: absolute;
-        right: 0px;
-        height: 92vh;
-        top: 8vh;
-        background-color:  #1abc9c;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 50%;
-        transform: translateX(100%);
-        transition: transform 0.5s ease-in;
-    }
-    .nav-links li {
-        opacity: 0;
-    }
-    .burger {
-        display: block;
-    }
+@media screen and (max-width: 768px) {
+  body {
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .nav-links {
+    position: absolute;
+    right: 0px;
+    height: 92vh;
+    top: 8vh;
+    background-color: #1abc9c;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in;
+  }
+  .nav-links li {
+    opacity: 0;
+  }
+  .burger {
+    display: block;
+  }
 }
-.nav-active{
-    transform: translateX(0%);
+.nav-active {
+  transform: translateX(0%);
 }
 @keyframes navLinkFade {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0px);
-    }
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
 }
 .toggle .line1 {
-    transform: rotate(-45deg) translate(-5px,6px);
+  transform: rotate(-45deg) translate(-5px, 6px);
 }
 .toggle .line2 {
-    opacity: 0;
+  opacity: 0;
 }
 .toggle .line3 {
-    transform: rotate(45deg) translate(-5px,-6px);
+  transform: rotate(45deg) translate(-5px, -6px);
 }
 .nav-links li a:hover,
-.nav-links li a:active{
-    border-bottom: 2px solid #ffffff;
-    color: #fff;
+.nav-links li a:active {
+  border-bottom: 2px solid #ffffff;
+  color: #fff;
+}
+.dinput {
+  height: 40px;
+  background-color: #e6e6e6;
+  border-radius: 20px;
+  border: none;
+  width: 200px;
+  font-size: 15px;
+  border-color: #e6e6e6;
+  padding: 0 30px;
+}
+span {
+  color: #666666;
+  font-size: 20px;
+}
+
+.progress {
+  display: none;
+}
+
+.errorMsg {
+  font-size: 34px;
+  height: 100vh;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.comp_info .img {
+  width: 150px;
+  float: left;
+}
+.comp_info {
+  width: 500px;
+  height: 150px;
+  font-size: 15px;
+  padding: 20px;
+  vertical-align: center;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  padding: 10px;
 }

@@ -1,329 +1,274 @@
 <?php
-    include 'database.php';
-    if(isset($_SESSION["username"]))
-    {
-        $s1 = "SELECT * FROM login WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
-        $result = $con->query($s1);
-        $num_rows = mysqli_num_rows($result);
-        if($num_rows != 1)
-        {
-            header("Location: login.php");
-        }
-    }
-    else
-    {
+include 'database.php';
+if (isset($_SESSION["username"])) {
+    $s1 = "SELECT * FROM login WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
+    $result = $con->query($s1);
+    $num_rows = mysqli_num_rows($result);
+    if ($num_rows != 1) {
         header("Location: login.php");
     }
-    $s2 = "SELECT * FROM user WHERE Username = '" . $_SESSION["username"] . "' OR Email = '" . $_SESSION["username"] . "';";
-    $result = $con->query($s2);
-    $row = mysqli_fetch_row($result);
-    if($row[7]=="")
-    {
-        $img = "resources/img/profile_img.jpg";
-    }
-    else
-    {
-        $img = $row[7];
-    }
-    $s4 = "SELECT * from s_c_details;";
-    $result_c = $con->query($s4);
-if(isset($_POST["submit"]))
-{
-    if(isset($_FILES['fileToUpload']))
-    {
-        $target_path = "resources/img/profile/"; 
-        $target_path = $target_path.basename( $_FILES['fileToUpload']['name']); 
-        if(move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_path))
-        {
+} else {
+    header("Location: login.php");
+}
+$s2 = "SELECT * FROM user WHERE Username = '" . $_SESSION["username"] . "' OR Email = '" . $_SESSION["username"] . "';";
+$result = $con->query($s2);
+$row = mysqli_fetch_row($result);
+if ($row[7] == "") {
+    $img = "resources/img/profile_img.jpg";
+} else {
+    $img = $row[7];
+}
+$s4 = "SELECT * from s_c_details;";
+$result_c = $con->query($s4);
+if (isset($_POST["submit"])) {
+    if (isset($_FILES['fileToUpload'])) {
+        $target_path = "resources/img/profile/";
+        $target_path = $target_path . basename($_FILES['fileToUpload']['name']);
+        if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_path)) {
             unlink($row[7]);
-        }
-        else
-        {
+        } else {
             $target_path = $row[7];
         }
     }
-    if($target_path == "resources/img/profile/")
-    {
+    if ($target_path == "resources/img/profile/") {
     }
     $s3 = "UPDATE user SET Last_Name='" . $_POST["Last_Name"] . "', Age = ' " . $_POST["Age"] . " ', Username='" . $_POST["Username"] . "', img = '" . $target_path . "' WHERE Email = '" . $row[4] . "';";
     $con->query($s3);
     echo '<meta http-equiv="refresh" content="0">';
-}   
+}
 ?>
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
+
 <head>
-    <title> Dashboard </title>
-    <link rel="stylesheet" type="text/css" href="vendors/css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="resources/css/styledash.css"> 
-    <link rel="stylesheet" type="text/css" href="vendors/css/grid.css" >
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400&display=swap" rel="stylesheet">
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <style type="text/css">
-    /* <style> */
-        .dinput
-        {
-            height: 40px;
-            background-color: #e6e6e6;
-            border-radius: 20px;
-            border: none;
-            width: 200px;
-            font-size: 15px;
-            border-color: #e6e6e6;
-            padding: 0 30px;
-        }
-        span
-        {
-            color: #666666;
-            font-size: 20px;
-        }
-		#loader {
-			height: 100vh;
-			align-items: center;
-			display: flex;
-			justify-content: center;
-
-		}
-                *{
-            margin: 0px;
-            padding: 0px;
-            box-sizing: border-box;
-        }
-        html {
-            font-weight: 300;
-            font-size: 20px;
-            text-rendering: optimizeLegibility;
-            font-family: 'Raleway','Arial',sans-serif;
-        }
-        nav {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            min-height: 8vh;
-            background-color:  #1abc9c;
-        }
-
-        .logo {
-            color: aliceblue;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            font-size: 20px;
-        }
-        .nav-links {
-            display: flex;
-            justify-content: space-around;  
-            width: 25%;  
-            list-style: none;
-        }
-        .nav-links a {
-            color: aliceblue;
-            text-decoration: none;
-            letter-spacing: 3px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        .burger {
-            display: none;
-        }
-        .burger div{
-            width: 25px;
-            height: 3px;
-            background-color: rgb(226,226,226);
-            margin: 5px;
-            transition: all 0.3s ease;
-        }
-        @media screen and (max-width:1024px) {
-            .nav-links {
-                width: 40%;  
-            }
-        }
-        @media screen and (max-width:768px) {
-            body {
-                overflow: hidden;
-                cursor: pointer;
-            }
-            .nav-links {
-                position: absolute;
-                right: 0px;
-                height: 92vh;
-                top: 8vh;
-                background-color:  #1abc9c;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                width: 50%;
-                transform: translateX(100%);
-                transition: transform 0.5s ease-in;
-            }
-            .nav-links li {
-                opacity: 0;
-            }
-            .burger {
-                display: block;
-            }
-        }
-        .nav-active{
-            transform: translateX(0%);
-        }
-        @keyframes navLinkFade {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0px);
-            }
-        }
-        .toggle .line1 {
-            transform: rotate(-45deg) translate(-5px,6px);
-        }
-        .toggle .line2 {
-            opacity: 0;
-        }
-        .toggle .line3 {
-            transform: rotate(45deg) translate(-5px,-6px);
-        }
-        .nav-links li a:hover,
-        .nav-links li a:active{
-            border-bottom: 2px solid #169e83;
-            color: #26138e;
-}
-		.progress {
-			display: none;
-		}
-
-		.errorMsg {
-			font-size: 34px;
-			height: 100vh;
-			align-items: center;
-			display: flex;
-			justify-content: center;
-		}
-        .comp_info .img
-        {
-            width:150px;
-            float:left;
-        }
-        .comp_info
-        {
-            width:500px;
-            height:150px;
-            font-size:15px;
-            padding: 20px;
-            vertical-align: center;
-        }
-        .grid-container
-        {
-            display: grid;
-            grid-template-columns: auto auto;
-            padding: 10px;
-        }
-    </style>    
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="./resources/img//apple-icon.png" />
+    <link rel="icon" type="image/png" href="./resources/img//favicon.png" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="resources/css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="resources/css/creset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="resources/css/mstyle.css"> <!-- Resource style -->
+    <link rel="stylesheet" href="resources/css/cstyle.css"> <!-- Resource style -->
+    <script src="resources/js/modernizr.js"></script> <!-- Modernizr -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <title>
+        Dashboard
+    </title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport" />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link href="./resources/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="./resources/css/paper-kit.css?v=2.2.0" rel="stylesheet" />
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="./resources/demo/demo.css" rel="stylesheet" />
 </head>
-<body>
-    <header>
-    <nav>
-        <div class="logo">
-            <i>
-                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><path d="M24 3.055l-6 1.221 1.716 1.708-5.351 5.358-3.001-3.002-7.336 7.242 1.41 1.418 5.922-5.834 2.991 2.993 6.781-6.762 1.667 1.66 1.201-6.002zm-16.69 6.477l-3.282-3.239 1.41-1.418 3.298 3.249-1.426 1.408zm15.49 3.287l1.2 6.001-6-1.221 1.716-1.708-2.13-2.133 1.411-1.408 2.136 2.129 1.667-1.66zm1.2 8.181v2h-24v-22h2v20h22z"/></svg>
-            </i>
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="news.php">News</a></li>
-            <li><a href="logout.php">Log out</a></li>
-        </ul>
-        <div class="burger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
-    </nav>  
-        <!--
-            1. Navbar
-            2. Font
-        -->
-    </header>
-    <div class="dash">
-        <div class="profile">
-            <h1>YOUR PROFILE DASHBOARD</h1>
-            <h2>Profile</h2>
-            <div class="per_info">
-                <img src="<?php echo $img ?>" class="img_profile" style="min-width:150px;min-height:100px;">
-                <p><?php echo $row[4]; ?></p>
-                <button id="show" style="border:none;background:none;color:#06A2D7;margin-left:40px;">Update Account Information</button>
+
+<body class="profile-page sidebar-collapse">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="300">
+        <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href="dashboard.php" rel="tooltip" data-placement="bottom">
+                    <i class="logo">
+                        <style>
+                            .logo {
+                                fill: aliceblue;
+                            }
+                        </style>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
+                            <path d="M24 3.055l-6 1.221 1.716 1.708-5.351 5.358-3.001-3.002-7.336 7.242 1.41 1.418 5.922-5.834 2.991 2.993 6.781-6.762 1.667 1.66 1.201-6.002zm-16.69 6.477l-3.282-3.239 1.41-1.418 3.298 3.249-1.426 1.408zm15.49 3.287l1.2 6.001-6-1.221 1.716-1.708-2.13-2.133 1.411-1.408 2.136 2.129 1.667-1.66zm1.2 8.181v2h-24v-22h2v20h22z" /></svg>
+                    </i>
+                </a>
+                <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </button>
             </div>
-          <div>
-                <p>First Name: <?php echo $row[1]; ?></p><hr>
-                <p>Last Name: <?php echo $row[2]; ?></p><hr>
-                <p>Username: <?php echo $row[5]; ?></p><hr>
-                <p>Age: <?php echo $row[3]; ?></p><hr>
-          </div> 
+            <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="./index.php" class="nav-link"><i class="nc-icon nc-layout-11"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./news.html" class="nav-link"><i class="nc-icon nc-paper"></i> News</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logout.php" class="nav-link"><i class="nc-icon nc-book-bookmark"></i> Sign Out</a>
+                    </li>
+
+                </ul>
+            </div>
         </div>
-        <dialog id="myFirstDialog" style="width:50%;background-color:#F4FFEF;border:1px dotted black;">  
-            <h2>Update Information</h2>
-            <form action="" method="POST" enctype="multipart/form-data">
-                <table>
-                    <tr>
-                        <td><span>First Name:- </span></td>
-                        <td><input type="text" name="First_Name" value="<?php echo $row[1]; ?>" disabled class="dinput"/></td>
-                    </tr>
-                    <tr>
-                        <td><span>Last Name:- </span></td>
-                        <td><input type="text" name="Last_Name" value="<?php echo $row[2]; ?>" class="dinput" required/></td>
-                    </tr>
-                    <tr>
-                        <td><span>Age:- </span></td>
-                        <td><input type="number" name="Age" min="18" value="<?php echo $row[3]; ?>" class="dinput" required/></td>
-                    </tr>
-                    <tr>
-                        <td><span>Email:- </span></td>
-                        <td><input type="text" name="Email" value="<?php echo $row[4]; ?>" class="dinput" disabled/></td>
-                    </tr>
-                    <tr>
-                        <td><span>Username:- </span></td>
-                        <td><input type="text" name="Username" value="<?php echo $row[5]; ?>" class="dinput" required/></td>
-                    </tr>
-                    <tr>
-                        <td><span>Select Image:-</span></td>
-                        <td><input type="file" name="fileToUpload"/></td>
-                    </tr>    
-                    <tr>
-                        <td><input type="submit" name="submit" value="Update"/></td>
-                        <td><button id="hide">Close</button></td>
-                    </tr>
-                </table>        
-            </form> 
-        </dialog>
-        <script type="text/JavaScript">  
-            (function() {    
-            var dialog = document.getElementById('myFirstDialog');    
-            document.getElementById('show').onclick = function() {    
-            dialog.show();    
-        };    
-            document.getElementById('hide').onclick = function() {    
-             dialog.close();    
-        };    
-        })();   
-    </script>
-        <div class="activity">
-        <h2>NSE Stock</h2>
-        <hr>
-        <h2>Suggested Companies <a href="nifty-companies.php" class="Companies"><small>View all &gt;</small></a></h2>
-        <div class="grid-container">
-        <?php
-        for($i=1;$i<5;$i++)
-        {
-            $row = mysqli_fetch_row($result_c);
-            echo "<div class='comp_info'>";
-            echo '<img class="img" src = "' . $row[9] . '">';
-            echo "<div style='padding:5px;'>" . $row[6] . "<br>" . $row[5]. "</div>";
-            echo "</div>";
-        }
-        ?>
+    </nav>
+    <!-- End Navbar -->
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('https://source.unsplash.com/1980x1080/?background');">
+        <div class="filter"></div>
+    </div>
+    <div class="section profile-content">
+        <div class="container">
+            <div class="owner">
+                <div class="avatar">
+                    <img src="<?php echo $img ?>" alt="Circle Image" class="img-circle img-no-padding img-responsive" />
+                </div>
+                <div class="name">
+                    <h4 class="title"><b>
+                            <p>Name: <?php echo $row[1] . " " . $row[2]; ?></p>
+                            <p>Username: <?php echo $row[5]; ?></p>
+                            <p>Age: <?php echo $row[3]; ?></p>
+                            <br />
+                    </h4>
+                    <h6 class="description">User</h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 ml-auto mr-auto text-center">
+                    <p>
+
+                    </p>
+                    <br />
+                    <section class="cd-section">
+                        <div class="cd-modal-action">
+                            <a href="#0" class="btn" data-type="modal-trigger"><i class="fa fa-cog"></i> Update</a>
+                            <span class="cd-modal-bg"></span>
+                        </div> <!-- cd-modal-action -->
+                        <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
+                        <div class="cd-modal">
+                            <div class="cd-modal-content">
+                                <form class="cd-form floating-labels">
+                                    <fieldset>
+                                        <legend>Update Information</legend>
+
+                                        <div class="icon">
+                                            <label class="cd-label" for="cd-name">First Name</label>
+                                            <input class="user" type="text" name="cd-name" id="cd-name" required>
+                                        </div>
+                                        <div class="icon">
+                                            <label class="cd-label" for="cd-name">Last Name</label>
+                                            <input class="user" type="text" name="cd-name" id="cd-name" required>
+                                        </div>
+                                        <div class="icon">
+                                            <label class="cd-label" for="cd-name">Age</label>
+                                            <input class="age" type="text" name="cd-name" id="cd-name" required>
+                                        </div>
+                                        <div class="icon">
+                                            <label class="cd-label" for="cd-email">Email</label>
+                                            <input class="email error" type="email" name="cd-email" id="cd-email" required>
+                                        </div>
+                                        <div class="icon">
+                                            <label class="cd-label" for="cd-name">Username</label>
+                                            <input class="user" type="text" name="cd-name" id="cd-name" required>
+                                        </div>
+                                        <div class="file-upload">
+                                            <div class="file-select">
+                                                <div class="file-select-button" id="fileName"><b>Select Image</b></div>
+                                                <!-- <div class="file-select-name" id="noFile">No file chosen...</div>  -->
+                                                <input type="file" name="chooseFile" id="chooseFile">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <input type="submit" value="Update">
+                                </form>
+                            </div> <!-- cd-modal-content -->
+
+                        </div> <!-- cd-modal -->
+                        <a href="#0" class="cd-modal-close">Close</a>
+                </div>
+            </div>
+            <br />
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#follows" role="tab">Recommended</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#following" role="tab">Following</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Tab panes -->
+            <div class="tab-content following">
+                <div class="tab-pane active" id="follows" role="tabpanel">
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto">
+                            <ul class="list-unstyled follows">
+                                <?php
+                                for ($i = 1; $i < 3; $i++) {
+                                    $row = mysqli_fetch_row($result_c);
+                                    // echo "<div class='comp_info'>";
+                                    // echo '<img class="img" src = "' . $row[9] . '">';
+                                    // echo "<div style='padding:5px;'>" . $row[6] . "<br>" . $row[5] . "</div>";
+                                    // echo "</div>";
+                                    echo '<li>
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-4 col-4 ml-auto mr-auto">
+                                                <img src="' . $row[9] . '" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive" />
+                                            </div>
+                                            <div class="col-lg-7 col-md-4 col-4  ml-auto mr-auto">
+                                                <h6>
+                                                    ' . $row[6] . '
+                                                    <br />
+                                                    <small>' . $row[5] . '</small>
+                                                    </h6>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 col-4  ml-auto mr-auto"> </div>
+                                                    </div>
+                                                    </li>';
+                                }
+                                ?>
+                                <hr />
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane text-center" id="following" role="tabpanel">
+                    <h3 class="text-muted">Not following anyone yet :(</h3>
+                    <a href="nifty-companies.php"><button class="btn btn-warning btn-round">Find Companies</button></a>
+                </div>
+            </div>
         </div>
     </div>
+    <footer class="footer    ">
+        <div class="container">
+            <div class="row">
+                <nav class="footer-nav">
+                    <ul>
+                        <li>
+                            <a href="index.php">Stock Predictor</a>
+                        </li>
+
+                    </ul>
+                </nav>
+                <div class=" credits ml-auto">
+                    <span class="copyright">
+                        ©
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        , made with <i class="fa fa-heart heart"></i> by Tanuj Dey
+                    </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="./resources/js/core/jquery.min.js" type="text/javascript"></script>
+    <script src="./resources/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="./resources/js/core/bootstrap.min.js" type="text/javascript"></script>
+    <script src="./resources/js/plugins/bootstrap-switch.js"></script>
+    <script src="./resources/js/plugins/nouislider.min.js" type="text/javascript"></script>
+    <script src="./resources/js/plugins/moment.min.js"></script>
+    <script src="./resources/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="./resources/js/paper-kit.js?v=2.2.0" type="text/javascript"></script>
+    <script src="resources/js/jquery-2.1.1.js"></script>
+    <script src="resources/js/velocity.min.js"></script>
+    <script src="resources/js/main.js"></script>
+    <script src="resources/js/cmain.js"></script>
 </body>
+
 </html>

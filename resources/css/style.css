@@ -46,6 +46,27 @@ nav {
     -webkit-filter: grayscale(0);
     -webkit-transform: scale(1.01);
 }
+
+/* Sticky navi */
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 2px 2px #efefef;
+    z-index: 9999;
+}
+
+.sticky .main-nav { margin-top: 18px; }
+
+.sticky .main-nav li a:link,
+.sticky .main-nav li a:visited {
+    padding: 16px 0;
+    color: #555;
+}
+
+.sticky .logo { display: block; }
 .section-features {
     background-color: #f3faff; 
     background-size: cover;
