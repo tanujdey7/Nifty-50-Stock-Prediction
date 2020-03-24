@@ -5,7 +5,7 @@
 				<a class="btn btn-primary" href="edit-s_c_details.php?act=add"> <i class="glyphicon glyphicon-plus-sign"></i> Add New Stock Company Details</a>
 
 				<h1>Stock Company Details</h1>
-				<p>This table includes <?php echo counting("s_c_details", "id");?> Stock Company Details.</p>
+				<!-- <p>This table includes <?php echo counting("s_c_details", "id");?> Stock Company Details.</p> -->
 
 				<table id="sorted" class="table table-striped table-bordered">
 				<thead>

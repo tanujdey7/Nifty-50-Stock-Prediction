@@ -137,7 +137,7 @@ nav {
         <ul class="nav-links">
             <li><a href="index.php">Home</a></li>
             <li><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="news.php">News    </a></li>
+            <li><a href="news.php">News</a></li>
             <li><a href="logout.php">Log out</a></li>
         </ul>
         <div class="burger">
@@ -238,7 +238,11 @@ nav {
                                         <tr class="active-row">
                                             <style>.link{color:#1a0d60;}</style>
                                             <td style="text-align:center;"> <?php echo $i?></td>
+<<<<<<< HEAD
                                             <td><a href="graph.php?id=<?php echo $row[1];?>" class="link"> <?php echo $row[0] ?></a></td>
+=======
+                                            <td><a href="stock_data/graph.php?id=<?php echo $row[1];?>" class="link"> <?php echo $row[0] ?></a></td>
+>>>>>>> 86470de782f4a6d0ed2d6479d7ee45e0fe2b98ca
                                             <?php
                                     }
                                     else {
@@ -246,7 +250,11 @@ nav {
                                         <tr>
                                             <style>.link1{color:black;}</style>
                                             <td style="text-align:center;"> <?php echo $i?></td>
+<<<<<<< HEAD
                                             <td><a href="graph.php?id=<?php echo $row[1];?>" class="link1"> <?php echo $row[0] ?></a></td>
+=======
+                                            <td><a href="stock_data/graph.php?id=<?php echo $row[1];?>" class="link1"> <?php echo $row[0] ?></a></td>
+>>>>>>> 86470de782f4a6d0ed2d6479d7ee45e0fe2b98ca
                                             <?php
                                     }
                                     $a1 = floatval($row[3]);
