@@ -75,14 +75,15 @@ if($cat == "stock_details" || $cat_get == "stock_details"){
 	$Open = mysqli_real_escape_string($link,$_POST["Open"]);
 	$Close = mysqli_real_escape_string($link,$_POST["Close"]);
 	$Volume = mysqli_real_escape_string($link,$_POST["Volume"]);
+	$Prev = mysqli_real_escape_string($link,$_POST["prev_close"]);
 	echo $Comp_ID;
 	
 	if($act == "add"){
 		mysqli_query($link, "INSERT INTO `s_c_details` (  `Comp_ID` , `Symbol` ) VALUES ( '".$Comp_ID."' , '".$Symbol."') ");
-		mysqli_query($link, "INSERT INTO `stock_details` (  `Comp_ID` , `Symbol` , `Open` , `Close` , `Volume` ) VALUES ( '".$Comp_ID."' , '".$Symbol."' , '".$Open."' , '".$Close."' , '".$Volume."' ) ");
+		mysqli_query($link, "INSERT INTO `stock_details` (  `Comp_ID` , `Symbol` , `Open` , `Close` , `Volume` , `prev_close`) VALUES ( '".$Comp_ID."' , '".$Symbol."' , '".$Open."' , '".$Close."' , '".$Volume. "' , '".$Prev."' ) ");
 		echo $link->error;
 	}elseif ($act == "edit"){
-		mysqli_query($link, "UPDATE `stock_details` SET  `Comp_ID` =  '".$Comp_ID."' , `Symbol` =  '".$Symbol."' , `Open` =  '".$Open."' , `Close` =  '".$Close."' , `Volume` =  '".$Volume."'  WHERE `Comp_ID` = '".$id."' "); 	
+		mysqli_query($link, "UPDATE `stock_details` SET  `Comp_ID` =  '".$Comp_ID."' , `Symbol` =  '".$Symbol."' , `Open` =  '".$Open."' , `Close` =  '".$Close."' , `Volume` =  '".$Volume."' , `prev_close` = '".$Prev."'  WHERE `Comp_ID` = '".$id."' "); 	
 	}elseif ($act_get == "delete"){
 		mysqli_query($link, "DELETE FROM `stock_details` WHERE Comp_ID = '".$id_get."' ");
 	}
