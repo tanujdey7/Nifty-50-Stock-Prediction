@@ -16,13 +16,13 @@
     {
         header("Location: login.php");
     }
-    $s1 = "SELECT Comp_Name,Img FROM s_c_details WHERE Symbol='" . $id . "';";
+    $s1 = "SELECT * FROM s_c_details WHERE Symbol='" . $id . "';";
     $result = $con->query($s1);
     if($result->num_rows == 1)
     {
         $row = mysqli_fetch_row($result);
-        $comp_name = $row[0];
-        $comp_img = $row[1];
+        $comp_name = $row[1];
+        $comp_img = $row[9];
     }
     $s2 = "SELECT * from stock_details WHERE Symbol = '" . $id . "';";
     $res1 = $con->query($s2);
@@ -229,6 +229,11 @@
             border-bottom: 2px solid #169e83;
             color: #26138e;
         }
+        .comp
+        {
+            width:70%;
+            text-align:left;
+        }
         .comp .row
         {
             width: 180px;
@@ -255,17 +260,52 @@
             font-size: 20px;
             text-rendering: optimizeLegibility;
             font-family: 'Raleway','Arial',sans-serif;
+
         }
         .tab
         {
-            border-bottom:1px solid #ccc;
+            overflow: hidden;
+            border-bottom: 1px solid #ccc;
+            background-color: #f1f1f1;
+            width:70%;
+        }
+        .tablinks
+        {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
         }
         .tb
         {
             border-bottom:1px solid #ccc;
             font-size:15px;
-            width:230px;
+            width:300px;
             padding:10px 0px;
+        }
+        .tb a
+        {
+            color:black;
+            text-decoration:none;
+        }
+        .tb a:hover
+        {
+            color:#1abc9c;
+        }
+        .port
+        {
+            width:70%;
+            text-align:left;
+            margin:20px 0px 0px 30px;
+        }
+        .trend
+        {
+            background-color:#135690;
+            color:white;
+            margin-left:40px;
         }
 	</style>
 </head>
@@ -289,7 +329,8 @@
             <div class="line3"></div>
         </div>
     </nav>
-    <div style="padding:0px 200px;">
+    <center>
+    <div>
     <div class="comp">
         <table>
             <tr>
@@ -323,7 +364,130 @@
                     </h2>
                 </td>
             </tr>
-            <tr style="height:30px;"></tr>
+            </table>
+        </div>    
+            <div class="tab">
+                <button class="tablinks">Portfolio</button>
+                <button class="tablinks">Chart</button>
+                <button class="tablinks">Historical Data</button>
+            </div>
+            <div id="portfolio" class="port">
+            <table style="float:left;margin-right:200px;">
+                        <tr>
+                            <td class="tb">
+                                <div style="text-align:left;float:left;padding:5px;">Website</div>
+                                <div style="text-align:right;padding:5px;"><a href="<?php echo "http://".$row[2] ?>"><?php echo $row[2] ?></a></div>
+                            </td>
+                            <td style="width:50px;"></td>
+                            <td class="tb">
+                                <div style="text-align:left;float:left;padding:5px;">Open</div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row1[2] ?></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tb">
+                                <div style="text-align:left;float:left;padding:5px;">Headquaters</div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row[3] ?></div>
+                            </td>
+                            <td style="width:50px;"></td>
+                            <td class="tb">
+                                <div style="text-align:left;float:left;padding:5px;">Close</div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row1[3] ?></div>
+                            </td>
+                        <tr>
+                            <td class="tb">
+                                <div style="text-align:left;float:left;padding:5px;">Founded</div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row[4] ?></div>
+                            </td>
+                            <td style="width:50px;"></td>
+                            <td class="tb">
+                                <div style="text-align:left;float:left;padding:5px;">Volume</div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row1[4] ?></div>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td class="tb">
+                                <div style="text-align:left;float:left;padding:5px;">Industry</div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row[5] ?></div>
+                            </td>
+                            <td style="width:50px;"></td>    
+                        <td class="tb">
+                                <div style="text-align:left;float:left;padding:5px;">Previous Close</div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row1[5] ?></div>
+                            </td>
+                        </tr>
+                        <tr>
+                        <td class="tb">
+                                <div style="text-align:left;float:left;padding:5px;">Series</div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row[7] ?></div>
+                            </td>
+                        <td style="width:50px;"></td>    
+                        <td class="tb">
+                                <div style="text-align:left;float:left;padding:5px;">ISIN Code</div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row[8] ?></div>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="trend">
+                        <tr>
+                            <td style="text-align:center;font-weight:bold;padding:10px;">
+                                        TOP TRENDING STOCKS
+                                        <center><hr style="width:70px;border:1px solid yellow;margin-top:10px;"></center>
+                            </td>
+                        </tr>
+                        <tr>
+                        <th class="tb" style="border:none;">
+                                <div style="text-align:left;float:left;padding:5px;">Stock Name</div>
+                                <div style="text-align:right;padding:5px;">%change</div>
+                            </th>
+                        <tr>
+                        <?php
+                        $a2 = array();
+                            $s6 = "SELECT Symbol,Volume from stock_details";
+                            $res3 = $con->query($s6);
+                            if($res3->num_rows > 0)
+                            {
+                                while($row2 = mysqli_fetch_row($res3))
+                                {
+                                    $z = strval($row2[0]);
+                                    $a2[$z] = intval($row2[1]);        
+                                }
+                            }
+                            arsort($a2);
+                            //print_r($a2);
+                            $a3 = array_slice($a2,0,5);
+                            foreach($a3 as $x => $x_val)
+                            {
+                                $s7 = "SELECT Comp_Name from s_c_details WHERE Symbol='" . $x . "';";
+                                $res4 = $con->query($s7);
+                                if($res4->num_rows==1)
+                                {
+                                    $row3 = mysqli_fetch_row($res4);
+                                }
+                                $s8 = "SELECT Close,prev_close from stock_details WHERE Symbol='" . $x . "';";
+                                $res5 = $con->query($s8);
+                                if($res5->num_rows==1)
+                                {
+                                    $row4 = mysqli_fetch_row($res5);
+                                }
+                                $b1 = floatval($row4[0]);
+                                $b2 = floatval($row4[1]);
+                                $b4 = round($b1 - $b2,3);
+                                $b3 = round(($b4*100)/$b2,2);
+                                echo "<tr>
+                                    <td class='tb'style='background-color:#2869A1;'>
+                                    <div style='text-align:left;float:left;padding:5px;'>" . $row3[0] . "</div>";
+                                if($b3 > 0)
+                                    echo "<div style='text-align:right;padding:5px;color:#23D537;'>+" . $b3 . "</div>";
+                                else
+                                    echo "<div style='text-align:right;padding:5px;color:#FF586D;'>" . $b3 . "</div>";
+                                echo "</td>";
+                                echo "</tr>";
+                                
+                            }
+                        ?>    
+                </div>  
+            <!--<tr style="height:30px;"></tr>
             <tr>
                 <td></td>
                 <td><h2>Summary</h2></td>
@@ -332,33 +496,8 @@
             <tr>
                 <td></td>
                 <td class="show">
-                    <table style="float:left;">
-                        <tr>
-                            <td class="tb">
-                                <div style="text-align:left;float:left;padding:5px;">Open</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $row1[2] ?></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tb">
-                                <div style="text-align:left;float:left;padding:5px;">Close</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $row1[3] ?></div>
-                            </td>
-                        <tr>
-                            <td class="tb">
-                                <div style="text-align:left;float:left;padding:5px;">Volume</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $row1[4] ?></div>
-                            </td>
-                        </tr>
-                        <tr>
-                        <td class="tb">
-                                <div style="text-align:left;float:left;padding:5px;">Previous Close</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $row1[5] ?></div>
-                            </td>
-                        </tr>
-                    </table>
                     <div class="graph"><style></style>
-                        <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV--> </div>
+                        <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV </div>
                         </div>
                     </div>
                 </td>
@@ -368,10 +507,10 @@
                 <td><h2>Prediction</h2></td>
             </tr>    
         </table>
-    </div>
+    </div> -->
     <!-- <div class="tab">
             <div class="tablinks">Summary</div>
-            <div class="tablinks">
-    </div> -->
+            <div class="tablinks">-->
+    </div></center>
     <!-- <script src="graph.js"></script> -->
 </body>
