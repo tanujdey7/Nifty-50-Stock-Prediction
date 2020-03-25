@@ -145,23 +145,23 @@ if (isset($_POST["submit"])) {
 
                                         <div class="icon">
                                             <label class="cd-label" for="cd-name">First Name</label>
-                                            <input class="user" type="text" name="cd-name" id="cd-name" required>
+                                            <input class="user" type="text" name="cd-name" id="cd-name"  value="<?php echo $row[2] ?>" required>
                                         </div>
                                         <div class="icon">
                                             <label class="cd-label" for="cd-name">Last Name</label>
-                                            <input class="user" type="text" name="cd-name" id="cd-name" required>
+                                            <input class="user" type="text" name="cd-name" id="cd-name" value="<?php echo $row[3] ?>" required>
                                         </div>
                                         <div class="icon">
                                             <label class="cd-label" for="cd-name">Age</label>
-                                            <input class="age" type="text" name="cd-name" id="cd-name" required>
+                                            <input class="age" type="text" name="cd-name" id="cd-name" value="<?php echo $row[3] ?>" required>
                                         </div>
                                         <div class="icon">
                                             <label class="cd-label" for="cd-email">Email</label>
-                                            <input class="email error" type="email" name="cd-email" id="cd-email" required>
+                                            <input class="email error" type="email" name="cd-email" id="cd-email" value="<?php echo $row[4] ?>" required>
                                         </div>
                                         <div class="icon">
                                             <label class="cd-label" for="cd-name">Username</label>
-                                            <input class="user" type="text" name="cd-name" id="cd-name" required>
+                                            <input class="user" type="text" name="cd-name" id="cd-name" value="<?php echo $row[5] ?>" required>
                                         </div>
                                         <div class="file-upload">
                                             <div class="file-select">
