@@ -2995,7 +2995,7 @@ textarea.form-control {
 .pagination>li.active>span:focus {
   background-color: #f5593d;
   border-color: #f5593d;
-  color: #FFFFFF;
+  color: black;
 }
 
 .page-item.active .page-link {

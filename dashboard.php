@@ -76,7 +76,7 @@ if (isset($_POST["submit"])) {
                     <i class="logo">
                         <style>
                             .logo {
-                                fill: aliceblue;
+                                fill: #black;
                             }
                         </style>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
@@ -106,7 +106,7 @@ if (isset($_POST["submit"])) {
         </div>
     </nav>
     <!-- End Navbar -->
-    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('https://source.unsplash.com/1980x1080/?background');">
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('https://source.unsplash.com/970x1080/?background');">
         <div class="filter"></div>
     </div>
     <div class="section profile-content">
@@ -120,7 +120,8 @@ if (isset($_POST["submit"])) {
                             <p>Name: <?php echo $row[1] . " " . $row[2]; ?></p>
                             <p>Username: <?php echo $row[5]; ?></p>
                             <p>Age: <?php echo $row[3]; ?></p>
-                            <br />
+                        </b>
+                        <br />
                     </h4>
                     <h6 class="description">User</h6>
                 </div>
@@ -232,9 +233,10 @@ if (isset($_POST["submit"])) {
                     <a href="nifty-companies.php"><button class="btn btn-warning btn-round">Find Companies</button></a>
                 </div>
             </div>
+            
         </div>
     </div>
-    <footer class="footer    ">
+    <footer class="footer">
         <div class="container">
             <div class="row">
                 <nav class="footer-nav">
