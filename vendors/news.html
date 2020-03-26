@@ -6,151 +6,146 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- <link rel="stylesheet" href="styles.css"> -->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet"> -->
         <link rel="stylesheet" href="vendors/css/materialize.final.css" />
         <style>
             #loader {
-        height: 100vh;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-      }
-            svg {
+            height: 100vh;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+          }
+          svg {
                 fill: aliceblue;
             }
+
             * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  .progress {
-        display: none;
-      }
-      .errorMsg {
-        font-size: 34px;
-        height: 100vh;
-        align-items: center;
-        display: flex;
-        justify-content: center;
-      }
-}
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
 
-header {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 30px 10%;
-  background-color: #24252a;
-}
+            header {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                padding: 30px 10%;
+                background-color: #24252a;
+            }
 
-.logo {
-  margin-right: auto;
-}
+            .logo {
+                margin-right: auto;
+            }
 
-.nav__links {
-  list-style: none;
-  display: flex;
-}
+            .nav__links {
+                list-style: none;
+                display: flex;
+            }
 
-.nav__links a,
-.cta,
-.overlay__content a {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
-  color: #edf0f1;
-  text-decoration: none;
-}
+            .nav__links a,
+            .cta,
+            .overlay__content a {
+                font-family: "Montserrat", sans-serif;
+                font-weight: 500;
+                color: #edf0f1;
+                text-decoration: none;
+            }
 
-.nav__links li {
-  padding: 0px 20px;
-}
+            .nav__links li {
+                padding: 0px 20px;
+            }
 
-.nav__links li a {
-  transition: all 0.3s ease 0s;
-}
+            .nav__links li a {
+                transition: all 0.3s ease 0s;
+            }
 
-.nav__links li a:hover {
-  color: #0088a9;
-}
+            .nav__links li a:hover {
+                color: #0088a9;
+            }
 
-.cta {
-  padding: 9px 25px;
-  background-color: rgba(0, 136, 169, 1);
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.3s ease 0s;
-}
+            .cta {
+                padding: 9px 25px;
+                background-color: rgba(0, 136, 169, 1);
+                border: none;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: all 0.3s ease 0s;
+            }
 
-.cta:hover {
-  background-color: rgba(0, 136, 169, 0.8);
-}
+            .cta:hover {
+                background-color: rgba(0, 136, 169, 0.8);
+            }
 
-/* Mobile Nav */
+            /* Mobile Nav */
 
-.menu {
-  display: none;
-}
+            .menu {
+                display: none;
+            }
 
-.overlay {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  background-color: #24252a;
-  overflow-x: hidden;
-  transition: all 0.5s ease 0s;
-}
+            .overlay {
+                height: 100%;
+                width: 0;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                background-color: #24252a;
+                overflow-x: hidden;
+                transition: all 0.5s ease 0s;
+            }
 
-.overlay__content {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+            .overlay__content {
+                display: flex;
+                height: 100%;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
 
-.overlay a {
-  padding: 15px;
-  font-size: 36px;
-  display: block;
-  transition: all 0.3s ease 0s;
-}
+            .overlay a {
+                padding: 15px;
+                font-size: 36px;
+                display: block;
+                transition: all 0.3s ease 0s;
+            }
 
-.overlay a:hover,
-.overlay a:focus {
-  color: #0088a9;
-}
-.overlay .close {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-  color: #edf0f1;
-  cursor: pointer;
-}
+            .overlay a:hover,
+            .overlay a:focus {
+                color: #0088a9;
+            }
 
-@media screen and (max-height: 450px) {
-  .overlay a {
-    font-size: 20px;
-  }
-  .overlay .close {
-    font-size: 40px;
-    top: 15px;
-    right: 35px;
-  }
-}
+            .overlay .close {
+                position: absolute;
+                top: 20px;
+                right: 45px;
+                font-size: 60px;
+                color: #edf0f1;
+                cursor: pointer;
+            }
 
-@media only screen and (max-width: 800px) {
-  .nav__links,
-  .cta {
-    display: none;
-  }
-  .menu {
-    display: initial;
-  }
-}
+            @media screen and (max-height: 450px) {
+                .overlay a {
+                    font-size: 20px;
+                }
+
+                .overlay .close {
+                    font-size: 40px;
+                    top: 15px;
+                    right: 35px;
+                }
+            }
+
+            @media only screen and (max-width: 800px) {
+
+                .nav__links,
+                .cta {
+                    display: none;
+                }
+
+                .menu {
+                    display: initial;
+                }
+            }
 
         </style>
     </head>
@@ -165,8 +160,8 @@ header {
                 <ul class="nav__links">
                     <li><a href="index.php">Home</a></li>
                     <li><a class="cta" href="news.html">News</a></li>
-                    <li><a href="dashboard.php">Dashboard</a></li>
                     <li><a href="nifty-companies.php">NSE Details</a></li>
+                    <li><a href="dashboard.php">Dashboard</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
             </nav>
@@ -177,8 +172,8 @@ header {
             <div class="overlay__content">
                 <a href="index.php">Home</a>
                 <a href="news.html">News</a>
-                <a href="dashboard.php">Dasboard</a>
                 <a href="nifty-companies.php">NSE Details</a>
+                <a href="dashboard.php">Dasboard</a>
                 <a href="logout.php">Logout</a>
             </div>
         </div>

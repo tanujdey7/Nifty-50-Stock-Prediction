@@ -181,8 +181,8 @@ if (isset($_SESSION["username"])) {
             <ul class="nav__links">
                 <li><a href="index.php">Home</a></li>
                 <li><a href="news.html">News</a></li>
+                <li><a class="cta" href="nifty-companies.php">NSE Details</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
-                <li><a class="cta" href="nse-companies">NSE Details</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
         </nav>
@@ -193,8 +193,8 @@ if (isset($_SESSION["username"])) {
         <div class="overlay__content">
             <a href="index.php">Home</a>
             <a href="news.html">News</a>
+            <a href="nifty-companies.php">NSE Details</a>
             <a href="dashboard.php">Dasboard</a>
-            <a href="nse-companies">NSE Details</a>
             <a href="logout.php">Logout</a>
         </div>
     </div>
