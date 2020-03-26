@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>News Api</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+  </head>
+  <body>
+    
+    <div class="container">
+      
+      <h3 class="center" style="margin-bottom:20px;">Occ search Engine <i class="material-icons medium hide-on-small-only" id="icons"></i></h3>
+      
+      <form>
+          <div class="input-field">
+              <i class="material-icons prefix">public</i>
+              <input type="text" id="searchquery">
+              <label>Find what's happeing in the US......</label>
+          </div>
+          
+          <div class="row">
+             <input type="submit" id="searchbtn" class="btn col m2 s12" value="search">
+             <input type="reset" id="searchbtn" class="btn col m2 s12 red right" value="clear"  style="margin-top:3px;">
+          </div>
+          
+      </form>
+      
+      <div id="loader" style="display:none;">
+        <div class="progress">
+          <div class="indeterminate"></div>
+        </div>
+      </div>
+      
+      <div class="row">
+         <div id="newsResults"></div>
+      </div>
+   </div>
+
+<script src="jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="iconChanger.js"></script>
+<script src="newsapi.js"></script>
+  
+</body>
+</html>
