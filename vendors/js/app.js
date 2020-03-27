@@ -1,5 +1,4 @@
-$(document).ready(function () {
-
+$(document).ready(function() {
   let url = "https://newsapi.org/v2/top-headlines?country=in&category=business&apiKey=f76ea7bcfd3f4ae0885385020adc1f78";
 
   $.ajax({
@@ -7,15 +6,15 @@ $(document).ready(function () {
     method: "GET",
     dataType: "JSON",
 
-    beforeSend: function () {
+    beforeSend: function() {
       $(".progress").show();
     },
 
-    complete: function () {
+    complete: function() {
       $(".progress").hide();
     },
 
-    success: function (newsdata) {
+    success: function(newsdata) {
       let output = "";
       let latestNews = newsdata.articles;
       for (var i in latestNews) {
@@ -49,13 +48,11 @@ $(document).ready(function () {
       if (output !== "") {
         $("#newsResults").html(output);
       }
-
     },
 
-    error: function () {
+    error: function() {
       let errorMsg = `<div class="errorMsg center">Some error occured</div>`;
       $("#newsResults").html(errorMsg);
     }
-  })
-
+  });
 });
