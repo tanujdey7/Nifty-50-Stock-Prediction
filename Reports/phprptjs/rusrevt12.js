@@ -1,0 +1,1 @@
+(function(o){o("span.ew-group-toggle").on("click",function(){ew.toggleGroup(this)})})(jQuery);

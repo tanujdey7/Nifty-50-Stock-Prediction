@@ -26,9 +26,10 @@ if (isset($_POST["submit"])) {
         $target_path = $target_path . basename($_FILES['fileToUpload']['name']);
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_path)) {
             unlink($row[7]);
-        } else {
-            $target_path = $row[7];
         }
+    }
+    else {
+        $target_path = $row[7];
     }
     if ($target_path == "resources/img/profile/") {
     }
@@ -95,7 +96,7 @@ if (isset($_POST["submit"])) {
                         <a href="./index.php" class="nav-link"><i class="nc-icon nc-layout-11"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="./news.html" class="nav-link"><i class="nc-icon nc-paper"></i> News</a>
+                        <a href="./news.php" class="nav-link"><i class="nc-icon nc-paper"></i> News</a>
                     </li>
                     <li class="nav-item">
                         <a href="logout.php" class="nav-link"><i class="nc-icon nc-book-bookmark"></i> Sign Out</a>
@@ -140,39 +141,39 @@ if (isset($_POST["submit"])) {
                         <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
                         <div class="cd-modal">
                             <div class="cd-modal-content">
-                                <form class="cd-form floating-labels">
+                                <form class="cd-form floating-labels" action="" method="POST">
                                     <fieldset>
                                         <legend>Update Information</legend>
 
                                         <div class="icon">
                                             <label class="cd-label" for="cd-name">First Name</label>
-                                            <input class="user" type="text" name="cd-name" id="cd-name"  value="<?php echo $row[2] ?>" required>
+                                            <input class="user" type="text" name="First_Name" id="cd-name"  value="<?php echo $row[1] ?>" required>
                                         </div>
                                         <div class="icon">
                                             <label class="cd-label" for="cd-name">Last Name</label>
-                                            <input class="user" type="text" name="cd-name" id="cd-name" value="<?php echo $row[3] ?>" required>
+                                            <input class="user" type="text" name="Last_Name" id="cd-name" value="<?php echo $row[2] ?>" required>
                                         </div>
                                         <div class="icon">
                                             <label class="cd-label" for="cd-name">Age</label>
-                                            <input class="age" type="text" name="cd-name" id="cd-name" value="<?php echo $row[3] ?>" required>
+                                            <input class="age" type="text" name="Age" id="cd-name" value="<?php echo $row[3] ?>" required>
                                         </div>
                                         <div class="icon">
                                             <label class="cd-label" for="cd-email">Email</label>
-                                            <input class="email error" type="email" name="cd-email" id="cd-email" value="<?php echo $row[4] ?>" required>
+                                            <input class="email error" type="email" name="Email" id="cd-email" value="<?php echo $row[4] ?>" required>
                                         </div>
                                         <div class="icon">
                                             <label class="cd-label" for="cd-name">Username</label>
-                                            <input class="user" type="text" name="cd-name" id="cd-name" value="<?php echo $row[5] ?>" required>
+                                            <input class="user" type="text" name="Username" id="cd-name" value="<?php echo $row[5] ?>" required>
                                         </div>
                                         <div class="file-upload">
                                             <div class="file-select">
                                                 <div class="file-select-button" id="fileName"><b>Select Image</b></div>
                                                 <!-- <div class="file-select-name" id="noFile">No file chosen...</div>  -->
-                                                <input type="file" name="chooseFile" id="chooseFile">
+                                                <input type="file" name="fileToUpload" id="chooseFile">
                                             </div>
                                         </div>
                                     </fieldset>
-                                    <input type="submit" value="Update">
+                                    <input type="submit" value="Update" name="submit">
                                 </form>
                             </div> <!-- cd-modal-content -->
 

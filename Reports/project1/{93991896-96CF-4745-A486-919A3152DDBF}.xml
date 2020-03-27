@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<configuration date="2020/03/27" author="e.World Technology Ltd.">
+  <project id="{93991896-96CF-4745-A486-919A3152DDBF}" file="" name="project1" product="PHPReportMaker" version="12.0" datetime="2020/03/27 19:47:29" languagefolder="phprptlang" userlevel="-2,&quot;Anonymous&quot;,0;">
+    <table id="_login" name="login" caption="login" userlevel="-2,&quot;Anonymous&quot;,0;" priv="1" />
+    <table id="news" name="news" caption="news" userlevel="-2,&quot;Anonymous&quot;,0;" priv="1" />
+    <table id="prediction" name="prediction" caption="prediction" userlevel="-2,&quot;Anonymous&quot;,0;" priv="1" />
+    <table id="s_c_details" name="s_c_details" caption="s c details" userlevel="-2,&quot;Anonymous&quot;,0;" priv="1" />
+    <table id="stock_details" name="stock_details" caption="stock details" userlevel="-2,&quot;Anonymous&quot;,0;" priv="1" />
+    <table id="user" name="user" caption="user" userlevel="-2,&quot;Anonymous&quot;,0;" priv="1" />
+    <table id="users" name="users" caption="users" userlevel="-2,&quot;Anonymous&quot;,0;" priv="1" />
+  </project>
+</configuration>

@@ -293,7 +293,7 @@ if (isset($_SESSION["username"])) {
         <nav>
             <ul class="nav__links">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="news.html">News</a></li>
+                <li><a href="news.php">News</a></li>
                 <li><a class="cta" href="nifty-companies.php">NSE Details</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="logout.php">Logout</a></li>
@@ -363,7 +363,7 @@ if (isset($_SESSION["username"])) {
                                                     while ($row = mysqli_fetch_row($res1)) { ?>
                                                         <tr>
                                                             <td style="text-align:center;"> <?php echo $i ?></td>
-                                                            <td><a href="graph.php?id=<?php echo $row[1]; ?>" class="link1"> <?php echo $row[0] ?></a></td>
+                                                            <td style="text-align:left;"><a href="graph.php?id=<?php echo $row[1]; ?>" class="link1"> <?php echo $row[0] ?></a></td>
                                                             <td><?php echo $row[1] ?></td>
                                                             <?php
                                                             $a1 = floatval($row[3]);
