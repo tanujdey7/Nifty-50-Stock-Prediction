@@ -4,13 +4,19 @@ if (isset($_SESSION["username"])) {
     $s1 = "SELECT * FROM login WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
     $result = $con->query($s1);
     $num_rows = mysqli_num_rows($result);
+    $s2 = "SELECT * FROM user WHERE Username = '" . $_SESSION["username"] . "' OR Email = '" . $_SESSION["username"] . "';";
+    $result = $con->query($s2);
+    $row = mysqli_fetch_row($result);
     if ($num_rows != 1) {
         $ss1 = "<li><a href='login.php'>Sign In</a></li>";
+        $okay = '<a class="btn btn-full" href="login.html">Sign Up for <b>free</b> Trial</a>';
     } else {
-        $ss1 = '<li><a href="dashboard.php">Dashboard</a></li>'.'<li><a href="logout.php">Sign Out</a></li>';
+        $ss1 = '<li><a href="dashboard.php">Dashboard</a></li>' . '<li><a href="logout.php">Sign Out</a></li>';
+        $okay = '<a class="btn btn-full" href="login.html">Welcome <b>'. $row[5].'</a>';
     }
 } else {
     $ss1 = "<li><a href='login.php'>Sign In</a></li>";
+    $okay = '<a class="btn btn-full" href="login.html">Sign Up for <b>free</b> Trial</a>';
 }
 ?>
 <!DOCTYPE html>
@@ -49,7 +55,7 @@ if (isset($_SESSION["username"])) {
                     <font color=#26138e>FORECASTING</font>
                 </b></h1><br>
             <font color=#26138e>with MACHINE LEARNING<br><br>Use Artificial Neural Networks to Predict Stock Prices &amp; their Trends</font><br><br>
-            <a class="btn btn-full" href="login.html">Sign Up for <b>free</b> Trial</a>
+            <?php echo $okay ?>
             <a class="btn btn-ghost" href="#features">Learn More</a>
         </div>
     </header>
@@ -270,4 +276,5 @@ if (isset($_SESSION["username"])) {
     </footer>
     <script src="resources/js/script.js"></script>
 </body>
+
 </html>

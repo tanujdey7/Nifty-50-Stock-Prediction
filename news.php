@@ -2,25 +2,25 @@
 include 'database.php';
 if(isset($_SESSION["username"]))
 {
-    $s1 = "SELECT * FROM login WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
-    $result = $con->query($s1);
-    $num_rows = mysqli_num_rows($result);
-    if($num_rows != 1)
-    {
-        $ss1 = "<li><a href='login.php'>Sign In</a></li>";
-    }
-    else
-    {
-        $ss1 = '<li><a href="logout.php">Sign Out</a></li>';
-    }
+  $s1 = "SELECT * FROM login WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
+  $result = $con->query($s1);
+  $num_rows = mysqli_num_rows($result);
+  if($num_rows != 1)
+  {
+    $ss1 = "<li><a href='login.php'>Login</a></li>";
+  }
+  else
+  {
+    $ss1 = '<li><a href="nifty-companies.php">NSE Details</a></li><li><a href="dashboard.php">Dashboard</a></li><li><a href="logout.php">Logout</a></li>';
+  }
 }
 else
 {
-    $ss1 = "<li><a href='login.php'>Sign In</a></li>";
+  $ss1 = "<li><a href='login.php'>Sign In</a></li>";
 }
 if(isset($_POST["clear"]))
 {
-    echo '<meta http-equiv="refresh" content="0">';
+  echo '<meta http-equiv="refresh" content="0">';
 }
 ?>
 <!DOCTYPE html>
@@ -308,9 +308,7 @@ if(isset($_POST["clear"]))
     <ul class="nav__links">
       <li><a href="index.php">Home</a></li>
       <li><a class="cta" href="news.html">News</a></li>
-      <li><a href="nifty-companies.php">NSE Details</a></li>
-      <li><a href="dashboard.php">Dashboard</a></li>
-      <li><a href="logout.php">Logout</a></li>
+      <?php echo $ss1;?>
     </ul>
     <p onclick="openNav()" class="menu cta">Menu</p>
   </header>
