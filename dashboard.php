@@ -18,6 +18,7 @@ if ($row[7] == "") {
 } else {
     $img = $row[7];
 }
+$target_path = "";
 $s4 = "SELECT * from s_c_details;";
 $result_c = $con->query($s4);
 if (isset($_POST["submit"])) {
@@ -27,9 +28,6 @@ if (isset($_POST["submit"])) {
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_path)) {
             unlink($row[7]);
         }
-    }
-    else {
-        $target_path = $row[7];
     }
     if ($target_path == "resources/img/profile/") {
     }
@@ -141,7 +139,7 @@ if (isset($_POST["submit"])) {
                         <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
                         <div class="cd-modal">
                             <div class="cd-modal-content">
-                                <form class="cd-form floating-labels" action="" method="POST">
+                                <form class="cd-form floating-labels" action="" method="POST" enctype="multipart/form-data">
                                     <fieldset>
                                         <legend>Update Information</legend>
 
@@ -169,7 +167,7 @@ if (isset($_POST["submit"])) {
                                             <div class="file-select">
                                                 <div class="file-select-button" id="fileName"><b>Select Image</b></div>
                                                 <!-- <div class="file-select-name" id="noFile">No file chosen...</div>  -->
-                                                <input type="file" name="fileToUpload" id="chooseFile">
+                                                <input type="file" name="fileToUpload" id="chooseFile"/>
                                             </div>
                                         </div>
                                     </fieldset>

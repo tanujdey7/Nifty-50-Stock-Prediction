@@ -376,10 +376,6 @@ function openTab(evt, tabName) {
             border-bottom:1px solid #ccc;
             padding:10px;
         }
-        .key td
-        {
-            min-width:200px;
-        }
 	</style>
 </head>
 
@@ -530,16 +526,6 @@ function openTab(evt, tabName) {
                             printf("<td class='tl' style='text-align:right;'>%.0f</td>", $row6[$d][5]);
                             echo "</tr>";
                         }
-                        $file = fopen("resources/csv/profile.csv","r");
-                                $s9 = "SELECT Comp_ID from s_c_details WHERE Symbol='" . $id . "';";
-                                $res6 = $con->query($s9);
-                                if($res6->num_rows == 1)
-                                    $row7 = mysqli_fetch_row($res6);
-                                //print_r($row7[0]);
-                                for($q=0;$q<=intval($row7[0]);$q++)
-                                {
-                                    $p = fgetcsv($file);
-                                }
                 ?>
                 </table></center>
                 </div>
@@ -558,8 +544,8 @@ function openTab(evt, tabName) {
                         </tr>
                         <tr>
                             <td class="tb">
-                                <div style="text-align:left;float:left;padding:5px;">Sector</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $p[6] ?></div>
+                                <div style="text-align:left;float:left;padding:5px;">Headquaters</div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row[3] ?></div>
                             </td>
                             <td style="width:50px;"></td>
                             <td class="tb">
@@ -580,7 +566,7 @@ function openTab(evt, tabName) {
                         <tr>
                         <td class="tb">
                                 <div style="text-align:left;float:left;padding:5px;">Industry</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $p[7] ?></div>
+                                <div style="text-align:right;padding:5px;"><?php echo $row[5] ?></div>
                             </td>
                             <td style="width:50px;"></td>    
                         <td class="tb">
@@ -599,17 +585,6 @@ function openTab(evt, tabName) {
                                 <div style="text-align:right;padding:5px;"><?php echo $row[8] ?></div>
                             </td>
                         </tr>
-                        <tr>
-                        <td class="tb">
-                                <div style="text-align:left;float:left;padding:5px;">Symbol</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $id ?></div>
-                            </td>
-                        <td style="width:50px;"></td>    
-                        <td class="tb">
-                                <div style="text-align:left;float:left;padding:5px;">No. of Employees</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $p[8] ?></div>
-                            </td>
-                        </tr>
                     </table>
                     <table class="trend">
                         <tr>
@@ -626,7 +601,7 @@ function openTab(evt, tabName) {
                         <tr>
                         <?php
                         $a2 = array();
-                            /*$s6 = "SELECT Symbol,Volume from stock_details";
+                            $s6 = "SELECT Symbol,Volume from stock_details";
                             $res3 = $con->query($s6);
                             if($res3->num_rows > 0)
                             {
@@ -635,22 +610,6 @@ function openTab(evt, tabName) {
                                     $z = strval($row2[0]);
                                     $a2[$z] = intval($row2[1]);        
                                 }
-                            }
-                            arsort($a2);*/
-                            //$a3 = array_slice($a2,0,5);
-                            $file2 = fopen("resources/csv/mar_cap.csv","r");
-                            $i = 0;
-                            fgetcsv($file2);
-                            fgetcsv($file2);
-                            fgetcsv($file2);
-                            while(! feof($file2))
-                            {
-                                $f1 = fgetcsv($file2);
-                                $j = $f1[1];
-                                $a2[$j] = $f1[5];
-                                $i++;
-                                if($i == 50)
-                                    break;
                             }
                             arsort($a2);
                             //print_r($a2);
@@ -686,46 +645,6 @@ function openTab(evt, tabName) {
                             }
                         ?>
                         </table>
-                        <div>
-                            <h4>Key executives</h4>    
-                            <?php
-                                if(($p[9] == $p[10]) && ($p[9] == $p[11]))
-                                {
-                                    echo "<p><b>CEO, MD & Director - </b>" . $p[9] . "</p>";
-                                }
-                                if(($p[9] == $p[10]) && ($p[9] != $p[11]))
-                                {
-                                    echo "<p><b>CEO & MD - </b>" . $p[9] . "</p>";
-                                    echo "<p><b>Director - </b>" . $p[11] . "</p>";
-                                }
-                                if(($p[9] == $p[11]) && ($p[9] != $p[10]))
-                                {
-                                    echo "<p><b>CEO & Director - </b>" . $p[9] . "</p>";
-                                    echo "<p><b>MD - </b>" . $p[10] . "</p>";
-                                }
-                                if(($p[10] == $p[11]) && ($p[9] != $p[10]))
-                                {
-                                    echo "<p><b>CEO - </b>" . $p[9] . "</p>";
-                                    echo "<p><b>MD & Director - </b>" . $p[10] . "</p>";
-                                }
-                                if(($p[9] != $p[11]) && ($p[9] != $p[10]) && ($p[10] != $p[11]))
-                                {
-                                    echo "<p><b>CEO - </b>" . $p[9] . "</p>";
-                                    echo "<p><b>MD - </b>" . $p[10] . "</p>";
-                                    echo "<p><b>Director - </b>" . $p[11] . "</p>";
-                                }
-                                echo "<br><br><br>";
-                            ?>
-                        </div>
-                        <div>
-                            <h4>Address:</h4>
-                            <?php
-                               // echo $p[5];
-                               echo "<p>" . $p[0] . ",</p>";
-                               echo "<p>" . $p[1]. "-". $p[2] .",". $p[3] .".</p>";
-                               echo "<p>Contact No:- +" . $p[4] . "</p>";
-                            ?>
-                        </div>
                 </div>
             
             <!--<tr style="height:30px;"></tr>
