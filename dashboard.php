@@ -132,7 +132,61 @@ if (isset($_POST["submit"])) {
                     <br />
                     <section class="cd-section">
                         <div class="cd-modal-action">
-                            <a href="#0" class="btn" data-type="modal-trigger"><i class="fa fa-cog"></i> Update</a>
+                            <a href="#0" class="btn" data-type="modal-trigger"><i class="fa fa-cog"></i> Update</a><br><br> 
+                            <!-- <a href="#0" class="btn" data-type="modal-trigger"><i class="fa fa-cog"></i> Update</a> -->
+                            <button onclick="nice()" class="btn"><i class="fa fa-trash"></i> Account</button>
+
+                            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                            <script>
+                                function nice() {
+                                    swal({
+                                        title: "Are you sure?",
+                                        text: "Once deleted, you will not be able to access again!",
+                                        buttons: true,
+                                        icon: "warning",
+                                        dangerMode: true
+                                    }).then(willDelete => {
+                                        if (willDelete) {
+                                            swal({
+                                                    content: {
+                                                        element: "input",
+                                                        attributes: {
+                                                            placeholder: "Type your password",
+                                                            type: "password",
+                                                        },
+                                                    },
+                                                    button: {
+                                                        text: "Confirm!",
+                                                        closeModal: false
+                                                    }
+                                                })
+                                                .then(name => {
+                                                    if (!name) {
+                                                        swal("Please Enter Correct Password", {
+                                                            icon: "warning"
+                                                        });
+                                                    }
+                                                    if (name != "admin") {
+                                                        swal("Please Enter Correct Password", {
+                                                            icon: "warning"
+                                                        });
+
+                                                    }
+                                                    if (name == "admin") {
+                                                        swal("Poof! Your account has been deleted!", {
+                                                            icon: "success"
+                                                        });
+                                                    }
+                                                })
+                                            // ${name}
+                                        } else {
+                                            swal("Cancelled", {
+                                                icon: "error"
+                                            });
+                                        }
+                                    });
+                                }
+                            </script>
                             <span class="cd-modal-bg"></span>
                         </div> <!-- cd-modal-action -->
                         <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
@@ -170,6 +224,7 @@ if (isset($_POST["submit"])) {
                                             </div>
                                         </div>
                                     </fieldset>
+
                                     <input type="submit" value="Update" name="submit">
                                 </form>
                             </div> <!-- cd-modal-content -->

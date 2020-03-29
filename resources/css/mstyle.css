@@ -124,12 +124,12 @@ header h1 {
 }
 .cd-modal-action .btn, .cd-modal-action .cd-modal-bg {
   display: inline-block;
-  height: 3em;
+  height: 120em;
   background-color: #34383c;
 }
 .cd-modal-action .cd-modal-bg {
   display: inline-block;
-  height: 4em;
+  height: 5em;
   background-color: #fff;
 }
 .cd-modal-action .btn {
