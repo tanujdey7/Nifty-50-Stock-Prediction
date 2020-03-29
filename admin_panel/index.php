@@ -33,7 +33,7 @@
 </body>
 </html>
 <?php
-     $con = mysqli_connect("localhost","root","","predictor");
+     $con = mysqli_connect("localhost","root","root","predictor");
      if(!$con)
          die("Connection error:- " + mysqli_connect_error());
     if(isset($_POST["signin"]))
@@ -42,16 +42,16 @@
         $e = $_POST["password"];
         $s1 = "SELECT Password FROM login where Username = '" . $d . "' OR Email='" . $d . "';";
         $result = $con->query($s1);
-		$ans = mysqli_fetch_row($result);
+        $ans = mysqli_fetch_row($result);
         if($e == $ans[0])
         {
             $_SESSION["username1"] = $d;
-			$_SESSION["password2"] = $e;
+            $_SESSION["password2"] = $e;
             header("Location: home.php");
         }
         else
         {
             echo "<script>alert('Username or Password is incorrect')</script>";
         }
-	}
+    }
 ?>

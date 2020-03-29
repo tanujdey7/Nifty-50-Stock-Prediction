@@ -12,9 +12,6 @@
     padding: 0;
 	box-sizing: border-box;
 }
-html {
-    
-}
 body {
 	background-image: url(https://source.unsplash.com/1980x1080/?skyscraper);
     background-size: cover;
@@ -97,8 +94,9 @@ button.ghost {
 form {
 	background-color: #FFFFFF;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	/* align-items: center; */
+	float: left;
+	/* justify-content: center; */
 	flex-direction: column;
 	padding: 0 50px;
 	height: 100%;
@@ -130,6 +128,7 @@ input {
 	top: 0;
 	height: 100%;
 	transition: all 0.6s ease-in-out;
+	float: left;
 }
 
 .sign-in-container {
@@ -137,7 +136,6 @@ input {
 	width: 50%;
 	z-index: 2;
 }
-
 .container.right-panel-active .sign-in-container {
 	transform: translateX(100%);
 }
