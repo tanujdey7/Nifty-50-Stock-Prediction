@@ -18,7 +18,6 @@ if ($row[7] == "") {
 } else {
     $img = $row[7];
 }
-$target_path = "";
 $s4 = "SELECT * from s_c_details;";
 $result_c = $con->query($s4);
 if (isset($_POST["submit"])) {
@@ -28,6 +27,8 @@ if (isset($_POST["submit"])) {
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_path)) {
             unlink($row[7]);
         }
+    } else {
+        $target_path = $row[7];
     }
     if ($target_path == "resources/img/profile/") {
     }
@@ -59,11 +60,14 @@ if (isset($_POST["submit"])) {
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
-    <!-- CSS Files -->
     <link href="./resources/css/bootstrap.min.css" rel="stylesheet" />
     <link href="./resources/css/paper-kit.css?v=2.2.0" rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="./resources/demo/demo.css" rel="stylesheet" />
+    <style>
+        .p {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body class="profile-page sidebar-collapse">
@@ -75,7 +79,7 @@ if (isset($_POST["submit"])) {
                     <i class="logo">
                         <style>
                             .logo {
-                                fill: #black;
+                                fill: aliceblue;
                             }
                         </style>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24">
@@ -105,7 +109,7 @@ if (isset($_POST["submit"])) {
         </div>
     </nav>
     <!-- End Navbar -->
-    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('https://source.unsplash.com/970x1080/?background');">
+    <div class="page-header page-header-xs" data-parallax="true" style="background-image: url('resources/img/dash_bg.jpg');">
         <div class="filter"></div>
     </div>
     <div class="section profile-content">
@@ -116,11 +120,10 @@ if (isset($_POST["submit"])) {
                 </div>
                 <div class="name">
                     <h4 class="title"><b>
-                            <p>Name: <?php echo $row[1] . " " . $row[2]; ?></p>
-                            <p>Username: <?php echo $row[5]; ?></p>
-                            <p>Age: <?php echo $row[3]; ?></p>
-                        </b>
-                        <br />
+                            <p class="p">Name: <?php echo $row[1] . " " . $row[2]; ?></p>
+                            <p class="p">Username: <?php echo $row[5]; ?></p>
+                            <p class="p">Age: <?php echo $row[3]; ?></p>
+                            <br />
                     </h4>
                     <h6 class="description">User</h6>
                 </div>
@@ -139,35 +142,35 @@ if (isset($_POST["submit"])) {
                         <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
                         <div class="cd-modal">
                             <div class="cd-modal-content">
-                                <form class="cd-form floating-labels" action="" method="POST" enctype="multipart/form-data">
+                                <form class="cd-form floating-labels" action="" method="POST">
                                     <fieldset>
                                         <legend>Update Information</legend>
 
                                         <div class="icon">
-                                            <label class="cd-label" for="cd-name">First Name</label>
-                                            <input class="user" type="text" name="First_Name" id="cd-name"  value="<?php echo $row[1] ?>" required>
+                                            <label class="cd-label p" for="cd-name">First Name</label>
+                                            <input class="user p" type="text" name="First_Name" id="cd-name" value="<?php echo $row[1] ?>" required>
                                         </div>
                                         <div class="icon">
-                                            <label class="cd-label" for="cd-name">Last Name</label>
-                                            <input class="user" type="text" name="Last_Name" id="cd-name" value="<?php echo $row[2] ?>" required>
+                                            <label class="cd-label p" for="cd-name">Last Name</label>
+                                            <input class="user p" type="text" name="Last_Name" id="cd-name" value="<?php echo $row[2] ?>" required>
                                         </div>
                                         <div class="icon">
-                                            <label class="cd-label" for="cd-name">Age</label>
-                                            <input class="age" type="text" name="Age" id="cd-name" value="<?php echo $row[3] ?>" required>
+                                            <label class="cd-label p" for="cd-name">Age</label>
+                                            <input class="age p" type="text" name="Age" id="cd-name" value="<?php echo $row[3] ?>" required>
                                         </div>
                                         <div class="icon">
-                                            <label class="cd-label" for="cd-email">Email</label>
-                                            <input class="email error" type="email" name="Email" id="cd-email" value="<?php echo $row[4] ?>" required>
+                                            <label class="cd-label p" for="cd-email">Email</label>
+                                            <input class="email p error" type="email" name="Email" id="cd-email" value="<?php echo $row[4] ?>" required>
                                         </div>
                                         <div class="icon">
-                                            <label class="cd-label" for="cd-name">Username</label>
-                                            <input class="user" type="text" name="Username" id="cd-name" value="<?php echo $row[5] ?>" required>
+                                            <label class="cd-label p" for="cd-name">Username</label>
+                                            <input class="user p" type="text" name="Username" id="cd-name" value="<?php echo $row[5] ?>" required>
                                         </div>
                                         <div class="file-upload">
                                             <div class="file-select">
                                                 <div class="file-select-button" id="fileName"><b>Select Image</b></div>
                                                 <!-- <div class="file-select-name" id="noFile">No file chosen...</div>  -->
-                                                <input type="file" name="fileToUpload" id="chooseFile"/>
+                                                <input type="file" name="fileToUpload" id="chooseFile">
                                             </div>
                                         </div>
                                     </fieldset>
@@ -184,10 +187,10 @@ if (isset($_POST["submit"])) {
                 <div class="nav-tabs-wrapper">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" data-toggle="tab" href="#follows" role="tab">Recommended</a>
+                            <a class="nav-link active p" data-toggle="tab" href="#follows" role="tab">Recommended</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#following" role="tab">Following</a>
+                            <a class="nav-link p" data-toggle="tab" href="#following" role="tab">Following</a>
                         </li>
                     </ul>
                 </div>
@@ -232,7 +235,7 @@ if (isset($_POST["submit"])) {
                     <a href="nifty-companies.php"><button class="btn btn-warning btn-round">Find Companies</button></a>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <footer class="footer">
@@ -259,12 +262,12 @@ if (isset($_POST["submit"])) {
         </div>
     </footer>
     <script src="./resources/js/core/jquery.min.js" type="text/javascript"></script>
-    <script src="./resources/js/core/popper.min.js" type="text/javascript"></script>
+    <!-- <script src="./resources/js/core/popper.min.js" type="text/javascript"></script> -->
     <script src="./resources/js/core/bootstrap.min.js" type="text/javascript"></script>
-    <script src="./resources/js/plugins/bootstrap-switch.js"></script>
+    <!-- <script src="./resources/js/plugins/bootstrap-switch.js"></script>
     <script src="./resources/js/plugins/nouislider.min.js" type="text/javascript"></script>
     <script src="./resources/js/plugins/moment.min.js"></script>
-    <script src="./resources/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="./resources/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script> -->
     <script src="./resources/js/paper-kit.js?v=2.2.0" type="text/javascript"></script>
     <script src="resources/js/jquery-2.1.1.js"></script>
     <script src="resources/js/velocity.min.js"></script>

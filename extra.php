@@ -1,5 +1,5 @@
 <?php
-    $id = $_GET['id'];
+    $id = "ADANIPORTS";
     // echo $id;
     include 'database.php';
     if(isset($_SESSION["username"]))
