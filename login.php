@@ -10,6 +10,17 @@
             header("Location: nifty-companies.php");
         }
     }
+    if(isset($_GET["status"])){
+        $status=$_GET["status"];
+        if($status == "done")
+        {
+            echo "<script>alert('Password sent to your mail id')</script>";
+        }
+        if($status == "fail")
+        {
+            echo "<script>alert('Looks like you do not have account, please register ')</script>";
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +33,7 @@
     <body>
         <div class="container" id="container">
             <div class="form-container sign-up-container">
-                <form action="" method="POST">
+                <form action="login.php" method="POST">
                     <h1>Create Account</h1>
                     <!-- <div class="social-container">
                         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -33,11 +44,12 @@
                     <input type="text" placeholder="Name" name="name" required/>
                     <input type="email" placeholder="Email" name="email" required/>
                     <input type="password" placeholder="Password" name="password" required/>
+                    <input type="checkbox" name="remember" style=""/>Remember Me
                     <input class = "submit" type="submit" name="signup" value="Sign Up"/>
                 </form>
             </div>
             <div class="form-container sign-in-container">
-                <form action="" method="POST">
+                <form action="login.php" method="POST">
                     <h1>Sign in</h1>
                     <!-- <div class="social-container">
                         <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -45,10 +57,11 @@
                         <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                     </div> -->
                     <span>or use your account</span><br>
-                    <input type="text" placeholder="Email" name="username" required/>
-                    <input type="password" placeholder="Password" name="pass" required/>
-                    <a href="#">Forgot your password?</a>
+                    <input type="text" placeholder="Email or Username" name="username" value="<?php if(isset($_COOKIE["username"])) { echo $_COOKIE["username"]; } ?>" required/>
+                    <input type="password" placeholder="Password" name="pass" value="<?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>" required/>
+                    <input type="checkbox" name="remember" style="float:left !important;"/>Remember Me
                     <input type="submit" class = "submit" name="signin" value="Sign In"/>
+                    <a href="forgot-pass.php">Forgot your password?</a>
                 </form>
             </div>
             <div class="overlay-container">
@@ -87,7 +100,16 @@
             $_SESSION["username"] = $b;
             $_SESSION["password"] = $c;
             header("Location: nifty-companies.php");
-        }   
+        }
+        if(isset($_POST["remember"]))
+        {
+            if($_POST["remember"]=='1' || $_POST["remember"]=='on')
+            {
+                $hour = time() + 3600 * 24 * 30;
+                setcookie('username', $b, $hour);
+                setcookie('password', $c, $hour);
+            }
+        }
     }
     if(isset($_POST["signin"]))
     {
@@ -105,6 +127,15 @@
         else
         {
             echo "<script>alert('Username or Password is incorrect')</script>";
+        }
+        if(isset($_POST["remember"]))
+        {
+            if($_POST["remember"]=='1' || $_POST["remember"]=='on')
+            {
+                $hour = time() + 3600 * 24 * 30;
+                setcookie('username', $b, $hour);
+                setcookie('password', $c, $hour);
+            }
         }
     }
 ?>
