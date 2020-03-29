@@ -49,6 +49,7 @@ while (!feof($file)) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -301,8 +302,7 @@ while (!feof($file)) {
             fill: aliceblue;
         }
 
-        * {
-        }
+        * {}
 
         header {
             position: sticky;
@@ -546,13 +546,9 @@ while (!feof($file)) {
         </a>
         <ul class="nav__links">
             <li><a href="index.php">Home</a></li>
-            <li><a class="cta" href="news.html">News</a></li>
-            <li>
-                <a href="nifty-companies.php">NSE Details</a>
-            </li>
-            <li>
-                <a href="dashboard.php">Dasboard</a>
-            </li>
+            <li><a href="news.html">News</a></li>
+            <li><a class="cta" href="nifty-companies.php">NSE Details</a></li>
+            <li><a href="dashboard.php">Dasboard</a></li>
         </ul>
         <p onclick="openNav()" class="menu cta">Menu</p>
     </header>
@@ -941,4 +937,5 @@ while (!feof($file)) {
         </div>
     </footer>
 </body>
+
 </html>
