@@ -1,52 +1,50 @@
-<div id="Historical" class="tabcontent">
-            <center><table class="hist">
-                        <tr>
-                            <th class="tl" style="text-align:left;">Date</th>
-                            <th class="tl">High</th>
-                            <th class="tl">Low</th>
-                            <th class="tl">Open</th>
-                            <th class="tl">Close</th>
-                            <th class="tl" style="text-align:right;">Volume</th>
-                        </tr>
-                <?php
-                    //$open = "stock_data/" . $id . ".csv";
-                    $file = fopen("../resources/csv/ADANIPORTS.csv","r");
-                    $row5 = fgetcsv($file);
-                    $row5 = fgetcsv($file);
-                    print_r($row5[0]);
-                    $time = new DateTime();
-                    $newtime = $time->modify('-1 year')->format('Y-m-d');
-                    echo $newtime . "<br>";
-                    $c =0;
-                    $row6 = array();
-                    while(! feof($file))
-                    {
-                        //echo $c . "<br>";
-                        $row5 = fgetcsv($file);
-                        if($row5[0] == "2019-03-28")
-                        {
-                            $row6[$c] = $row5;
-                            $c++;
-                            while(! feof($file))
-                            {
-                                $row6[$c] = fgetcsv($file);
-                                $c++;
-                            }
-                            //print_r($row6[$c-2]);
-                            //echo $row6[$c-2][0];
-                        }
-                        //print_r($row5);
-                    }
-                     for($d=$c-2;$d>=0;$d--)
-                        {
-                            echo "<tr>";
-                            echo "<td class='tl' style='text-align:left;'>" . $row6[$d][0] . "</td>";
-                            printf("<td class='tl'>%.2f</td>", $row6[$d][1]);
-                            printf("<td class='tl'>%.2f</td>", $row6[$d][2]);
-                            printf("<td class='tl'>%.2f</td>", $row6[$d][3]);
-                            printf("<td class='tl'>%.2f</td>", $row6[$d][4]);
-                            printf("<td class='tl' style='text-align:right;'>%.0f</td>", $row6[$d][5]);
-                            echo "</tr>";
-                        }
-                ?>
-                </div>
+<?php
+$alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+$pass = array(); //remember to declare $pass as an array
+$alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+for ($i = 0; $i < 6; $i++) {
+    $n = rand(0, $alphaLength);
+    $pass[] = $alphabet[$n];
+}
+$pass = implode($pass);   
+
+use PHPMailer\PHPMailer\PHPMailer; 
+use PHPMailer\PHPMailer\Exception; 
+  
+require '../vendor/autoload.php'; 
+  
+$mail = new PHPMailer(true); 
+$msg = "<p style='font-size:20px;'>Your One time Password is:- </p>
+        <div style='width:200px;background-color:#ccc;font-size:30px;height:200px;text-align:center;'>
+        <p style='padding-top:39%;'><b>" . $pass ."</b></p>
+</div>";
+try { 
+    $mail->SMTPDebug = 2;                                        
+    $mail->isSMTP();                                             
+    $mail->Host       = 'smtp.gmail.com';                     
+    $mail->SMTPAuth   = true;                              
+    $mail->Username   = 'developer.predictor@gmail.com';                  
+    $mail->Password   = 'predictor@5511';                         
+    $mail->SMTPSecure = 'tls';                               
+    $mail->Port       = 587;   
+  
+    $mail->setFrom('developer.predictor@gmail.com', 'Stock Predictor');            
+    $mail->addAddress('sagaf.memon.sm@gmail.com');  
+       
+    $mail->isHTML(true);                                   
+    $mail->Subject = 'Registration Confirmation'; 
+    $mail->Body    = $msg; 
+    $mail->AltBody = 'Body in plain text for non-HTML mail clients'; 
+    $mail->send(); 
+    echo "Mail has been sent successfully!"; 
+} catch (Exception $e) { 
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"; 
+} 
+  
+?>
+<html>
+<p style="font-size:20px;">Your One time Password is:- </p>
+<div style='width:200px;background-color:#ccc;font-size:30px;height:200px;text-align:center;'>
+    <p style='position:relative;top:39%;'><?php echo "<b>" . $pass . "</b>";?></p>
+</div>
+</html>

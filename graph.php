@@ -598,6 +598,7 @@ if(empty($row6))
                                     } else {
                                         echo "<span style='color:green;font-size:25px;'>+" . $a4 . "  (+" . $a3 . "%)" . "</span>";
                                     }
+                                    echo "<h6>At close: " . $row6[$c-2][0] . "</h6>";
                                     ?>
                                 </h2>
                             </td>
