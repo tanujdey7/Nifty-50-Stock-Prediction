@@ -1,19 +1,52 @@
-<?php
-    /*include '../database.php';
-    $file2 = fopen("../profile.csv","r");
-    $file = fopen("../desc.csv","r");
-    $i = 1;
-    print_r(fgetcsv($file2));
-    while(! feof($file2))
-    {
-        $f1 = fgetcsv($file2);
-        $s1 = "UPDATE SET Address='" . $f1[0] . "', City='" . $f1[1] . "', Pincode=" . $f1[2] . ", Country='" . $f1[3] . "', Contact='" . $f1[4] . "', Comp_Website='" . $f1[5] . "', Sector='" . $f1[6] . "', Industry='" . $f1[7] . "', Employee=" . $f1[8] . ", CEO='" . $f1[9] . "', Chairnam_MD='" . $f1[10] . "', Director='" . $f1[11] . "' WHERE Comp_ID=" . $i . ";";
-        echo $s1 . "<br>";
-        $i++;
-    }*/
-    header('Content-type: text/csv');
-    header('Content-Disposition: attachment; filename="nifty50_mcwb.csv"');
-    $url = "https://www1.nseindia.com/content/indices/nifty50_mcwb.csv";
-   $file_name = "mar_cap.csv";
-   file_put_contents( $file_name,file_get_contents($url));
-?>
+<div id="Historical" class="tabcontent">
+            <center><table class="hist">
+                        <tr>
+                            <th class="tl" style="text-align:left;">Date</th>
+                            <th class="tl">High</th>
+                            <th class="tl">Low</th>
+                            <th class="tl">Open</th>
+                            <th class="tl">Close</th>
+                            <th class="tl" style="text-align:right;">Volume</th>
+                        </tr>
+                <?php
+                    //$open = "stock_data/" . $id . ".csv";
+                    $file = fopen("../resources/csv/ADANIPORTS.csv","r");
+                    $row5 = fgetcsv($file);
+                    $row5 = fgetcsv($file);
+                    print_r($row5[0]);
+                    $time = new DateTime();
+                    $newtime = $time->modify('-1 year')->format('Y-m-d');
+                    echo $newtime . "<br>";
+                    $c =0;
+                    $row6 = array();
+                    while(! feof($file))
+                    {
+                        //echo $c . "<br>";
+                        $row5 = fgetcsv($file);
+                        if($row5[0] == "2019-03-28")
+                        {
+                            $row6[$c] = $row5;
+                            $c++;
+                            while(! feof($file))
+                            {
+                                $row6[$c] = fgetcsv($file);
+                                $c++;
+                            }
+                            //print_r($row6[$c-2]);
+                            //echo $row6[$c-2][0];
+                        }
+                        //print_r($row5);
+                    }
+                     for($d=$c-2;$d>=0;$d--)
+                        {
+                            echo "<tr>";
+                            echo "<td class='tl' style='text-align:left;'>" . $row6[$d][0] . "</td>";
+                            printf("<td class='tl'>%.2f</td>", $row6[$d][1]);
+                            printf("<td class='tl'>%.2f</td>", $row6[$d][2]);
+                            printf("<td class='tl'>%.2f</td>", $row6[$d][3]);
+                            printf("<td class='tl'>%.2f</td>", $row6[$d][4]);
+                            printf("<td class='tl' style='text-align:right;'>%.0f</td>", $row6[$d][5]);
+                            echo "</tr>";
+                        }
+                ?>
+                </div>

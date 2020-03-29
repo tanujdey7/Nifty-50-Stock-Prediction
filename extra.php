@@ -30,30 +30,30 @@
         $row1 = mysqli_fetch_row($res1);
 
 
-        $open = "stock_data/" . $id . ".csv";
-        $file = fopen($open,"r");
-        $time = new DateTime();
-        $newtime = $time->modify('-1 year')->format('Y-m-d');
-        //echo $newtime;
-        $c =0;
-        //$row6 = array();
+$open = "stock_data/" . $id . ".csv";
+$file = fopen("resources/csv/ADANIPORTS.csv","r");
+$time = new DateTime();
+$newtime = $time->modify('-1 year')->format('Y-m-d');
+//echo $newtime;
+$c =0;
+//$row6 = array();
+while(! feof($file))
+{
+    $row5 = fgetcsv($file);
+    if($row5[0] == $newtime)
+    {
+        $row6[$c] = $row5;
+        $c++;
         while(! feof($file))
         {
-          $row5 = fgetcsv($file);
-          if($row5[0] == $newtime)
-           {
-                $row6[$c] = $row5;
-              $c++;
-              while(! feof($file))
-              {
-                  $row6[$c] = fgetcsv($file);
-                  $c++;
-              }
-             //print_r($row6[$c-2]);
-             //echo $row6[$c-2][0];
-           }
-         //print_r($row5);
-       }
+            $row6[$c] = fgetcsv($file);
+            $c++;
+        }
+        //print_r($row6[$c-2]);
+        //echo $row6[$c-2][0];
+    }
+    //print_r($row5);
+}
 ?>
 <head>
     <!-- Load plotly.js into the DOM -->
@@ -515,6 +515,7 @@ function openTab(evt, tabName) {
                             <th class="tl" style="text-align:right;">Volume</th>
                         </tr>
                 <?php
+                    echo $c;
                      for($d=$c-2;$d>=0;$d--)
                         {
                             echo "<tr>";

@@ -32,6 +32,7 @@ $newtime = $time->modify('-1 year')->format('Y-m-d');
 //echo $newtime;
 $c = 0;
 //$row6 = array();
+a:
 while (!feof($file)) {
     $row5 = fgetcsv($file);
     if ($row5[0] == $newtime) {
@@ -41,10 +42,13 @@ while (!feof($file)) {
             $row6[$c] = fgetcsv($file);
             $c++;
         }
-        //print_r($row6[$c-2]);
-        //echo $row6[$c-2][0];
     }
-    //print_r($row5);
+}
+if(empty($row6))
+{
+    $newtime = $time->modify('-1 days')->format('Y-m-d');
+    fseek($file,0);
+    goto a;
 }
 ?>
 <!DOCTYPE html>

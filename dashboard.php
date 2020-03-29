@@ -27,10 +27,6 @@ if (isset($_POST["submit"])) {
         if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $target_path)) {
             unlink($row[7]);
         }
-    } else {
-        $target_path = $row[7];
-    }
-    if ($target_path == "resources/img/profile/") {
     }
     $s3 = "UPDATE user SET Last_Name='" . $_POST["Last_Name"] . "', Age = ' " . $_POST["Age"] . " ', Username='" . $_POST["Username"] . "', img = '" . $target_path . "' WHERE Email = '" . $row[4] . "';";
     $con->query($s3);
@@ -142,7 +138,7 @@ if (isset($_POST["submit"])) {
                         <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
                         <div class="cd-modal">
                             <div class="cd-modal-content">
-                                <form class="cd-form floating-labels" action="" method="POST">
+                                <form class="cd-form floating-labels" action="" method="POST" enctype="multipart/form-data">
                                     <fieldset>
                                         <legend>Update Information</legend>
 
