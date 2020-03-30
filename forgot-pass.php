@@ -58,7 +58,7 @@
                     <p style='padding-top:39%;'><b>" . $pass ."</b></p>
             </div>";
             try { 
-                $mail->SMTPDebug = 2;                                        
+                $mail->SMTPDebug = 0;                                        
                 $mail->isSMTP();                                             
                 $mail->Host       = 'smtp.gmail.com';                     
                 $mail->SMTPAuth   = true;                              
