@@ -35,10 +35,9 @@ try {
     $mail->Subject = 'Registration Confirmation'; 
     $mail->Body    = $msg; 
     $mail->AltBody = 'Body in plain text for non-HTML mail clients'; 
-    $mail->send(); 
-    echo "Mail has been sent successfully!"; 
+    $mail->send();  
 } catch (Exception $e) { 
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"; 
+ 
 } 
   
 ?>
