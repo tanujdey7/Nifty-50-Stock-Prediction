@@ -49,13 +49,14 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="resources/css/cstyle.css"> <!-- Resource style -->
     <script src="resources/js/modernizr.js"></script> <!-- Modernizr -->
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
     <title>
         Dashboard
     </title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport" />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+        
     <link href="./resources/css/bootstrap.min.css" rel="stylesheet" />
     <link href="./resources/css/paper-kit.css?v=2.2.0" rel="stylesheet" />
     <link href="./resources/demo/demo.css" rel="stylesheet" />

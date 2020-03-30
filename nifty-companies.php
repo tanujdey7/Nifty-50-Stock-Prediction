@@ -277,6 +277,62 @@ if (isset($_SESSION["username"])) {
                 margin-bottom: 30px;
             }
         }
+
+        .buscar-caja {
+            position: absolute;
+            top: 15%;
+            left: 10%;
+            /* top: 50%;
+            left: 50%; */
+            transform: translate(-50%, -50%);
+            background: #2f3640;
+            height: 40px;
+            border-radius: 40px;
+            padding: 10px;
+        }
+
+        .buscar-caja:hover>.buscar-txt {
+            width: 240px;
+            padding: 0 6px;
+        }
+
+        .buscar-caja:hover>.buscar-btn {
+            background: white;
+            color: black;
+        }
+
+        .buscar-btn {
+            color: #e84118;
+            float: right;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #2f3640;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.4s;
+            color: white;
+            cursor: pointer;
+        }
+
+        .buscar-btn>i {
+            font-size: 30px;
+        }
+
+        .buscar-txt {
+            border: none;
+            background: none;
+            outline: none;
+            float: left;
+            padding: 0;
+            color: white;
+            font-size: 16px;
+            transition: 0.4s;
+            line-height: 40px;
+            width: 0px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -290,8 +346,8 @@ if (isset($_SESSION["username"])) {
         <nav>
             <ul class="nav__links">
                 <li><a href="index.php">Home</a></li>
-                <li><a href="news.php">News</a></li>
                 <li><a class="cta" href="nifty-companies.php">NSE Details</a></li>
+                <li><a href="news.php">News</a></li>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
@@ -302,13 +358,14 @@ if (isset($_SESSION["username"])) {
         <a class="close" onclick="closeNav()">&times;</a>
         <div class="overlay__content">
             <a href="index.php">Home</a>
-            <a href="news.html">News</a>
             <a href="nifty-companies.php">NSE Details</a>
+            <a href="news.html">News</a>
             <a href="dashboard.php">Dasboard</a>
             <a href="logout.php">Logout</a>
         </div>
     </div>
     <main>
+        
 
         <div class="content">
             <div class="container-fluid">
@@ -321,73 +378,73 @@ if (isset($_SESSION["username"])) {
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                        <table class="table table-hover">
-                                            <thead class=" text-primary">
-                                                <th>
-                                                    Serial Number
-                                                </th>
-                                                <th>
-                                                    Name
-                                                </th>
-                                                <th>
-                                                    Symbol
-                                                </th>
-                                                <th>
-                                                    Change
-                                                </th>
-                                                <th>
-                                                    Percentage Change
-                                                </th>
-                                                <th>
-                                                    Open
-                                                </th>
-                                                <th>
-                                                    Close
-                                                </th>
-                                                <th>
-                                                    Volume
-                                                </th>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $st1 = "select s_c_details.Comp_Name,stock_details.Symbol,stock_details.Open,stock_details.Close,stock_details.Volume,stock_details.prev_close
+                                    <table class="table table-hover">
+                                        <thead class=" text-primary">
+                                            <th>
+                                                Serial Number
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th>
+                                                Symbol
+                                            </th>
+                                            <th>
+                                                Change
+                                            </th>
+                                            <th>
+                                                Percentage Change
+                                            </th>
+                                            <th>
+                                                Open
+                                            </th>
+                                            <th>
+                                                Close
+                                            </th>
+                                            <th>
+                                                Volume
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $st1 = "select s_c_details.Comp_Name,stock_details.Symbol,stock_details.Open,stock_details.Close,stock_details.Volume,stock_details.prev_close
                                             from s_c_details JOIN stock_details ON s_c_details.Comp_ID=stock_details.Comp_ID;";
-                                                $res1 = $con->query($st1);
-                                                echo $con->error;
-                                                $i = 1;
-                                                if ($res1->num_rows > 0) {
-                                                    while ($row = mysqli_fetch_row($res1)) { ?>
-                                                        <tr>
-                                                            <td style="text-align:center;"> <?php echo $i ?></td>
-                                                            <td style="text-align:left;"><a href="graph.php?id=<?php echo $row[1]; ?>" class="link1"> <?php echo $row[0] ?></a></td>
-                                                            <td><?php echo $row[1] ?></td>
-                                                            <?php
-                                                            $a1 = floatval($row[3]);
-                                                            $a2 = floatval($row[5]);
-                                                            $a4 = round($a1 - $a2, 3);
-                                                            $a3 = round(($a4 * 100) / $a2, 2);
-                                                            ?>
-                                                            <?php
-                                                            if ($a3 < 0) {
-                                                                echo "<td style='color:red;text-align:center;'>" . $a4 . "</td>";
-                                                                echo "<td style='color:red;text-align:center;'>" . $a3 . '%' . "</td>";
-                                                            } else {
-                                                                echo "<td style='color:green;text-align:center;'>" . "+" . $a4 . "</td>";
-                                                                echo "<td style='color:green;text-align:center;'>" . '+' . $a3 . '%' . "</td>";
-                                                            }
-                                                            ?>
-                                                            <td><?php echo $row[2] ?></td>
-                                                            <td><?php echo $row[3] ?></td>
-                                                            <td><?php echo $row[4] ?></td>
+                                            $res1 = $con->query($st1);
+                                            echo $con->error;
+                                            $i = 1;
+                                            if ($res1->num_rows > 0) {
+                                                while ($row = mysqli_fetch_row($res1)) { ?>
+                                                    <tr>
+                                                        <td style="text-align:center;"> <?php echo $i ?></td>
+                                                        <td style="text-align:left;"><a href="graph.php?id=<?php echo $row[1]; ?>" class="link1"> <?php echo $row[0] ?></a></td>
+                                                        <td><?php echo $row[1] ?></td>
+                                                        <?php
+                                                        $a1 = floatval($row[3]);
+                                                        $a2 = floatval($row[5]);
+                                                        $a4 = round($a1 - $a2, 3);
+                                                        $a3 = round(($a4 * 100) / $a2, 2);
+                                                        ?>
+                                                        <?php
+                                                        if ($a3 < 0) {
+                                                            echo "<td style='color:red;text-align:center;'>" . $a4 . "</td>";
+                                                            echo "<td style='color:red;text-align:center;'>" . $a3 . '%' . "</td>";
+                                                        } else {
+                                                            echo "<td style='color:green;text-align:center;'>" . "+" . $a4 . "</td>";
+                                                            echo "<td style='color:green;text-align:center;'>" . '+' . $a3 . '%' . "</td>";
+                                                        }
+                                                        ?>
+                                                        <td><?php echo $row[2] ?></td>
+                                                        <td><?php echo $row[3] ?></td>
+                                                        <td><?php echo $row[4] ?></td>
 
-                                                        </tr>
-                                                <?php $i += 1;
-                                                    }
+                                                    </tr>
+                                            <?php $i += 1;
                                                 }
-                                                ?>
+                                            }
+                                            ?>
 
-                                            </tbody>
-                                        </table>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

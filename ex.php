@@ -191,7 +191,7 @@ if (empty($row6)) {
         body {
             margin: 0;
             padding: 0;
-            background: #e8ecef;
+            background-color: #c7d0d8;
             height: 100%;
             width: 100%;
             text-align: center;
@@ -722,7 +722,7 @@ if (empty($row6)) {
                     <ul>
                         <li onclick="openTab(event, 'Historical')">Historical Data</li>
                         <li onclick="openTab(event, 'Chart')">Chart</li>
-                        <li class="active1" id="port" onclick="openTab(event, 'Portfolio')">Portfolio</li>
+                        <li class="active1" id="port" onclick="openTab(event, 'Portfolio')">Profile</li>
                     </ul>
                 </div>
                 <div id="Chart" class="tabcontent">

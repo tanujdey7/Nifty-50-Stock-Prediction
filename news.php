@@ -7,10 +7,10 @@ if (isset($_SESSION["username"])) {
   if ($num_rows != 1) {
     $ss1 = "<li><a href='login.php'>Login</a></li>";
   } else {
-    $ss1 = '<li><a href="nifty-companies.php">NSE Details</a></li><li><a href="dashboard.php">Dashboard</a></li><li><a href="logout.php">Logout</a></li>';
+    $ss1 = '<li><a href="nifty-companies.php">NSE Details</a></li><li><a class="cta" href="news.php">News</a></li><li><a href="dashboard.php">Dashboard</a></li><li><a href="logout.php">Logout</a></li>';
   }
 } else {
-  $ss1 = "<li><a href='login.php'>Sign In</a></li>";
+  $ss1 = '<li><a class="cta" href="news.php">News</a></li><li><a href="login.php">Sign In</a></li>';
 }
 if (isset($_POST["clear"])) {
   echo '<meta http-equiv="refresh" content="0">';
@@ -307,7 +307,7 @@ if (isset($_POST["clear"])) {
     </a>
     <ul class="nav__links">
       <li><a href="index.php">Home</a></li>
-      <li><a class="cta" href="news.html">News</a></li>
+      <!-- <li><a  href="news.html">News</a></li> -->
       <?php echo $ss1; ?>
     </ul>
     <p onclick="openNav()" class="menu cta">Menu</p>
@@ -316,9 +316,6 @@ if (isset($_POST["clear"])) {
     <a class="close" onclick="closeNav()">&times;</a>
     <div class="overlay__content">
       <a href="index.php">Home</a>
-      <a href="news.html">News</a>
-      <a href="nifty-companies.php">NSE Details</a>
-      <a href="dashboard.php">Dasboard</a>
       <?php echo $ss1; ?>
     </div>
   </div>
