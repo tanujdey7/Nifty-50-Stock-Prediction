@@ -121,20 +121,74 @@ if (isset($_POST["submit"])) {
                             <p class="p">Age: <?php echo $row[3]; ?></p>
                             <br />
                     </h4>
-                    <h6 class="description">User</h6>
+                    <h6 class="description">Account </h6>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 ml-auto mr-auto text-center">
-                    <p>
-
-                    </p>
-                    <br />
                     <section class="cd-section">
                         <div class="cd-modal-action">
-                            <a href="#0" class="btn" data-type="modal-trigger"><i class="fa fa-cog"></i> Update</a><br><br> 
-                            <!-- <a href="#0" class="btn" data-type="modal-trigger"><i class="fa fa-cog"></i> Update</a> -->
-                            <button onclick="nice()" class="btn"><i class="fa fa-trash"></i> Account</button>
+                            <style>
+                                .btn1 {
+                                    background-color: #34383c;
+                                    border: none;
+                                    color: white;
+                                    padding: 15px 32px;
+                                    text-align: center;
+                                    text-decoration: none;
+                                    display: inline-block;
+                                    font-size: 12px;
+                                    margin: 4px 2px;
+                                    cursor: pointer;
+                                    border-radius: 5em;
+                                }
+
+                                .btn1:hover {
+                                    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+                                    color: aliceblue;
+                                }
+                            </style>
+                            <a href="#0" class="btn1" data-type="modal-trigger"><i class="fa fa-cog"></i> Update</a>
+                            <span class="cd-modal-bg"></span>
+                            <div class="cd-modal">
+                                <div class="cd-modal-content">
+                                    <form class="cd-form floating-labels" action="" method="POST" enctype="multipart/form-data">
+                                        <fieldset>
+                                            <legend>Update Information</legend>
+
+                                            <div class="icon">
+                                                <label class="cd-label p" for="cd-name">First Name</label>
+                                                <input class="user p" type="text" name="First_Name" id="cd-name" value="<?php echo $row[1] ?>" required>
+                                            </div>
+                                            <div class="icon">
+                                                <label class="cd-label p" for="cd-name">Last Name</label>
+                                                <input class="user p" type="text" name="Last_Name" id="cd-name" value="<?php echo $row[2] ?>" required>
+                                            </div>
+                                            <div class="icon">
+                                                <label class="cd-label p" for="cd-name">Age</label>
+                                                <input class="age p" type="text" name="Age" id="cd-name" value="<?php echo $row[3] ?>" required>
+                                            </div>
+                                            <div class="icon">
+                                                <label class="cd-label p" for="cd-email">Email</label>
+                                                <input class="email p error" type="email" name="Email" id="cd-email" value="<?php echo $row[4] ?>" required>
+                                            </div>
+                                            <div class="icon">
+                                                <label class="cd-label p" for="cd-name">Username</label>
+                                                <input class="user p" type="text" name="Username" id="cd-name" value="<?php echo $row[5] ?>" required>
+                                            </div>
+                                            <div class="file-upload">
+                                                <div class="file-select">
+                                                    <div class="file-select-button" id="fileName"><b>Select Image</b></div>
+                                                    <!-- <div class="file-select-name" id="noFile">No file chosen...</div>  -->
+                                                    <input type="file" name="fileToUpload" id="chooseFile">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <input type="submit" value="Update" name="submit">
+                                    </form>
+                                </div> <!-- cd-modal-content -->
+                            </div> <!-- cd-modal-action -->
+                            <button onclick="nice()" class="btn1"><i class="fa fa-trash"></i> Delete</button>
 
                             <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
                             <script>
@@ -187,47 +241,7 @@ if (isset($_POST["submit"])) {
                                     });
                                 }
                             </script>
-                            <span class="cd-modal-bg"></span>
-                        </div> <!-- cd-modal-action -->
-                        <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
-                        <div class="cd-modal">
-                            <div class="cd-modal-content">
-                                <form class="cd-form floating-labels" action="" method="POST" enctype="multipart/form-data">
-                                    <fieldset>
-                                        <legend>Update Information</legend>
-
-                                        <div class="icon">
-                                            <label class="cd-label p" for="cd-name">First Name</label>
-                                            <input class="user p" type="text" name="First_Name" id="cd-name" value="<?php echo $row[1] ?>" required>
-                                        </div>
-                                        <div class="icon">
-                                            <label class="cd-label p" for="cd-name">Last Name</label>
-                                            <input class="user p" type="text" name="Last_Name" id="cd-name" value="<?php echo $row[2] ?>" required>
-                                        </div>
-                                        <div class="icon">
-                                            <label class="cd-label p" for="cd-name">Age</label>
-                                            <input class="age p" type="text" name="Age" id="cd-name" value="<?php echo $row[3] ?>" required>
-                                        </div>
-                                        <div class="icon">
-                                            <label class="cd-label p" for="cd-email">Email</label>
-                                            <input class="email p error" type="email" name="Email" id="cd-email" value="<?php echo $row[4] ?>" required>
-                                        </div>
-                                        <div class="icon">
-                                            <label class="cd-label p" for="cd-name">Username</label>
-                                            <input class="user p" type="text" name="Username" id="cd-name" value="<?php echo $row[5] ?>" required>
-                                        </div>
-                                        <div class="file-upload">
-                                            <div class="file-select">
-                                                <div class="file-select-button" id="fileName"><b>Select Image</b></div>
-                                                <!-- <div class="file-select-name" id="noFile">No file chosen...</div>  -->
-                                                <input type="file" name="fileToUpload" id="chooseFile">
-                                            </div>
-                                        </div>
-                                    </fieldset>
-
-                                    <input type="submit" value="Update" name="submit">
-                                </form>
-                            </div> <!-- cd-modal-content -->
+                            <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
 
                         </div> <!-- cd-modal -->
                         <a href="#0" class="cd-modal-close">Close</a>
