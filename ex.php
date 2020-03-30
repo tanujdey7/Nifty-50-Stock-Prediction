@@ -1,5 +1,5 @@
 <?php
-$id = $_GET['id'];
+$id = 'ADANIPORTS';
 // echo $id;
 include 'database.php';
 if (isset($_SESSION["username"])) {
@@ -32,8 +32,7 @@ $newtime = $time->modify('-1 year')->format('Y-m-d');
 //echo $newtime;
 $c = 0;
 //$row6 = array();
-a:
-while (!feof($file)) {
+a: while (!feof($file)) {
     $row5 = fgetcsv($file);
     if ($row5[0] == $newtime) {
         $row6[$c] = $row5;
@@ -44,10 +43,9 @@ while (!feof($file)) {
         }
     }
 }
-if(empty($row6))
-{
+if (empty($row6)) {
     $newtime = $time->modify('-1 days')->format('Y-m-d');
-    fseek($file,0);
+    fseek($file, 0);
     goto a;
 }
 ?>
@@ -189,12 +187,145 @@ if(empty($row6))
             padding: 0;
             font-family: 'Raleway', Arial, Helvetica, sans-serif;
         }
-
-        html {
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            background: #e8ecef;
+            height: 100%;
+            width: 100%;
+            text-align: center;
             font-weight: 300;
             font-size: 20px;
             text-rendering: optimizeLegibility;
             font-family: 'Raleway', 'Arial', sans-serif;
+        }
+
+        /* Tabbed Styles */
+        .tabbed {
+            width: 80%;
+            min-width: 400px;
+            margin: 0 auto;
+            margin-bottom: 68px;
+            border-bottom: 4px solid #000;
+            overflow: hidden;
+            transition: border 250ms ease;
+        }
+
+        .tabbed ul {
+            margin: 0px;
+            padding: 0px;
+            overflow: hidden;
+            float: left;
+            padding-left: 48px;
+            list-style-type: none;
+        }
+
+        .tabbed ul * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .tabbed ul li {
+            display: block;
+            float: right;
+            padding: 10px 24px 8px;
+            background-color: #fff;
+            margin-right: 46px;
+            z-index: 2;
+            position: relative;
+            cursor: pointer;
+            color: #777;
+
+            text-transform: uppercase;
+            font: 600 13px/20px roboto, "Open Sans", Helvetica, sans-serif;
+
+            transition: all 250ms ease;
+        }
+
+        .tabbed ul li:before,
+        .tabbed ul li:after {
+            display: block;
+            content: " ";
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 44px;
+            background-color: #fff;
+            transition: all 250ms ease;
+        }
+
+        .tabbed ul li:before {
+            right: -24px;
+            transform: skew(30deg, 0deg);
+            box-shadow: rgba(0, 0, 0, 0.1) 3px 2px 5px,
+                inset rgba(255, 255, 255, 0.09) -1px 0;
+        }
+
+        .tabbed ul li:after {
+            left: -24px;
+            transform: skew(-30deg, 0deg);
+            box-shadow: rgba(0, 0, 0, 0.1) -3px 2px 5px,
+                inset rgba(255, 255, 255, 0.09) 1px 0;
+        }
+
+        .tabbed ul li:hover,
+        .tabbed ul li:hover:before,
+        .tabbed ul li:hover:after {
+            background-color: #f4f7f9;
+            color: #444;
+        }
+
+        .tabbed ul li.active1 {
+            z-index: 3;
+        }
+
+        .tabbed ul li.active1,
+        .tabbed ul li.active1:before,
+        .tabbed ul li.active1:after {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Round Tabs */
+        .tabbed.round ul li {
+            border-radius: 8px 8px 0 0;
+        }
+
+        .tabbed.round ul li:before {
+            border-radius: 0 8px 0 0;
+        }
+
+        .tabbed.round ul li:after {
+            border-radius: 8px 0 0 0;
+        }
+
+        /* Skins */
+        .tabbed[class*="skin-graphite"] ul li {
+            color: #fff;
+            text-shadow: rgba(0, 0, 0, 0.1) 0 1px;
+        }
+
+        .tabbed.skin-graphite {
+            border-bottom-color: #454545;
+        }
+
+        .tabbed.skin-graphite ul li,
+        .tabbed.skin-graphite ul li:before,
+        .tabbed.skin-graphite ul li:after {
+            background-color: #5f5f5f;
+        }
+
+        .tabbed.skin-graphite ul li:hover,
+        .tabbed.skin-graphite ul li:hover:before,
+        .tabbed.skin-graphite ul li:hover:after {
+            background-color: #6b6b6b;
+        }
+
+        .tabbed.skin-graphite ul li.active1,
+        .tabbed.skin-graphite ul li.active1:before,
+        .tabbed.skin-graphite ul li.active1:after {
+            background-color: #454545;
         }
 
         .comp {
@@ -236,20 +367,7 @@ if(empty($row6))
             width: 70%;
         }
 
-        .tablinks {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-        }
-
-        .tablinks:hover {
-            color: #FF586D;
-        }
-
+        
         .tb {
             border-bottom: 1px solid #ccc;
             font-size: 15px;
@@ -283,10 +401,7 @@ if(empty($row6))
             margin-left: 40px;
         }
 
-        .tablinks.active {
-            border-bottom: 5px solid #FF586D;
-        }
-
+        
         .hist {
             width: 80%;
             text-align: center;
@@ -598,17 +713,20 @@ if(empty($row6))
                                     } else {
                                         echo "<span style='color:green;font-size:25px;'>+" . $a4 . "  (+" . $a3 . "%)" . "</span>";
                                     }
-                                    echo "<h6>At close: " . $row6[$c-2][0] . "</h6>";
+                                    echo "<h6>At close: " . $row6[$c - 2][0] . "</h6>";
                                     ?>
                                 </h2>
                             </td>
                         </tr>
                     </table>
                 </div>
-                <div class="tab">
-                    <button class="tablinks" id="port" onclick="openTab(event, 'Portfolio')">Portfolio</button>
-                    <button class="tablinks" onclick="openTab(event, 'Chart')">Chart</button>
-                    <button class="tablinks" onclick="openTab(event, 'Historical')">Historical Data</button>
+                <br>
+                <div class="tabbed skin-graphite round" id="skinable">
+                    <ul>
+                        <li onclick="openTab(event, 'Historical')">Historical Data</li>
+                        <li onclick="openTab(event, 'Chart')">Chart</li>
+                        <li class="active1" id="port" onclick="openTab(event, 'Portfolio')">Portfolio</li>
+                    </ul>
                 </div>
                 <div id="Chart" class="tabcontent">
                     <div class="graph">
@@ -941,6 +1059,46 @@ if(empty($row6))
             </div>
         </div>
     </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var tabs = document.querySelectorAll(".tabbed li");
+            for (var i = 0, len = tabs.length; i < len; i++) {
+                tabs[i].addEventListener("click", function() {
+                    if (this.classList.contains("active1")) return;
+
+                    var parent = this.parentNode,
+                        innerTabs = parent.querySelectorAll("li");
+
+                    for (
+                        var index = 0, iLen = innerTabs.length; index < iLen; index++
+                    ) {
+                        innerTabs[index].classList.remove("active1");
+                    }
+
+                    this.classList.add("active1");
+                });
+            }
+
+            for (var i = 0, len = switchers.length; i < len; i++) {
+                switchers[i].addEventListener("click", function() {
+                    if (this.classList.contains("active1")) return;
+
+                    var parent = this.parentNode,
+                        innerSwitchers = parent.querySelectorAll("a"),
+                        skinName = this.getAttribute("skin");
+
+                    for (
+                        var index = 0, iLen = innerSwitchers.length; index < iLen; index++
+                    ) {
+                        innerSwitchers[index].classList.remove("active1");
+                    }
+
+                    this.classList.add("active1");
+                    skinable.className = "tabbed round " + skinName;
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
