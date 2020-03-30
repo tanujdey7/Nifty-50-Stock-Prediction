@@ -420,9 +420,6 @@ if (empty($row6)) {
         svg {
             fill: aliceblue;
         }
-
-        * {}
-
         header {
             position: sticky;
             display: flex;
