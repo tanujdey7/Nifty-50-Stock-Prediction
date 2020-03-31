@@ -24,14 +24,17 @@ if (isset($_SESSION["username"])) {
     <!-- <link rel="stylesheet" href="styles.css"> -->
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Montserrat:500&display=swap" rel="stylesheet"> -->
 
     <!-- <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" /> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"> -->
     <link href="resources/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
     <!-- <link href="resources/css/paper-kit.css?v=2.2.0" rel="stylesheet" /> -->
 
     <style>
+        th {
+            color: #972fb0;
+        }
         .card {
             width: 60% !important;
             margin-left: 20%;
@@ -277,62 +280,6 @@ if (isset($_SESSION["username"])) {
                 margin-bottom: 30px;
             }
         }
-
-        .buscar-caja {
-            position: absolute;
-            top: 15%;
-            left: 10%;
-            /* top: 50%;
-            left: 50%; */
-            transform: translate(-50%, -50%);
-            background: #2f3640;
-            height: 40px;
-            border-radius: 40px;
-            padding: 10px;
-        }
-
-        .buscar-caja:hover>.buscar-txt {
-            width: 240px;
-            padding: 0 6px;
-        }
-
-        .buscar-caja:hover>.buscar-btn {
-            background: white;
-            color: black;
-        }
-
-        .buscar-btn {
-            color: #e84118;
-            float: right;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #2f3640;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: 0.4s;
-            color: white;
-            cursor: pointer;
-        }
-
-        .buscar-btn>i {
-            font-size: 30px;
-        }
-
-        .buscar-txt {
-            border: none;
-            background: none;
-            outline: none;
-            float: left;
-            padding: 0;
-            color: white;
-            font-size: 16px;
-            transition: 0.4s;
-            line-height: 40px;
-            width: 0px;
-            font-weight: bold;
-        }
     </style>
 </head>
 
@@ -365,12 +312,12 @@ if (isset($_SESSION["username"])) {
         </div>
     </div>
     <main>
-        
+
 
         <div class="content">
             <div class="container-fluid">
                 <div class="col">
-                    <div class="col-md-12">
+                    <div class="col-md-15">
                         <div class="card">
                             <div class="card-header card-header-primary">
                                 <h4 class="card-title ">Nifty 50</h4>
@@ -379,7 +326,7 @@ if (isset($_SESSION["username"])) {
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover">
-                                        <thead class=" text-primary">
+                                        <thead>
                                             <th>
                                                 Serial Number
                                             </th>

@@ -49,14 +49,16 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" href="resources/css/cstyle.css"> <!-- Resource style -->
     <script src="resources/js/modernizr.js"></script> <!-- Modernizr -->
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" /> -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/> -->
+    <script src="https://use.fontawesome.com/3e489ec802.js"></script>
     <title>
         Dashboard
     </title>
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no" name="viewport" />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-        
+
     <link href="./resources/css/bootstrap.min.css" rel="stylesheet" />
     <link href="./resources/css/paper-kit.css?v=2.2.0" rel="stylesheet" />
     <link href="./resources/demo/demo.css" rel="stylesheet" />
@@ -189,6 +191,7 @@ if (isset($_POST["submit"])) {
                                     </form>
                                 </div> <!-- cd-modal-content -->
                             </div> <!-- cd-modal-action -->
+                            <button onclick="reset_nice()" class="btn1"><i class="fa fa-history"></i> Passeord Reset</button>
                             <button onclick="nice()" class="btn1"><i class="fa fa-trash"></i> Delete</button>
 
                             <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -241,6 +244,47 @@ if (isset($_POST["submit"])) {
                                         }
                                     });
                                 }
+
+                                function reset_nice() {
+                                    swal({
+                                            content: {
+                                                element: "input",
+                                                attributes: {
+                                                    placeholder: "Type your Current password",
+                                                    type: "password",
+                                                },
+                                            
+                                            },
+                                            button: {
+                                                text: "Reset!",
+                                                closeModal: false
+                                            }
+                                        })
+                                        .then(name => {
+                                            if (!name) {
+                                                swal("Please Enter Correct Password", {
+                                                    icon: "warning"
+                                                });
+                                            }
+                                            if (name != "admin") {
+                                                swal("Please Enter Correct Password", {
+                                                    icon: "warning"
+                                                });
+
+                                            }
+                                            if (name == "admin") {
+                                                swal("Poof! Your account has been deleted!", {
+                                                    icon: "success"
+                                                });
+                                            }
+                                        })
+                                }
+                                // ${name}
+                                // } else {
+                                //     swal("Cancelled", {
+                                //         icon: "error"
+                                //     });
+                                // }
                             </script>
                             <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
 
