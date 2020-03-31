@@ -790,7 +790,7 @@ if (empty($row6)) {
                             <td style="text-align:center;font-weight:bold;padding:10px;">
                                 TOP TRENDING STOCKS
                                 <center>
-                                    <hr style="width:70px;border:1px solid yellow;margin-top:10px;">
+                                    <hr style="width:70px;border:1px solid #0088a9;margin-top:10px;">
                                 </center>
                             </td>
                         </tr>
@@ -949,7 +949,7 @@ if (empty($row6)) {
                             <td style="text-align:center;font-weight:bold;padding:10px;">
                                 TOP TRENDING STOCKS
                                 <center>
-                                    <hr style="width:70px;border:1px solid yellow;margin-top:10px;">
+                                    <hr style="width:70px;border:1px solid #0088a9;margin-top:10px;">
                                 </center>
                             </td>
                         </tr>
