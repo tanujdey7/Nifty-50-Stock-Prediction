@@ -1016,9 +1016,10 @@ if (empty($row6)) {
                             }
                             ?>
                     </table>
+                    <h4>Key executives</h4>
+                    <br>
                     <table style="float:left;margin-right:200px;">
 
-                        <!-- <h4>Key executives</h4> -->
                         <?php
                         if (($p[9] == $p[10]) && ($p[9] == $p[11])) {
                             echo '
