@@ -1,5 +1,5 @@
 <?php
-$id = 'ADANIPORTS';
+$id = $_GET['id'];
 // echo $id;
 include 'database.php';
 if (isset($_SESSION["username"])) {
@@ -58,6 +58,7 @@ if (empty($row6)) {
     <title>Graph</title>
     <!-- Load plotly.js into the DOM -->
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
     <script>
         Plotly.d3.csv('<?php echo "stock_data/" . $id . ".csv" ?>', function(err, rows) {
             function unpack(rows, key) {
@@ -86,7 +87,7 @@ if (empty($row6)) {
                 x: unpack(rows, 'Date'),
                 y: unpack(rows, 'Close'),
                 line: {
-                    color: '#17BECF'
+                    color: '#0088a9'
                 },
                 xaxis: 'x',
                 yaxis: 'y'
@@ -187,6 +188,7 @@ if (empty($row6)) {
             padding: 0;
             font-family: 'Raleway', Arial, Helvetica, sans-serif;
         }
+
         html,
         body {
             margin: 0;
@@ -352,13 +354,13 @@ if (empty($row6)) {
             margin: auto;
         }
 
-        .comp table {
+        /* .comp table {
             font-weight: 300;
             font-size: 20px;
             text-rendering: optimizeLegibility;
             font-family: 'Raleway', 'Arial', sans-serif;
 
-        }
+        } */
 
         .tab {
             overflow: hidden;
@@ -367,7 +369,7 @@ if (empty($row6)) {
             width: 70%;
         }
 
-        
+
         .tb {
             border-bottom: 1px solid #ccc;
             font-size: 15px;
@@ -396,12 +398,12 @@ if (empty($row6)) {
         }
 
         .trend {
-            background-color: #135690;
+            background-color: #24252a;
             color: white;
             margin-left: 40px;
         }
 
-        
+
         .hist {
             width: 80%;
             text-align: center;
@@ -420,6 +422,7 @@ if (empty($row6)) {
         svg {
             fill: aliceblue;
         }
+
         header {
             position: sticky;
             display: flex;
@@ -583,7 +586,7 @@ if (empty($row6)) {
         }
 
         .inner-footer .logo1 {
-            margin-top: 40px;
+            margin-top: 4 0px;
             width: 35%;
             float: left;
             height: 100%;
@@ -689,38 +692,86 @@ if (empty($row6)) {
                     <table>
                         <tr>
                             <td>
-                                <div class="row"><img src="<?php echo $comp_img; ?>" class="img" /></div>
+                                <div class="row "><img src="<?php echo $comp_img; ?>" class="img" /></div>
                             </td>
                             <td>
-                                <div>
-                                    <h1 style="padding-top:5px;"><?php echo $comp_name; ?>
-                                        <img src="resources/img/wishlist.svg" width="25px" /></h1>
-                                    <h3><?php echo $id; ?></h3>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <h2><?php echo $row1[3]; ?>
-                                    <?php
-                                    $a1 = floatval($row1[3]);
-                                    $a2 = floatval($row1[5]);
-                                    $a4 = round($a1 - $a2, 3);
-                                    $a3 = round(($a4 * 100) / $a2, 2);
-                                    if ($a3 < 0) {
-                                        echo "<span style='color:red;font-size:25px;'>" . $a4 . "  (" . $a3 . "%)" . "</span>";
-                                    } else {
-                                        echo "<span style='color:green;font-size:25px;'>+" . $a4 . "  (+" . $a3 . "%)" . "</span>";
-                                    }
-                                    echo "<h6>At close: " . $row6[$c - 2][0] . "</h6>";
-                                    ?>
-                                </h2>
+
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="name"><?php echo $comp_name; ?> &nbsp;
+                                                <a href="#" class="wish wish1">
+                                                    <style>
+                                                        .name {
+                                                            font-weight: bold;
+                                                            font-size: 30px;
+
+                                                        }
+
+                                                        .wish {
+                                                            background-color: #0088a9;
+                                                            padding: 6px 16px;
+                                                            text-align: center;
+                                                            text-decoration: none;
+                                                            font-size: 12px;
+                                                            /* margin: 20px; */
+                                                            transition-duration: 0.4s;
+                                                            cursor: pointer;
+                                                            border-radius: 50px;
+                                                            font-weight: 400;
+
+                                                        }
+
+                                                        .wish1 {
+                                                            background-color: white;
+                                                            color: black;
+                                                            border: 2px solid #0088a9;
+                                                        }
+
+                                                        .wish1:hover {
+                                                            background-color: #0088a9;
+                                                            color: white;
+                                                        }
+                                                    </style>
+                                                    <i class="fa fa-star"></i> Add to favorites
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h3 class="pad">( <?php echo $id; ?> )</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h6 style="font-weight: 400;">NSE - Price. Currency in INR</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td>
+                                            <h2 style="font-size:45px;"><?php echo $row1[3]; ?>
+                                                <?php
+                                                $a1 = floatval($row1[3]);
+                                                $a2 = floatval($row1[5]);
+                                                $a4 = round($a1 - $a2, 3);
+                                                $a3 = round(($a4 * 100) / $a2, 2);
+                                                if ($a3 < 0) {
+                                                    echo "<span style='color:red;font-size:25px;'>" . $a4 . "  (" . $a3 . "%)" . "</span>";
+                                                } else {
+                                                    echo "<span style='color:green;font-size:25px;'>+" . $a4 . "  (+" . $a3 . "%)" . "</span>";
+                                                }
+                                                echo "<h6>At close: " . $row6[$c - 2][0] . "</h6>";
+                                                ?>
+                                            </h2>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>
                 </div>
-                <br>
                 <div class="tabbed skin-graphite round" id="skinable">
                     <ul>
                         <li onclick="openTab(event, 'Historical')">Historical Data</li>
@@ -778,7 +829,7 @@ if (empty($row6)) {
                                 $b4 = round($b1 - $b2, 3);
                                 $b3 = round(($b4 * 100) / $b2, 2);
                                 echo "<tr>
-                            <td class='tb'style='background-color:#2869A1;'>
+                            <td class='tb'style='background-color:#5f5f5f;'>
                             <div style='text-align:left;float:left;padding:5px;'>" . $row3[0] . "</div>";
                                 if ($b3 > 0)
                                     echo "<div style='text-align:right;padding:5px;color:#23D537;'>+" . $b3 . "</div>";
@@ -954,7 +1005,7 @@ if (empty($row6)) {
                                 $b4 = round($b1 - $b2, 3);
                                 $b3 = round(($b4 * 100) / $b2, 2);
                                 echo "<tr>
-                        <td class='tb'style='background-color:#2869A1;'>
+                        <td class='tb'style='background-color:#5f5f5f;'>
                         <div style='text-align:left;float:left;padding:5px;'>" . $row3[0] . "</div>";
                                 if ($b3 > 0)
                                     echo "<div style='text-align:right;padding:5px;color:#23D537;'>+" . $b3 . "</div>";
@@ -965,32 +1016,97 @@ if (empty($row6)) {
                             }
                             ?>
                     </table>
-                    <div>
-                        <h4>Key executives</h4>
+                    <table style="float:left;margin-right:200px;">
+
+                        <!-- <h4>Key executives</h4> -->
                         <?php
                         if (($p[9] == $p[10]) && ($p[9] == $p[11])) {
-                            echo "<p><b>CEO, MD & Director - </b>" . $p[9] . "</p>";
+                            echo '
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">CEO, MD & Director </div>
+                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                            </td>
+                            
+                        </tr>
+                        ';
                         }
                         if (($p[9] == $p[10]) && ($p[9] != $p[11])) {
-                            echo "<p><b>CEO & MD - </b>" . $p[9] . "</p>";
-                            echo "<p><b>Director - </b>" . $p[11] . "</p>";
+                            echo '
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">CEO & MD  </div>
+                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">Director  </div>
+                                <div style="text-align:right;padding:5px;">' . $p[11] . '</div>
+                            </td>
+                        </tr>
+                        ';
                         }
                         if (($p[9] == $p[11]) && ($p[9] != $p[10])) {
-                            echo "<p><b>CEO & Director - </b>" . $p[9] . "</p>";
-                            echo "<p><b>MD - </b>" . $p[10] . "</p>";
-                        }
-                        if (($p[10] == $p[11]) && ($p[9] != $p[10])) {
-                            echo "<p><b>CEO - </b>" . $p[9] . "</p>";
-                            echo "<p><b>MD & Director - </b>" . $p[10] . "</p>";
+                            echo '
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">CEO & Director  </div>
+                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">MD  </div>
+                                <div style="text-align:right;padding:5px;">' . $p[10] . '</div>
+                            </td>
+                        </tr>
+                        ';
+                            if (($p[10] == $p[11]) && ($p[9] != $p[10])) {
+                                echo '
+                            <tr>
+                                <td class="tb">
+                                    <div style=text-align:left;float:left;padding:5px;">CEO </div>
+                                    <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tb">
+                                    <div style=text-align:left;float:left;padding:5px;">MD & Director </div>
+                                    <div style="text-align:right;padding:5px;">' . $p[10] . '</div>
+                                </td>
+                            </tr>
+                            ';
+                            }
                         }
                         if (($p[9] != $p[11]) && ($p[9] != $p[10]) && ($p[10] != $p[11])) {
-                            echo "<p><b>CEO - </b>" . $p[9] . "</p>";
-                            echo "<p><b>MD - </b>" . $p[10] . "</p>";
-                            echo "<p><b>Director - </b>" . $p[11] . "</p>";
+                            echo '
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">CEO </div>
+                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">MD<//iv>
+                                <div style="text-align:right;padding:5px;">' . $p[10] . '</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">Director </div>
+                                <div style="text-align:right;padding:5px;">' . $p[11] . '</div>
+                            </td>
+                        </tr>
+                        ';
+                            // echo "<p><b>CEO - </b>" . $p[9] . "</p>";
+                            // echo "<p><b>MD - </b>" . $p[10] . "</p>";
+                            // echo "<p><b>Director - </b>" . $p[11] . "</p>";
                         }
-                        echo "<br><br><br>";
                         ?>
-                    </div>
+                    </table>
                     <div>
                         <h4>Address:</h4>
                         <?php
