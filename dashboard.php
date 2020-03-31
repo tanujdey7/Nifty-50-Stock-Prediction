@@ -66,6 +66,9 @@ if (isset($_POST["submit"])) {
         .p {
             font-weight: bold;
         }
+        .swal2-popup {
+                font-size: 1.6rem !important;
+                }
     </style>
 </head>
 
@@ -194,97 +197,128 @@ if (isset($_POST["submit"])) {
                             <button onclick="reset_nice()" class="btn1"><i class="fa fa-history"></i> Passeord Reset</button>
                             <button onclick="nice()" class="btn1"><i class="fa fa-trash"></i> Delete</button>
 
-                            <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                            <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
+                            <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
                             <script>
-                                function nice() {
-                                    swal({
-                                        title: "Are you sure?",
-                                        text: "Once deleted, you will not be able to access again!",
-                                        buttons: true,
-                                        icon: "warning",
-                                        dangerMode: true
-                                    }).then(willDelete => {
-                                        if (willDelete) {
-                                            swal({
-                                                    content: {
-                                                        element: "input",
-                                                        attributes: {
-                                                            placeholder: "Type your password",
-                                                            type: "password",
-                                                        },
-                                                    },
-                                                    button: {
-                                                        text: "Confirm!",
-                                                        closeModal: false
-                                                    }
-                                                })
-                                                .then(name => {
-                                                    if (!name) {
-                                                        swal("Please Enter Correct Password", {
-                                                            icon: "warning"
-                                                        });
-                                                    }
-                                                    if (name != "admin") {
-                                                        swal("Please Enter Correct Password", {
-                                                            icon: "warning"
-                                                        });
+                                async function nice() {
+                                    Swal.fire({
+                                    title: 'Are you sure?',
+                                    text: "You won't be able to revert this!",
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Yes, delete it!'
+                                    }).then((willDelete) => {
+                                        if (willDelete.value) {
+                                            async function f() {
 
-                                                    }
-                                                    if (name == "admin") {
-                                                        swal("Poof! Your account has been deleted!", {
-                                                            icon: "success"
-                                                        });
-                                                    }
-                                                })
-                                            // ${name}
-                                        } else {
-                                            swal("Cancelled", {
-                                                icon: "error"
-                                            });
+                                                        const { value: password } = await Swal.fire({
+                                                            title: 'Enter your password',
+                                                            input: 'password',
+                                                            inputPlaceholder: 'Enter your password',   
+                                                            inputAttributes: {
+                                                                autocapitalize: 'off',
+                                                                autocorrect: 'off'
+                                                            }
+                                                            })
+                                                            if (password == '<?php echo $row[6]; ?>') {
+                                                                $.ajax({
+                                                                type: "POST",
+                                                                url: "delacc.php",
+                                                                data: { 'id': <?php echo $row[0];?>},
+                                                                cache: false,
+                                                                success: function(response) {
+                                                                    Swal.fire(
+                                                                    "Sccess!",
+                                                                    "Poof! Your account has been deleted!",
+                                                                    "success"
+                                                                    ).then(function(){
+                                                                        window.location.assign('delacc.php');
+                                                                    })
+                                                                },
+                                                                failure: function (response) {
+                                                                    Swal.fire(
+                                                                    "Internal Error",
+                                                                    "Please try again", // had a missing comma
+                                                                    "error"
+                                                                    )
+                                                                }
+                                                            });
+                                                            }
+                                                        }
+                                                        f();
+                                        }else if (willDelete.dismiss === Swal.DismissReason.cancel) {
+                                                            Swal.fire(
+                                                            'Cancelled',
+                                                            'Enjoy our service :)',
+                                                            'info'
+                                                            )
+                                                        }
+                                    })
                                         }
-                                    });
-                                }
 
-                                function reset_nice() {
-                                    swal({
-                                            content: {
-                                                element: "input",
-                                                attributes: {
-                                                    placeholder: "Type your Current password",
-                                                    type: "password",
-                                                },
-                                            
-                                            },
-                                            button: {
-                                                text: "Reset!",
-                                                closeModal: false
+                                async function reset_nice() {
+                                    Swal.mixin({
+                                        input: 'password',
+                                        confirmButtonText: 'Next &rarr;',
+                                        showCancelButton: true,
+                                        progressSteps: ['1', '2', '3']
+                                        }).queue([
+                                        {
+                                            title: 'Reset Password',
+                                            text: 'Enter your current Password'
+                                        },
+                                        {
+                                            title: 'Reset Password',
+                                            text: 'Enter new Password'
+                                        },
+                                        {
+                                            title: 'Reset Password',
+                                            text: 'Enter re-type Password'
+                                        }
+                                        ]).then((result) => {
+                                        if (result.value) {
+                                            if(result.value[0] == "<?php echo $row[6]; ?>"){
+                                                if(result.value[1] == result.value[2])
+                                                {
+                                                    $.ajax({
+                                                                type: "POST",
+                                                                url: "resetpass.php",
+                                                                data: { 'new_pass': result.value[1],
+                                                                        'id': <?php echo $row[0] ?>},
+                                                                cache: false,
+                                                                success: function(response) {
+                                                                    Swal.fire(
+                                                                    "Sccess!",
+                                                                    "Poof! Your Password has been reset!",
+                                                                    "success"
+                                                                    ).then(function(){
+                                                                        window.location.assign('resetpass.php');
+                                                                    })
+                                                                },
+                                                                failure: function (response) {
+                                                                    Swal.fire(
+                                                                    "Internal Error",
+                                                                    "Please try again", // had a missing comma
+                                                                    "error"
+                                                                    )
+                                                                }
+                                                            }); 
+                                                }
+                                                if(result.value[1] != result.value[2])
+                                                {
+                                                    Swal.fire(
+                                                            "Internal Error",
+                                                            "Password doesn't match,please try again", // had a missing comma
+                                                            "error"
+                                                            )
+                                                }
                                             }
+                                        }
                                         })
-                                        .then(name => {
-                                            if (!name) {
-                                                swal("Please Enter Correct Password", {
-                                                    icon: "warning"
-                                                });
-                                            }
-                                            if (name != "admin") {
-                                                swal("Please Enter Correct Password", {
-                                                    icon: "warning"
-                                                });
-
-                                            }
-                                            if (name == "admin") {
-                                                swal("Poof! Your account has been deleted!", {
-                                                    icon: "success"
-                                                });
-                                            }
-                                        })
-                                }
-                                // ${name}
-                                // } else {
-                                //     swal("Cancelled", {
-                                //         icon: "error"
-                                //     });
-                                // }
+                                    }
                             </script>
                             <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
 
