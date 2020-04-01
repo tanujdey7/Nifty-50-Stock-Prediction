@@ -1,9 +1,8 @@
-    <?php
-
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
-
-    require 'vendor/autoload.php';
+<?php
+    use PHPMailer\PHPMailer\PHPMailer; 
+    use PHPMailer\PHPMailer\Exception; 
+    
+    require 'vendor/autoload.php'; 
     include 'database.php';
     if (isset($_SESSION["username"])) {
         $s1 = "SELECT * FROM login WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
@@ -14,16 +13,17 @@
         }
     }
     $pass = array();
-    if (isset($_POST["signup"])) {
+    if(isset($_POST["signup"]))
+    {
         $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'; //remember to declare $pass as an array
-        $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
-        for ($i = 0; $i < 6; $i++) {
-            $n = rand(0, $alphaLength);
-            $pass[] = $alphabet[$n];
-        }
+            $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+            for ($i = 0; $i < 6; $i++) {
+                $n = rand(0, $alphaLength);
+                $pass[] = $alphabet[$n];
+            }
         $pass = implode($pass);
         //echo $pass;
-    }
+    }        
     ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -49,30 +49,12 @@
                     <input type="text" placeholder="Name" name="name" required />
                     <input type="email" placeholder="Email" name="email" required />
                     <input type="password" placeholder="Password" name="password" required />
-                    <!-- <input type="checkbox" name="remember" style="text-align:left;" />Remember Me -->
+                    <input type="checkbox" name="remember" style="" />Remember Me
                     <input class="submit" type="submit" name="signup" value="Sign Up" />
                     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
                     <script>
-                        function nice1() {
-                            swal(
-                                'Mail Sent',
-                                'Password sent to your mail id',
-                                'success'
-                            )
-                        }
-                    </script>
-                    <script>
-                        function nice2() {
-                            swal(
-                                'Oops!',
-                                'Looks like you do not have account, please register ',
-                                'error'
-                            )
-                        }
-                    </script>
-                    <script>
                         function nice() {
-                            swal({
+                            swal({  
                                     title: 'Please Check Your Mail!',
                                     text: 'Enter Your One Time Password (OTP)',
                                     content: "input",
@@ -94,14 +76,14 @@
                                             },
                                         }).then(otp => {
                                             if (otp != "<?php echo $pass; ?>") {
-                                                swal("Unsuccessful", "Please Try Again!", "error").then(function() {
+                                                swal("Unsuccessful", "Please Try Again!", "error").then(function(){
                                                     window.location.assign('signupfail.php');
                                                 })
                                             }
                                             if (otp == "<?php echo $pass; ?>") {
                                                 swal("Successful!", {
                                                     icon: "success"
-                                                }).then(function() {
+                                                }).then(function(){
                                                     window.location.assign('signupsrc.php');
                                                 });
                                             }
@@ -110,8 +92,8 @@
                                     if (otp == "<?php echo $pass; ?>") {
                                         swal("Successful!", {
                                             icon: "success",
-                                            type: "success"
-                                        }).then(function() {
+                                            type: "success" 
+                                        }).then(function(){
                                             window.location.assign('signupsrc.php');
                                         });
                                     }
@@ -136,7 +118,7 @@
                     <input type="password" placeholder="Password" name="pass" value="<?php if (isset($_COOKIE["password"])) {
                                                                                             echo $_COOKIE["password"];
                                                                                         } ?>" required />
-                    <!-- <input type="checkbox" name="remember" style="float:left !important;" />Remember Me -->
+                    <input type="checkbox" name="remember" style="float:left !important;" />Remember Me
                     <input type="submit" class="submit" name="signin" value="Sign In" />
                     <a href="forgot-pass.php">Forgot your password?</a>
                 </form>
@@ -165,7 +147,8 @@
         $_SESSION["a"] = $_POST["name"];
         $_SESSION['b'] = $_POST["email"];
         $_SESSION['c'] = $_POST["password"];
-        if (isset($_POST['remember'])) {
+        if(isset($_POST['remember']))
+        {
             $_SESSION['d'] = $_POST["remember"];
         }
         $s2 = "SELECT User_ID FROM user ORDER BY User_ID DESC LIMIT 1";
@@ -173,34 +156,35 @@
         echo $con->error;
         $uid = mysqli_fetch_row($r);
         $userid = $uid[0] + 1;
-        $mail = new PHPMailer(true);
+        $mail = new PHPMailer(true); 
         $msg = "<p style='font-size:20px;'>Your One time Password is:- </p>
                 <div style='width:200px;background-color:#ccc;font-size:30px;height:200px;text-align:center;'>
-                <p style='padding-top:39%;'><b>" . $pass . "</b></p>
+                <p style='padding-top:39%;'><b>" . $pass ."</b></p>
         </div>";
-        try {
-            $mail->SMTPDebug = 0;
-            $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com';
-            $mail->SMTPAuth   = true;
-            $mail->Username   = 'developer.predictor@gmail.com';
-            $mail->Password   = 'predictor@5511';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port       = 587;
-
-            $mail->setFrom('developer.predictor@gmail.com', 'Stock Predictor');
-            $mail->addAddress($_POST["email"]);
-
-            $mail->isHTML(true);
-            $mail->Subject = 'Registration Confirmation';
-            $mail->Body    = $msg;
-            $mail->AltBody = 'Body in plain text for non-HTML mail clients';
-            $mail->send();
+        try { 
+            $mail->SMTPDebug = 0;                                        
+            $mail->isSMTP();                                             
+            $mail->Host       = 'smtp.gmail.com';                     
+            $mail->SMTPAuth   = true;                              
+            $mail->Username   = 'developer.predictor@gmail.com';                  
+            $mail->Password   = 'predictor@5511';                         
+            $mail->SMTPSecure = 'tls';                               
+            $mail->Port       = 587;   
+        
+            $mail->setFrom('developer.predictor@gmail.com', 'Stock Predictor');            
+            $mail->addAddress($_POST["email"]);  
+            
+            $mail->isHTML(true);                                   
+            $mail->Subject = 'Registration Confirmation'; 
+            $mail->Body    = $msg; 
+            $mail->AltBody = 'Body in plain text for non-HTML mail clients'; 
+            $mail->send();  
             //echo "Mail sent successfully";
             //echo "<script>nice1();</script>";
-        } catch (Exception $e) {
+        } catch (Exception $e) { 
+        
         }
-        echo "<script>nice();</script>";
+        echo "<script>nice();</script>";    
     }
     if (isset($_POST["signin"])) {
         $d = $_POST["username"];

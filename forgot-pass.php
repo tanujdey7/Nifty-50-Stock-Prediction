@@ -26,6 +26,23 @@
             </div>
             </div>
         <script src="resources/js/login.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+                        function nice1()
+                        {
+                            swal("Successful", "Password sent to your mail id", "success").then(function(){
+                                                    window.location.assign('login.php');
+                                                })
+                        }
+                    </script>
+                    <script>
+                    function nice2()
+                        {
+                            swal("Unsuccessful", "Oops!Looks like you don't have account,please register", "error").then(function(){
+                                                    window.location.assign('login.php');
+                                                })
+                        }
+                    </script>
 </body>
 </html>
 <?php
@@ -75,15 +92,15 @@
                 $mail->Body    = $msg; 
                 $mail->AltBody = 'Body in plain text for non-HTML mail clients'; 
                 $mail->send(); 
-                echo "Mail has been sent successfully!"; 
-                echo "<script>window.location.assign('login.php?status=done')</script>";
+               // echo "Mail has been sent successfully!"; 
+                echo "<script>nice1();</script>";
             } catch (Exception $e) { 
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"; 
             }
         }
         else
         {
-            echo "<script>window.location.assign('login.php?status=fail')</script>";
+            echo "<script>nice2();</script>";
         } 
     }
 ?>
