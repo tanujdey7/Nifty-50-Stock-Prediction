@@ -1264,9 +1264,6 @@ if (empty($row6)) {
                             </td>
                         </tr>
                         ';
-                            // echo "<p><b>CEO - </b>" . $p[9] . "</p>";
-                            // echo "<p><b>MD - </b>" . $p[10] . "</p>";
-                            // echo "<p><b>Director - </b>" . $p[11] . "</p>";
                         }
                         ?>
                     </table>

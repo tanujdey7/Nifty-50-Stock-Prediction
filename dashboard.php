@@ -239,7 +239,7 @@ if (isset($_POST["submit"])) {
                                                         cache: false,
                                                         success: function(response) {
                                                             Swal.fire(
-                                                                "Sccess!",
+                                                                "Success!",
                                                                 "Poof! Your account has been deleted!",
                                                                 "success"
                                                             ).then(function() {
