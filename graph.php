@@ -802,13 +802,18 @@ if (empty($row6)) {
                         <tr>
                             <?php
                             $a2 = array();
-                            $s6 = "SELECT Symbol,Volume from stock_details";
-                            $res3 = $con->query($s6);
-                            if ($res3->num_rows > 0) {
-                                while ($row2 = mysqli_fetch_row($res3)) {
-                                    $z = strval($row2[0]);
-                                    $a2[$z] = intval($row2[1]);
-                                }
+                            $file2 = fopen("resources/csv/mar_cap.csv", "r");
+                            $i = 0;
+                            fgetcsv($file2);
+                            fgetcsv($file2);
+                            fgetcsv($file2);
+                            while (!feof($file2)) {
+                                $f1 = fgetcsv($file2);
+                                $j = $f1[1];
+                                $a2[$j] = $f1[5];
+                                $i++;
+                                if ($i == 50)
+                                    break;
                             }
                             arsort($a2);
                             //print_r($a2);
@@ -961,18 +966,6 @@ if (empty($row6)) {
                         <tr>
                             <?php
                             $a2 = array();
-                            /*$s6 = "SELECT Symbol,Volume from stock_details";
-                        $res3 = $con->query($s6);
-                        if($res3->num_rows > 0)
-                        {
-                            while($row2 = mysqli_fetch_row($res3))
-                            {
-                                $z = strval($row2[0]);
-                                $a2[$z] = intval($row2[1]);        
-                            }
-                        }
-                        arsort($a2);*/
-                            //$a3 = array_slice($a2,0,5);
                             $file2 = fopen("resources/csv/mar_cap.csv", "r");
                             $i = 0;
                             fgetcsv($file2);
@@ -1091,7 +1084,7 @@ if (empty($row6)) {
                         </tr>
                         <tr>
                             <td class="tb">
-                                <div style=text-align:left;float:left;padding:5px;">MD<//iv>
+                                <div style=text-align:left;float:left;padding:5px;">MD</div>
                                 <div style="text-align:right;padding:5px;">' . $p[10] . '</div>
                             </td>
                         </tr>
@@ -1112,9 +1105,7 @@ if (empty($row6)) {
                         <h4>Address:</h4>
                         <?php
                         // echo $p[5];
-                        echo "<p>" . $p[0] . ",</p>";
-                        echo "<p>" . $p[1] . "-" . $p[2] . "," . $p[3] . ".</p>";
-                        echo "<p>Contact No:- +" . $p[4] . "</p>";
+                        echo "<p>" . $p[0] . ",<br>" . $p[1] . "-" . $p[2] . "," . $p[3] . ".<br>Contact No:- +" . $p[4] . "</p>";
                         ?>
                     </div>
                 </div>

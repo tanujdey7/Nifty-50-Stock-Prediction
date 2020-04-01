@@ -53,26 +53,6 @@
                     <input class="submit" type="submit" name="signup" value="Sign Up" />
                     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
                     <script>
-                        function nice1()
-                        {
-                            swal(
-                                'Mail Sent',
-                                'Password sent to your mail id',
-                                'success'
-                                )
-                        }
-                    </script>
-                    <script>
-                    function nice2()
-                        {
-                            swal(
-                                'Oops!',
-                                'Looks like you do not have account, please register ',
-                                'error'
-                                )
-                        }
-                    </script>
-                    <script>
                         function nice() {
                             swal({  
                                     title: 'Please Check Your Mail!',

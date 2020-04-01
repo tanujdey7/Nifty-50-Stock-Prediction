@@ -355,10 +355,10 @@ if (isset($_SESSION["username"])) {
                                         <tbody>
                                             <?php
                                             $st1 = "select s_c_details.Comp_Name,stock_details.Symbol,stock_details.Open,stock_details.Close,stock_details.Volume,stock_details.prev_close
-                                            from s_c_details JOIN stock_details ON s_c_details.Comp_ID=stock_details.Comp_ID;";
+                                            from s_c_details JOIN stock_details ON s_c_details.Comp_ID=stock_details.Comp_ID ORDER BY stock_details.Comp_ID ASC;";
                                             $res1 = $con->query($st1);
                                             echo $con->error;
-                                            $i = 1;
+                                            $i = 0;
                                             if ($res1->num_rows > 0) {
                                                 while ($row = mysqli_fetch_row($res1)) { ?>
                                                     <tr>

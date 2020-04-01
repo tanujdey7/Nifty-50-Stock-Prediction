@@ -386,8 +386,8 @@ if (isset($_POST["submit"])) {
                                                 <img src="' . $row3[2] . '" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive" />
                                             </div>
                                             <div class="col-lg-7 col-md-4 col-4  ml-auto mr-auto">
-                                                <h6>
-                                                    ' . $row3[0] . '
+                                                <h6><a href="graph.php?id=' . $x . '">'
+                                                    . $row3[0] . '
                                                     <br />
                                                     <small>' . $row3[1] . '</small>
                                                     </h6>
