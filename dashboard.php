@@ -245,8 +245,37 @@ if (isset($_POST["submit"])) {
                                                             ).then(function() {
                                                                 window.location.assign('delacc.php');
                                                             })
-                                                        },
-                                                        failure: function(response) {
+                                                            if(password != '<?php echo $row[6]; ?>'){
+                                                                Swal.fire("Error","Incorrect Password,try again","error");
+                                                            }
+                                                            if (password == '<?php echo $row[6]; ?>') {
+                                                                $.ajax({
+                                                                type: "POST",
+                                                                url: "delacc.php",
+                                                                data: { 'id': <?php echo $row[0];?>},
+                                                                cache: false,
+                                                                success: function(response) {
+                                                                    Swal.fire(
+                                                                    "Sccess!",
+                                                                    "Poof! Your account has been deleted!",
+                                                                    "success"
+                                                                    ).then(function(){
+                                                                        window.location.assign('index.php');
+                                                                        //window.location.reload();
+                                                                    })
+                                                                },
+                                                                failure: function (response) {
+                                                                    Swal.fire(
+                                                                    "Internal Error",
+                                                                    "Please try again", // had a missing comma
+                                                                    "error"
+                                                                    )
+                                                                }
+                                                            });
+                                                            }
+                                                        }
+                                                        f();
+                                        }else if (willDelete.dismiss === Swal.DismissReason.cancel) {
                                                             Swal.fire(
                                                                 "Internal Error",
                                                                 "Please try again", // had a missing comma
@@ -287,33 +316,36 @@ if (isset($_POST["submit"])) {
                                         }
                                     ]).then((result) => {
                                         if (result.value) {
-                                            if (result.value[0] == "<?php echo $row[6]; ?>") {
-                                                if (result.value[1] == result.value[2]) {
+                                            if(result.value[0] != '<?php echo $row[6]; ?>'){
+                                                                Swal.fire("Error","Incorrect Password,try again","error");
+                                                            }
+                                            if(result.value[0] == "<?php echo $row[6]; ?>"){
+                                                if(result.value[1] == result.value[2])
+                                                {
                                                     $.ajax({
-                                                        type: "POST",
-                                                        url: "resetpass.php",
-                                                        data: {
-                                                            'new_pass': result.value[1],
-                                                            'id': <?php echo $row[0] ?>
-                                                        },
-                                                        cache: false,
-                                                        success: function(response) {
-                                                            Swal.fire(
-                                                                "Success!",
-                                                                "Your Password has been reset!",
-                                                                "success"
-                                                            ).then(function() {
-                                                                window.location.assign('resetpass.php');
-                                                            })
-                                                        },
-                                                        failure: function(response) {
-                                                            Swal.fire(
-                                                                "Internal Error",
-                                                                "Please try again", // had a missing comma
-                                                                "error"
-                                                            )
-                                                        }
-                                                    });
+                                                                type: "POST",
+                                                                url: "resetpass.php",
+                                                                data: { 'new_pass': result.value[1],
+                                                                        'id': <?php echo $row[0] ?>},
+                                                                cache: false,
+                                                                success: function(response) {
+                                                                    Swal.fire(
+                                                                    "Sccess!",
+                                                                    "Poof! Your Password has been reset!",
+                                                                    "success"
+                                                                    ).then(function(){
+                                                                       // window.location.assign('resetpass.php');
+                                                                       window.location.reload();
+                                                                    })
+                                                                },
+                                                                failure: function (response) {
+                                                                    Swal.fire(
+                                                                    "Internal Error",
+                                                                    "Please try again", // had a missing comma
+                                                                    "error"
+                                                                    )
+                                                                }
+                                                            }); 
                                                 }
                                                 if (result.value[1] != result.value[2]) {
                                                     Swal.fire(
@@ -353,8 +385,28 @@ if (isset($_POST["submit"])) {
                         <div class="col-md-6 ml-auto mr-auto">
                             <ul class="list-unstyled follows">
                                 <?php
-                                for ($i = 1; $i < 3; $i++) {
-                                    $row = mysqli_fetch_row($result_c);
+                                $file2 = fopen("resources/csv/mar_cap.csv", "r");
+                                $i = 0;
+                                fgetcsv($file2);
+                                fgetcsv($file2);
+                                fgetcsv($file2);
+                                while (!feof($file2)) {
+                                    $f1 = fgetcsv($file2);
+                                    $j = $f1[1];
+                                    $a2[$j] = $f1[5];
+                                    $i++;
+                                    if ($i == 50)
+                                        break;
+                                }
+                                arsort($a2);
+                                //print_r($a2);
+                                $a3 = array_slice($a2, 0, 2);
+                                foreach ($a3 as $x => $x_val){
+                                    $s7 = "SELECT Comp_Name,Industry,Img from s_c_details WHERE Symbol='" . $x . "';";
+                                    $res4 = $con->query($s7);
+                                    if ($res4->num_rows == 1) {
+                                        $row3 = mysqli_fetch_row($res4);
+                                    }
                                     // echo "<div class='comp_info'>";
                                     // echo '<img class="img" src = "' . $row[9] . '">';
                                     // echo "<div style='padding:5px;'>" . $row[6] . "<br>" . $row[5] . "</div>";
@@ -362,13 +414,13 @@ if (isset($_POST["submit"])) {
                                     echo '<li>
                                         <div class="row">
                                             <div class="col-lg-2 col-md-4 col-4 ml-auto mr-auto">
-                                                <img src="' . $row[9] . '" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive" />
+                                                <img src="' . $row3[2] . '" alt="Circle Image" class="img-thumbnail img-no-padding img-responsive" />
                                             </div>
                                             <div class="col-lg-7 col-md-4 col-4  ml-auto mr-auto">
                                                 <h6>
-                                                    ' . $row[6] . '
+                                                    ' . $row3[0] . '
                                                     <br />
-                                                    <small>' . $row[5] . '</small>
+                                                    <small>' . $row3[1] . '</small>
                                                     </h6>
                                                     </div>
                                                     <div class="col-lg-3 col-md-4 col-4  ml-auto mr-auto"> </div>
