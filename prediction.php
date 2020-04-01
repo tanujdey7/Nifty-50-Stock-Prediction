@@ -1,5 +1,5 @@
 <?php
-$id = $_GET['id'];
+//$id = $_GET['id'];
 // echo $id;
 include 'database.php';
 if (isset($_SESSION["username"])) {
@@ -12,20 +12,20 @@ if (isset($_SESSION["username"])) {
 } else {
     header("Location: login.php");
 }
-$s1 = "SELECT * FROM s_c_details WHERE Symbol='" . $id . "';";
+$s1 = "SELECT * FROM s_c_details WHERE Symbol='" . "^NSEI" . "';";
 $result = $con->query($s1);
 if ($result->num_rows == 1) {
     $row = mysqli_fetch_row($result);
     $comp_name = $row[1];
     $comp_img = $row[9];
 }
-$s2 = "SELECT * from stock_details WHERE Symbol = '" . $id . "';";
+$s2 = "SELECT * from stock_details WHERE Symbol = '" . "^NSEI" . "';";
 $res1 = $con->query($s2);
 if ($res1->num_rows == 1)
     $row1 = mysqli_fetch_row($res1);
 
 
-$open = "stock_data/" . $id . ".csv";
+$open = "stock_data/" . "^NSEI" . ".csv";
 $file = fopen($open, "r");
 $time = new DateTime();
 $newtime = $time->modify('-1 year')->format('Y-m-d');
@@ -109,7 +109,7 @@ if (empty($row6)) {
                 showlegend: false,
                 xaxis: {
                     autorange: true,
-                    title: '<?php echo $id ?>',
+                    title: '<?php echo "^NSEI" ?>',
                     rangeslider: true,
                     rangeselector: {
                         x: 0,
@@ -146,26 +146,7 @@ if (empty($row6)) {
             Plotly.newPlot('myDiv', data, layout);
         });
 
-        function openTabs(evt, tabName) {
-            document.getElementById(tabName).style.display = "block";
-            document.getElementById("port").className += " active";
-        }
-
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-
-        Plotly.d3.csv('<?php echo "stock_data/" . $id . ".csv" ?>', function(err, rows) {
+        Plotly.d3.csv('<?php echo "stock_data/" . "prediction" . ".csv" ?>', function(err, rows) {
             function unpack(rows, key) {
                 return rows.map(function(row) {
                     return row[key];
@@ -188,7 +169,7 @@ if (empty($row6)) {
                 //type: "scatter",
                 type: 'scatter',
                 mode: "lines",
-                name: 'AAPL High',
+                name: 'Prediction',
                 x: unpack(rows, 'Date'),
                 y: unpack(rows, 'Close'),
                 line: {
@@ -214,7 +195,7 @@ if (empty($row6)) {
                 showlegend: false,
                 xaxis: {
                     autorange: true,
-                    title: '<?php echo $id ?>',
+                    title: '<?php echo "Prediction" ?>',
                     rangeslider: true,
                     rangeselector: {
                         x: 0,
@@ -863,7 +844,7 @@ if (empty($row6)) {
                                     </tr>
                                     <tr>
                                         <td>
-                                            <h3 class="pad">( <?php echo $id; ?> )</h3>
+                                            <h3 class="pad">( <?php echo "^NSEI"; ?> )</h3>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1026,7 +1007,7 @@ if (empty($row6)) {
                                 echo "</tr>";
                             }
                             $file = fopen("resources/csv/profile.csv", "r");
-                            $s9 = "SELECT Comp_ID from s_c_details WHERE Symbol='" . $id . "';";
+                            $s9 = "SELECT Comp_ID from s_c_details WHERE Symbol='" . "^NSEI" . "';";
                             $res6 = $con->query($s9);
                             if ($res6->num_rows == 1)
                                 $row7 = mysqli_fetch_row($res6);
@@ -1086,18 +1067,18 @@ if (empty($row6)) {
                         <tr>
                             <td class="tb">
                                 <div style="text-align:left;float:left;padding:5px;">Series</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $row[7] ?></div>
+                                <div style="text-align:right;padding:5px;"><?php echo "N/A" ?></div>
                             </td>
                             <td style="width:50px;"></td>
                             <td class="tb">
                                 <div style="text-align:left;float:left;padding:5px;">ISIN Code</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $row[8] ?></div>
+                                <div style="text-align:right;padding:5px;"><?php echo "N/A" ?></div>
                             </td>
                         </tr>
                         <tr>
                             <td class="tb">
                                 <div style="text-align:left;float:left;padding:5px;">Symbol</div>
-                                <div style="text-align:right;padding:5px;"><?php echo $id ?></div>
+                                <div style="text-align:right;padding:5px;"><?php echo "^NSEI" ?></div>
                             </td>
                             <td style="width:50px;"></td>
                             <td class="tb">
@@ -1183,97 +1164,28 @@ if (empty($row6)) {
                     <table style="float:left;margin-right:200px;">
 
                         <?php
-                        if (($p[9] == $p[10]) && ($p[9] == $p[11])) {
-                            echo '
-                        <tr>
-                            <td class="tb">
-                                <div style=text-align:left;float:left;padding:5px;">CEO, MD & Director </div>
-                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
-                            </td>
-                            
-                        </tr>
-                        ';
-                        }
-                        if (($p[9] == $p[10]) && ($p[9] != $p[11])) {
                             echo '
                         <tr>
                             <td class="tb">
                                 <div style=text-align:left;float:left;padding:5px;">CEO & MD  </div>
-                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                                <div style="text-align:right;padding:5px;">' . "Vikram Limaye" . '</div>
                             </td>
                             
                         </tr>
                         <tr>
                             <td class="tb">
                                 <div style=text-align:left;float:left;padding:5px;">Director  </div>
-                                <div style="text-align:right;padding:5px;">' . $p[11] . '</div>
+                                <div style="text-align:right;padding:5px;">' . "N/A" . '</div>
                             </td>
                         </tr>
                         ';
-                        }
-                        if (($p[9] == $p[11]) && ($p[9] != $p[10])) {
-                            echo '
-                        <tr>
-                            <td class="tb">
-                                <div style=text-align:left;float:left;padding:5px;">CEO & Director  </div>
-                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tb">
-                                <div style=text-align:left;float:left;padding:5px;">MD  </div>
-                                <div style="text-align:right;padding:5px;">' . $p[10] . '</div>
-                            </td>
-                        </tr>
-                        ';
-                            if (($p[10] == $p[11]) && ($p[9] != $p[10])) {
-                                echo '
-                            <tr>
-                                <td class="tb">
-                                    <div style=text-align:left;float:left;padding:5px;">CEO </div>
-                                    <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="tb">
-                                    <div style=text-align:left;float:left;padding:5px;">MD & Director </div>
-                                    <div style="text-align:right;padding:5px;">' . $p[10] . '</div>
-                                </td>
-                            </tr>
-                            ';
-                            }
-                        }
-                        if (($p[9] != $p[11]) && ($p[9] != $p[10]) && ($p[10] != $p[11])) {
-                            echo '
-                        <tr>
-                            <td class="tb">
-                                <div style=text-align:left;float:left;padding:5px;">CEO </div>
-                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tb">
-                                <div style=text-align:left;float:left;padding:5px;">MD<//iv>
-                                <div style="text-align:right;padding:5px;">' . $p[10] . '</div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="tb">
-                                <div style=text-align:left;float:left;padding:5px;">Director </div>
-                                <div style="text-align:right;padding:5px;">' . $p[11] . '</div>
-                            </td>
-                        </tr>
-                        ';
-                        }
                         ?>
                     </table>
                     <div>
                         <h4>Address:</h4>
                         <?php
                         // echo $p[5];
-                        echo "<p>" . $p[0] . ",</p>";
-                        echo "<p>" . $p[1] . "-" . $p[2] . "," . $p[3] . ".</p>";
-                        echo "<p>Contact No:- +" . $p[4] . "</p>";
+                        echo "<p>" . "NSE - Corporate Office National Stock Exchange of India Ltd. Exchange Plaza,<br>Plot no. C/1, G Block, Bandra-Kurla Complex Bandra (E) Mumbai - 400 051. " . "</p>";
                         ?>
                     </div>
                 </div>
