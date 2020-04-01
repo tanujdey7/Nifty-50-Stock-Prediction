@@ -101,9 +101,6 @@ if (isset($_POST["submit"])) {
                         <a href="./index.php" class="nav-link"><i class="nc-icon nc-layout-11"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a href="./nifty-companies.php" class="nav-link"><i class=" nc-icon nc-sound-wave"></i> NSE Companies</a>
-                    </li>
-                    <li class="nav-item">
                         <a href="./news.php" class="nav-link"><i class="nc-icon nc-paper"></i> News</a>
                     </li>
                     <li class="nav-item">
@@ -229,6 +226,9 @@ if (isset($_POST["submit"])) {
                                                         autocorrect: 'off'
                                                     }
                                                 })
+                                                if (password != '<?php echo $row[6]; ?>') {
+                                                    Swal.fire("Error", "Incorrect Password, try again", "error");
+                                                }
                                                 if (password == '<?php echo $row[6]; ?>') {
                                                     $.ajax({
                                                         type: "POST",
@@ -243,39 +243,11 @@ if (isset($_POST["submit"])) {
                                                                 "Poof! Your account has been deleted!",
                                                                 "success"
                                                             ).then(function() {
-                                                                window.location.assign('delacc.php');
+                                                                window.location.assign('index.php');
+                                                                //window.location.reload();
                                                             })
-                                                            if(password != '<?php echo $row[6]; ?>'){
-                                                                Swal.fire("Error","Incorrect Password,try again","error");
-                                                            }
-                                                            if (password == '<?php echo $row[6]; ?>') {
-                                                                $.ajax({
-                                                                type: "POST",
-                                                                url: "delacc.php",
-                                                                data: { 'id': <?php echo $row[0];?>},
-                                                                cache: false,
-                                                                success: function(response) {
-                                                                    Swal.fire(
-                                                                    "Sccess!",
-                                                                    "Poof! Your account has been deleted!",
-                                                                    "success"
-                                                                    ).then(function(){
-                                                                        window.location.assign('index.php');
-                                                                        //window.location.reload();
-                                                                    })
-                                                                },
-                                                                failure: function (response) {
-                                                                    Swal.fire(
-                                                                    "Internal Error",
-                                                                    "Please try again", // had a missing comma
-                                                                    "error"
-                                                                    )
-                                                                }
-                                                            });
-                                                            }
-                                                        }
-                                                        f();
-                                        }else if (willDelete.dismiss === Swal.DismissReason.cancel) {
+                                                        },
+                                                        failure: function(response) {
                                                             Swal.fire(
                                                                 "Internal Error",
                                                                 "Please try again", // had a missing comma
@@ -290,7 +262,7 @@ if (isset($_POST["submit"])) {
                                             Swal.fire(
                                                 'Cancelled',
                                                 'Enjoy our service :)',
-                                                'error'
+                                                'info'
                                             )
                                         }
                                     })
@@ -316,41 +288,42 @@ if (isset($_POST["submit"])) {
                                         }
                                     ]).then((result) => {
                                         if (result.value) {
-                                            if(result.value[0] != '<?php echo $row[6]; ?>'){
-                                                                Swal.fire("Error","Incorrect Password,try again","error");
-                                                            }
-                                            if(result.value[0] == "<?php echo $row[6]; ?>"){
-                                                if(result.value[1] == result.value[2])
-                                                {
+                                            if (result.value[0] != '<?php echo $row[6]; ?>') {
+                                                Swal.fire("Error", "Incorrect Password,try again", "error");
+                                            }
+                                            if (result.value[0] == "<?php echo $row[6]; ?>") {
+                                                if (result.value[1] == result.value[2]) {
                                                     $.ajax({
-                                                                type: "POST",
-                                                                url: "resetpass.php",
-                                                                data: { 'new_pass': result.value[1],
-                                                                        'id': <?php echo $row[0] ?>},
-                                                                cache: false,
-                                                                success: function(response) {
-                                                                    Swal.fire(
-                                                                    "Sccess!",
-                                                                    "Poof! Your Password has been reset!",
-                                                                    "success"
-                                                                    ).then(function(){
-                                                                       // window.location.assign('resetpass.php');
-                                                                       window.location.reload();
-                                                                    })
-                                                                },
-                                                                failure: function (response) {
-                                                                    Swal.fire(
-                                                                    "Internal Error",
-                                                                    "Please try again", // had a missing comma
-                                                                    "error"
-                                                                    )
-                                                                }
-                                                            }); 
+                                                        type: "POST",
+                                                        url: "resetpass.php",
+                                                        data: {
+                                                            'new_pass': result.value[1],
+                                                            'id': <?php echo $row[0] ?>
+                                                        },
+                                                        cache: false,
+                                                        success: function(response) {
+                                                            Swal.fire(
+                                                                "Sccess!",
+                                                                "Poof! Your Password has been reset!",
+                                                                "success"
+                                                            ).then(function() {
+                                                                // window.location.assign('resetpass.php');
+                                                                window.location.reload();
+                                                            })
+                                                        },
+                                                        failure: function(response) {
+                                                            Swal.fire(
+                                                                "Internal Error",
+                                                                "Please try again", // had a missing comma
+                                                                "error"
+                                                            )
+                                                        }
+                                                    });
                                                 }
                                                 if (result.value[1] != result.value[2]) {
                                                     Swal.fire(
                                                         "Internal Error",
-                                                        "Password doesn't match,please try again", // had a missing comma
+                                                        "Password doesn't match, please try again", // had a missing comma
                                                         "error"
                                                     )
                                                 }
@@ -401,7 +374,7 @@ if (isset($_POST["submit"])) {
                                 arsort($a2);
                                 //print_r($a2);
                                 $a3 = array_slice($a2, 0, 2);
-                                foreach ($a3 as $x => $x_val){
+                                foreach ($a3 as $x => $x_val) {
                                     $s7 = "SELECT Comp_Name,Industry,Img from s_c_details WHERE Symbol='" . $x . "';";
                                     $res4 = $con->query($s7);
                                     if ($res4->num_rows == 1) {
