@@ -74,6 +74,7 @@ if (isset($_POST["clear"])) {
 
     .nav__links {
       display: flex;
+      font-size: 18px;
     }
 
     .nav__links a,

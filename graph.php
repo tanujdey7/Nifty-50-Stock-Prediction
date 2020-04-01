@@ -196,7 +196,7 @@ if (empty($row6)) {
             background-color: #c7d0d8;
             height: 100%;
             width: 100%;
-            text-align: center;
+            /* text-align: center; */
             font-weight: 300;
             font-size: 20px;
             text-rendering: optimizeLegibility;
@@ -423,6 +423,14 @@ if (empty($row6)) {
             fill: aliceblue;
         }
 
+        * {
+            list-style: none;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'RaleWay', Arial, Helvetica, sans-serif;
+        }
+
         header {
             position: sticky;
             display: flex;
@@ -439,7 +447,9 @@ if (empty($row6)) {
 
         .nav__links {
             display: flex;
-            text-transform: uppercase;
+            font-size: 18px;
+            padding-bottom: 5px;
+            padding-right: 10px;
         }
 
         .nav__links a,
@@ -568,7 +578,6 @@ if (empty($row6)) {
             bottom: 0;
             left: 0;
             width: 100%;
-
             background: #24252a;
             display: block;
             overflow: hidden;
@@ -576,7 +585,7 @@ if (empty($row6)) {
             box-sizing: border-box;
             padding: 50px;
         }
-
+        
         .inner-footer {
             display: block;
             margin: 0 auto;
@@ -584,31 +593,31 @@ if (empty($row6)) {
             height: 100%;
 
         }
-
+        
         .inner-footer .logo1 {
-            margin-top: 4 0px;
+            margin-top: 40px;
             width: 35%;
             float: left;
             height: 100%;
             display: block;
         }
-
+        
         .inner-footer .logo1 svg {
             width: 65%;
             /* height: auto; */
         }
-
+        
         .footer-third {
             width: calc(21.666666666667% - 20px);
             margin-right: 10px;
             float: left;
             height: 100%;
         }
-
+        
         .footer-third:last-child {
             margin-right: 0;
         }
-
+        
         .footer-third h1 {
             font-size: 22px;
             color: white;
@@ -616,7 +625,7 @@ if (empty($row6)) {
             width: 100%;
             margin-bottom: 20px;
         }
-
+        
         .inner-footer .footer-third a {
             font-size: 16px;
             color: #8ae8ff;
@@ -625,9 +634,9 @@ if (empty($row6)) {
             font-weight: 200;
             /* margin-bottom: 5px; */
             padding-bottom: 5px;
-            text-decoration: none;
+            text-decoration: none   ;
         }
-
+        
         .inner-footer .footer-third span {
             font-size: 12px;
             color: white;
@@ -637,6 +646,14 @@ if (empty($row6)) {
             /* margin-bottom: 20px; */
             /* padding-bottom: 5px; */
             padding-top: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
         }
 
         p {
@@ -666,8 +683,8 @@ if (empty($row6)) {
         </a>
         <ul class="nav__links">
             <li><a href="index.php">Home</a></li>
-            <li><a href="news.php">News</a></li>
             <li><a class="cta" href="nifty-companies.php">NSE Details</a></li>
+            <li><a href="news.php">News</a></li>
             <li><a href="dashboard.php">Dashboard</a></li>
             <li><a href="dashboard.php">Logout</a></li>
         </ul>
@@ -677,13 +694,14 @@ if (empty($row6)) {
         <a class="close" onclick="closeNav()">&times;</a>
         <div class="overlay__content">
             <a href="index.php">Home</a>
-            <a href="news.php">News</a>
             <a href="nifty-companies.php">NSE Details</a>
+            <a href="news.php">News</a>
             <a href="dashboard.php">Dashboard</a>
             <a href="logout.php">Logout</a>
 
         </div>
     </div>
+
     <main>
 
         <center>

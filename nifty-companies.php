@@ -362,8 +362,9 @@ if (isset($_SESSION["username"])) {
                                             if ($res1->num_rows > 0) {
                                                 while ($row = mysqli_fetch_row($res1)) { ?>
                                                     <tr>
+                                                        
                                                         <td style="text-align:center;"> <?php echo $i ?></td>
-                                                        <td style="text-align:left;"><a href="graph.php?id=<?php echo $row[1]; ?>" class="link1"> <?php echo $row[0] ?></a></td>
+                                                        <td style="text-align:left;"><a href="<?php if($row[1] == '^NSEI'){echo 'prediction.php?id=^NSEI';} else {echo 'graph.php?id='.$row[1].'';}?>" class="link1"> <?php echo $row[0] ?></a></td>
                                                         <td><?php echo $row[1] ?></td>
                                                         <?php
                                                         $a1 = floatval($row[3]);

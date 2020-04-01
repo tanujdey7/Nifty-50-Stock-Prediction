@@ -66,9 +66,10 @@ if (isset($_POST["submit"])) {
         .p {
             font-weight: bold;
         }
+
         .swal2-popup {
-                font-size: 1.6rem !important;
-                }
+            font-size: 1.6rem !important;
+        }
     </style>
 </head>
 
@@ -98,6 +99,9 @@ if (isset($_POST["submit"])) {
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="./index.php" class="nav-link"><i class="nc-icon nc-layout-11"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="./nifty-companies.php" class="nav-link"><i class=" nc-icon nc-sound-wave"></i> NSE Companies</a>
                     </li>
                     <li class="nav-item">
                         <a href="./news.php" class="nav-link"><i class="nc-icon nc-paper"></i> News</a>
@@ -194,7 +198,7 @@ if (isset($_POST["submit"])) {
                                     </form>
                                 </div> <!-- cd-modal-content -->
                             </div> <!-- cd-modal-action -->
-                            <button onclick="reset_nice()" class="btn1"><i class="fa fa-history"></i> Passeord Reset</button>
+                            <button onclick="reset_nice()" class="btn1"><i class="fa fa-history"></i> Password Reset</button>
                             <button onclick="nice()" class="btn1"><i class="fa fa-trash"></i> Delete</button>
 
                             <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>-->
@@ -203,61 +207,65 @@ if (isset($_POST["submit"])) {
                             <script>
                                 async function nice() {
                                     Swal.fire({
-                                    title: 'Are you sure?',
-                                    text: "You won't be able to revert this!",
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Yes, delete it!'
+                                        title: 'Are you sure?',
+                                        text: "You won't be able to revert this!",
+                                        icon: 'warning',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Yes, delete it!'
                                     }).then((willDelete) => {
                                         if (willDelete.value) {
                                             async function f() {
 
-                                                        const { value: password } = await Swal.fire({
-                                                            title: 'Enter your password',
-                                                            input: 'password',
-                                                            inputPlaceholder: 'Enter your password',   
-                                                            inputAttributes: {
-                                                                autocapitalize: 'off',
-                                                                autocorrect: 'off'
-                                                            }
-                                                            })
-                                                            if (password == '<?php echo $row[6]; ?>') {
-                                                                $.ajax({
-                                                                type: "POST",
-                                                                url: "delacc.php",
-                                                                data: { 'id': <?php echo $row[0];?>},
-                                                                cache: false,
-                                                                success: function(response) {
-                                                                    Swal.fire(
-                                                                    "Sccess!",
-                                                                    "Poof! Your account has been deleted!",
-                                                                    "success"
-                                                                    ).then(function(){
-                                                                        window.location.assign('delacc.php');
-                                                                    })
-                                                                },
-                                                                failure: function (response) {
-                                                                    Swal.fire(
-                                                                    "Internal Error",
-                                                                    "Please try again", // had a missing comma
-                                                                    "error"
-                                                                    )
-                                                                }
-                                                            });
-                                                            }
-                                                        }
-                                                        f();
-                                        }else if (willDelete.dismiss === Swal.DismissReason.cancel) {
+                                                const {
+                                                    value: password
+                                                } = await Swal.fire({
+                                                    title: 'Enter your password',
+                                                    input: 'password',
+                                                    inputPlaceholder: 'Enter your password',
+                                                    inputAttributes: {
+                                                        autocapitalize: 'off',
+                                                        autocorrect: 'off'
+                                                    }
+                                                })
+                                                if (password == '<?php echo $row[6]; ?>') {
+                                                    $.ajax({
+                                                        type: "POST",
+                                                        url: "delacc.php",
+                                                        data: {
+                                                            'id': <?php echo $row[0]; ?>
+                                                        },
+                                                        cache: false,
+                                                        success: function(response) {
                                                             Swal.fire(
-                                                            'Cancelled',
-                                                            'Enjoy our service :)',
-                                                            'info'
+                                                                "Sccess!",
+                                                                "Poof! Your account has been deleted!",
+                                                                "success"
+                                                            ).then(function() {
+                                                                window.location.assign('delacc.php');
+                                                            })
+                                                        },
+                                                        failure: function(response) {
+                                                            Swal.fire(
+                                                                "Internal Error",
+                                                                "Please try again", // had a missing comma
+                                                                "error"
                                                             )
                                                         }
-                                    })
+                                                    });
+                                                }
+                                            }
+                                            f();
+                                        } else if (willDelete.dismiss === Swal.DismissReason.cancel) {
+                                            Swal.fire(
+                                                'Cancelled',
+                                                'Enjoy our service :)',
+                                                'error'
+                                            )
                                         }
+                                    })
+                                }
 
                                 async function reset_nice() {
                                     Swal.mixin({
@@ -265,8 +273,7 @@ if (isset($_POST["submit"])) {
                                         confirmButtonText: 'Next &rarr;',
                                         showCancelButton: true,
                                         progressSteps: ['1', '2', '3']
-                                        }).queue([
-                                        {
+                                    }).queue([{
                                             title: 'Reset Password',
                                             text: 'Enter your current Password'
                                         },
@@ -278,47 +285,47 @@ if (isset($_POST["submit"])) {
                                             title: 'Reset Password',
                                             text: 'Enter re-type Password'
                                         }
-                                        ]).then((result) => {
+                                    ]).then((result) => {
                                         if (result.value) {
-                                            if(result.value[0] == "<?php echo $row[6]; ?>"){
-                                                if(result.value[1] == result.value[2])
-                                                {
+                                            if (result.value[0] == "<?php echo $row[6]; ?>") {
+                                                if (result.value[1] == result.value[2]) {
                                                     $.ajax({
-                                                                type: "POST",
-                                                                url: "resetpass.php",
-                                                                data: { 'new_pass': result.value[1],
-                                                                        'id': <?php echo $row[0] ?>},
-                                                                cache: false,
-                                                                success: function(response) {
-                                                                    Swal.fire(
-                                                                    "Sccess!",
-                                                                    "Poof! Your Password has been reset!",
-                                                                    "success"
-                                                                    ).then(function(){
-                                                                        window.location.assign('resetpass.php');
-                                                                    })
-                                                                },
-                                                                failure: function (response) {
-                                                                    Swal.fire(
-                                                                    "Internal Error",
-                                                                    "Please try again", // had a missing comma
-                                                                    "error"
-                                                                    )
-                                                                }
-                                                            }); 
-                                                }
-                                                if(result.value[1] != result.value[2])
-                                                {
-                                                    Swal.fire(
-                                                            "Internal Error",
-                                                            "Password doesn't match,please try again", // had a missing comma
-                                                            "error"
+                                                        type: "POST",
+                                                        url: "resetpass.php",
+                                                        data: {
+                                                            'new_pass': result.value[1],
+                                                            'id': <?php echo $row[0] ?>
+                                                        },
+                                                        cache: false,
+                                                        success: function(response) {
+                                                            Swal.fire(
+                                                                "Success!",
+                                                                "Your Password has been reset!",
+                                                                "success"
+                                                            ).then(function() {
+                                                                window.location.assign('resetpass.php');
+                                                            })
+                                                        },
+                                                        failure: function(response) {
+                                                            Swal.fire(
+                                                                "Internal Error",
+                                                                "Please try again", // had a missing comma
+                                                                "error"
                                                             )
+                                                        }
+                                                    });
+                                                }
+                                                if (result.value[1] != result.value[2]) {
+                                                    Swal.fire(
+                                                        "Internal Error",
+                                                        "Password doesn't match,please try again", // had a missing comma
+                                                        "error"
+                                                    )
                                                 }
                                             }
                                         }
-                                        })
-                                    }
+                                    })
+                                }
                             </script>
                             <!-- <btn class="btn btn-outline-default btn-round"><i class="fa fa-cog"></i> Settings</btn> -->
 

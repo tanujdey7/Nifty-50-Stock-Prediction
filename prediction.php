@@ -1,5 +1,5 @@
 <?php
-$id = 'ADANIPORTS';
+$id = $_GET['id'];
 // echo $id;
 include 'database.php';
 if (isset($_SESSION["username"])) {
@@ -58,9 +58,9 @@ if (empty($row6)) {
     <title>Graph</title>
     <!-- Load plotly.js into the DOM -->
     <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />   
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet" />
     <script>
-        Plotly.d3.csv('<?php echo "stock_data/" . $id . ".csv" ?>', function(err, rows) {
+        Plotly.d3.csv('<?php echo "stock_data/^NSEI.csv" ?>', function(err, rows) {
             function unpack(rows, key) {
                 return rows.map(function(row) {
                     return row[key];
@@ -87,7 +87,7 @@ if (empty($row6)) {
                 x: unpack(rows, 'Date'),
                 y: unpack(rows, 'Close'),
                 line: {
-                    color: '#17BECF'
+                    color: '#0088a9'
                 },
                 xaxis: 'x',
                 yaxis: 'y'
@@ -164,6 +164,111 @@ if (empty($row6)) {
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
         }
+
+        Plotly.d3.csv('<?php echo "stock_data/" . $id . ".csv" ?>', function(err, rows) {
+            function unpack(rows, key) {
+                return rows.map(function(row) {
+                    return row[key];
+                });
+            }
+
+            var trace = {
+                /* x: unpack(rows, 'Date'),
+                 close: unpack(rows, 'Close'),
+                 high: unpack(rows, 'High'),
+                 low: unpack(rows, 'Low'),
+                 open: unpack(rows, 'Open'),   
+
+                 // cutomise colors
+                 //   increasing: {line: {color: }},
+                 increasing: {line: {color: '#17BECF'}}, 
+                 decreasing: {line: {color: '#7F7F7F'}},
+                 line: {color: 'rgba(31,119,180,1)'},  
+                 //   decreasing: {line: {color: 'red'}},*/
+                //type: "scatter",
+                type: 'scatter',
+                mode: "lines",
+                name: 'AAPL High',
+                x: unpack(rows, 'Date'),
+                y: unpack(rows, 'Close'),
+                line: {
+                    color: '#0088a9'
+                },
+                xaxis: 'x',
+                yaxis: 'y'
+            };
+
+            var data = [trace];
+
+            var layout = {
+                autosize: false,
+                width: 1000,
+                height: 500,
+                dragmode: 'zoom',
+                margin: {
+                    r: 10,
+                    t: 25,
+                    b: 60,
+                    l: 60
+                },
+                showlegend: false,
+                xaxis: {
+                    autorange: true,
+                    title: '<?php echo $id ?>',
+                    rangeslider: true,
+                    rangeselector: {
+                        x: 0,
+                        y: 1.2,
+                        xanchor: 'left',
+                        font: {
+                            size: 12
+                        },
+                        buttons: [{
+                            step: 'month',
+                            stepmode: 'backward',
+                            count: 1,
+                            label: '1 month'
+                        }, {
+                            step: 'month',
+                            stepmode: 'backward',
+                            count: 6,
+                            label: '6 months'
+                        }, {
+                            step: 'month',
+                            stepmode: 'backward',
+                            count: 12,
+                            label: '1 Year'
+                        }, {
+                            step: 'all',
+                        }]
+                    }
+                },
+                yaxis: {
+                    autorange: true,
+                }
+            };
+
+            Plotly.newPlot('myDiv1', data, layout);
+        });
+
+        function openTabs(evt, tabName) {
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById("port").className += " active";
+        }
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
     </script>
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400&display=swap" rel="stylesheet">
     <style type="text/css">
@@ -188,6 +293,7 @@ if (empty($row6)) {
             padding: 0;
             font-family: 'Raleway', Arial, Helvetica, sans-serif;
         }
+
         html,
         body {
             margin: 0;
@@ -195,7 +301,7 @@ if (empty($row6)) {
             background-color: #c7d0d8;
             height: 100%;
             width: 100%;
-            text-align: center;
+            /* text-align: center; */
             font-weight: 300;
             font-size: 20px;
             text-rendering: optimizeLegibility;
@@ -239,7 +345,7 @@ if (empty($row6)) {
             color: #777;
 
             text-transform: uppercase;
-            font: 600 13px/20px roboto, "Open Sans", Helvetica, sans-serif;
+            font: 600 13px/20px "Raleway", Helvetica, sans-serif;
 
             transition: all 250ms ease;
         }
@@ -353,13 +459,13 @@ if (empty($row6)) {
             margin: auto;
         }
 
-        .comp table {
+        /* .comp table {
             font-weight: 300;
             font-size: 20px;
             text-rendering: optimizeLegibility;
             font-family: 'Raleway', 'Arial', sans-serif;
 
-        }
+        } */
 
         .tab {
             overflow: hidden;
@@ -368,7 +474,7 @@ if (empty($row6)) {
             width: 70%;
         }
 
-        
+
         .tb {
             border-bottom: 1px solid #ccc;
             font-size: 15px;
@@ -397,12 +503,12 @@ if (empty($row6)) {
         }
 
         .trend {
-            background-color: #135690;
+            background-color: #24252a;
             color: white;
             margin-left: 40px;
         }
 
-        
+
         .hist {
             width: 80%;
             text-align: center;
@@ -421,6 +527,15 @@ if (empty($row6)) {
         svg {
             fill: aliceblue;
         }
+
+        * {
+            list-style: none;
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'RaleWay', Arial, Helvetica, sans-serif;
+        }
+
         header {
             position: sticky;
             display: flex;
@@ -437,7 +552,9 @@ if (empty($row6)) {
 
         .nav__links {
             display: flex;
-            text-transform: uppercase;
+            font-size: 18px;
+            padding-bottom: 5px;
+            padding-right: 10px;
         }
 
         .nav__links a,
@@ -566,7 +683,6 @@ if (empty($row6)) {
             bottom: 0;
             left: 0;
             width: 100%;
-
             background: #24252a;
             display: block;
             overflow: hidden;
@@ -584,7 +700,7 @@ if (empty($row6)) {
         }
 
         .inner-footer .logo1 {
-            margin-top: 4   0px;
+            margin-top: 40px;
             width: 35%;
             float: left;
             height: 100%;
@@ -637,6 +753,14 @@ if (empty($row6)) {
             padding-top: 20px;
         }
 
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+        }
+
         p {
             max-width: 600px;
             margin: 0 auto 1rem;
@@ -664,8 +788,8 @@ if (empty($row6)) {
         </a>
         <ul class="nav__links">
             <li><a href="index.php">Home</a></li>
-            <li><a href="news.php">News</a></li>
             <li><a class="cta" href="nifty-companies.php">NSE Details</a></li>
+            <li><a href="news.php">News</a></li>
             <li><a href="dashboard.php">Dashboard</a></li>
             <li><a href="dashboard.php">Logout</a></li>
         </ul>
@@ -675,13 +799,14 @@ if (empty($row6)) {
         <a class="close" onclick="closeNav()">&times;</a>
         <div class="overlay__content">
             <a href="index.php">Home</a>
-            <a href="news.php">News</a>
             <a href="nifty-companies.php">NSE Details</a>
+            <a href="news.php">News</a>
             <a href="dashboard.php">Dashboard</a>
             <a href="logout.php">Logout</a>
 
         </div>
     </div>
+
     <main>
 
         <center>
@@ -690,40 +815,86 @@ if (empty($row6)) {
                     <table>
                         <tr>
                             <td>
-                                <div class="row"><img src="<?php echo $comp_img; ?>" class="img" /></div>
+                                <div class="row "><img src="<?php echo $comp_img; ?>" class="img" /></div>
                             </td>
                             <td>
-                                <div>
-                                    <h1 style="padding-top:5px;"><?php echo $comp_name; ?>
-                                    <a href="" style="fill: red;">
-                                        <i class="fa fa-bookmark" style="fill:red;"></i>
-                                    </a>
-                                    <h3><?php echo $id; ?></h3>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                                <h2><?php echo $row1[3]; ?>
-                                    <?php
-                                    $a1 = floatval($row1[3]);
-                                    $a2 = floatval($row1[5]);
-                                    $a4 = round($a1 - $a2, 3);
-                                    $a3 = round(($a4 * 100) / $a2, 2);
-                                    if ($a3 < 0) {
-                                        echo "<span style='color:red;font-size:25px;'>" . $a4 . "  (" . $a3 . "%)" . "</span>";
-                                    } else {
-                                        echo "<span style='color:green;font-size:25px;'>+" . $a4 . "  (+" . $a3 . "%)" . "</span>";
-                                    }
-                                    echo "<h6>At close: " . $row6[$c - 2][0] . "</h6>";
-                                    ?>
-                                </h2>
+
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="name"><?php echo $comp_name; ?> &nbsp;
+                                                <a href="#" class="wish wish1">
+                                                    <style>
+                                                        .name {
+                                                            font-weight: bold;
+                                                            font-size: 30px;
+
+                                                        }
+
+                                                        .wish {
+                                                            background-color: #0088a9;
+                                                            padding: 6px 16px;
+                                                            text-align: center;
+                                                            text-decoration: none;
+                                                            font-size: 12px;
+                                                            /* margin: 20px; */
+                                                            transition-duration: 0.4s;
+                                                            cursor: pointer;
+                                                            border-radius: 50px;
+                                                            font-weight: 400;
+
+                                                        }
+
+                                                        .wish1 {
+                                                            background-color: white;
+                                                            color: black;
+                                                            border: 2px solid #0088a9;
+                                                        }
+
+                                                        .wish1:hover {
+                                                            background-color: #0088a9;
+                                                            color: white;
+                                                        }
+                                                    </style>
+                                                    <i class="fa fa-star"></i> Add to favorites
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h3 class="pad">( <?php echo $id; ?> )</h3>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h6 style="font-weight: 400;">NSE - Price. Currency in INR</h6>
+                                        </td>
+                                    </tr>
+                                    <tr>
+
+                                        <td>
+                                            <h2 style="font-size:45px;"><?php echo $row1[3]; ?>
+                                                <?php
+                                                $a1 = floatval($row1[3]);
+                                                $a2 = floatval($row1[5]);
+                                                $a4 = round($a1 - $a2, 3);
+                                                $a3 = round(($a4 * 100) / $a2, 2);
+                                                if ($a3 < 0) {
+                                                    echo "<span style='color:red;font-size:25px;'>" . $a4 . "  (" . $a3 . "%)" . "</span>";
+                                                } else {
+                                                    echo "<span style='color:green;font-size:25px;'>+" . $a4 . "  (+" . $a3 . "%)" . "</span>";
+                                                }
+                                                echo "<h6>At close: " . $row6[$c - 2][0] . "</h6>";
+                                                ?>
+                                            </h2>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>
                 </div>
-                <br>
                 <div class="tabbed skin-graphite round" id="skinable">
                     <ul>
                         <li onclick="openTab(event, 'Historical')">Historical Data</li>
@@ -731,6 +902,44 @@ if (empty($row6)) {
                         <li onclick="openTab(event, 'Chart')">Chart</li>
                         <li class="active1" id="port" onclick="openTab(event, 'Portfolio')">Profile</li>
                     </ul>
+                </div>
+                <div id="Prediction" class="tabcontent">
+                    <div class="graph">
+                        <div id='myDiv1'>
+                            <!-- Plotly chart will be drawn inside this DIV -->
+                        </div>
+                    </div>
+                    <table class="trend">
+                        <tr>
+                            <td style="text-align:center;font-weight:bold;padding:10px;">
+                                Buy/Sell Guide
+                                <center>
+                                    <hr style="width:70px;border:1px solid #0088a9;margin-top:10px;">
+                                </center>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="tb" style="border:none;">
+                                <div style="text-align:left;float:left;padding:5px;">Stock Price</div>
+                                <div style="text-align:right;padding:5px;">Buy / Sell</div>
+                            </th>
+                        <tr>
+                        <tr>
+                            <td class='tb' style='background-color:#5f5f5f;'>
+                                <div style='text-align:left;float:left;padding:5px;'>12456</div>
+                                <div style='text-align:right;padding:5px;color:#23D537;'>Sell</div>
+                                <div style='text-align:right;padding:5px;color:#FF586D;'></div>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td class='tb' style='background-color:#5f5f5f;'>
+                                <div style='text-align:left;float:left;padding:5px;'>8545</div>
+                                <div style='text-align:right;padding:5px;color:#23D537;'></div>
+                                <div style='text-align:right;padding:5px;color:#FF586D;'>Buy</div>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div id="Chart" class="tabcontent">
                     <div class="graph">
@@ -743,7 +952,7 @@ if (empty($row6)) {
                             <td style="text-align:center;font-weight:bold;padding:10px;">
                                 TOP TRENDING STOCKS
                                 <center>
-                                    <hr style="width:70px;border:1px solid yellow;margin-top:10px;">
+                                    <hr style="width:70px;border:1px solid #0088a9;margin-top:10px;">
                                 </center>
                             </td>
                         </tr>
@@ -782,7 +991,7 @@ if (empty($row6)) {
                                 $b4 = round($b1 - $b2, 3);
                                 $b3 = round(($b4 * 100) / $b2, 2);
                                 echo "<tr>
-                            <td class='tb'style='background-color:#2869A1;'>
+                            <td class='tb'style='background-color:#5f5f5f;'>
                             <div style='text-align:left;float:left;padding:5px;'>" . $row3[0] . "</div>";
                                 if ($b3 > 0)
                                     echo "<div style='text-align:right;padding:5px;color:#23D537;'>+" . $b3 . "</div>";
@@ -902,7 +1111,7 @@ if (empty($row6)) {
                             <td style="text-align:center;font-weight:bold;padding:10px;">
                                 TOP TRENDING STOCKS
                                 <center>
-                                    <hr style="width:70px;border:1px solid yellow;margin-top:10px;">
+                                    <hr style="width:70px;border:1px solid #0088a9;margin-top:10px;">
                                 </center>
                             </td>
                         </tr>
@@ -958,7 +1167,7 @@ if (empty($row6)) {
                                 $b4 = round($b1 - $b2, 3);
                                 $b3 = round(($b4 * 100) / $b2, 2);
                                 echo "<tr>
-                        <td class='tb'style='background-color:#2869A1;'>
+                        <td class='tb'style='background-color:#5f5f5f;'>
                         <div style='text-align:left;float:left;padding:5px;'>" . $row3[0] . "</div>";
                                 if ($b3 > 0)
                                     echo "<div style='text-align:right;padding:5px;color:#23D537;'>+" . $b3 . "</div>";
@@ -969,32 +1178,98 @@ if (empty($row6)) {
                             }
                             ?>
                     </table>
-                    <div>
-                        <h4>Key executives</h4>
+                    <h4>Key executives</h4>
+                    <br>
+                    <table style="float:left;margin-right:200px;">
+
                         <?php
                         if (($p[9] == $p[10]) && ($p[9] == $p[11])) {
-                            echo "<p><b>CEO, MD & Director - </b>" . $p[9] . "</p>";
+                            echo '
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">CEO, MD & Director </div>
+                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                            </td>
+                            
+                        </tr>
+                        ';
                         }
                         if (($p[9] == $p[10]) && ($p[9] != $p[11])) {
-                            echo "<p><b>CEO & MD - </b>" . $p[9] . "</p>";
-                            echo "<p><b>Director - </b>" . $p[11] . "</p>";
+                            echo '
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">CEO & MD  </div>
+                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">Director  </div>
+                                <div style="text-align:right;padding:5px;">' . $p[11] . '</div>
+                            </td>
+                        </tr>
+                        ';
                         }
                         if (($p[9] == $p[11]) && ($p[9] != $p[10])) {
-                            echo "<p><b>CEO & Director - </b>" . $p[9] . "</p>";
-                            echo "<p><b>MD - </b>" . $p[10] . "</p>";
-                        }
-                        if (($p[10] == $p[11]) && ($p[9] != $p[10])) {
-                            echo "<p><b>CEO - </b>" . $p[9] . "</p>";
-                            echo "<p><b>MD & Director - </b>" . $p[10] . "</p>";
+                            echo '
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">CEO & Director  </div>
+                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">MD  </div>
+                                <div style="text-align:right;padding:5px;">' . $p[10] . '</div>
+                            </td>
+                        </tr>
+                        ';
+                            if (($p[10] == $p[11]) && ($p[9] != $p[10])) {
+                                echo '
+                            <tr>
+                                <td class="tb">
+                                    <div style=text-align:left;float:left;padding:5px;">CEO </div>
+                                    <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="tb">
+                                    <div style=text-align:left;float:left;padding:5px;">MD & Director </div>
+                                    <div style="text-align:right;padding:5px;">' . $p[10] . '</div>
+                                </td>
+                            </tr>
+                            ';
+                            }
                         }
                         if (($p[9] != $p[11]) && ($p[9] != $p[10]) && ($p[10] != $p[11])) {
-                            echo "<p><b>CEO - </b>" . $p[9] . "</p>";
-                            echo "<p><b>MD - </b>" . $p[10] . "</p>";
-                            echo "<p><b>Director - </b>" . $p[11] . "</p>";
+                            echo '
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">CEO </div>
+                                <div style="text-align:right;padding:5px;">' . $p[9] . '</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">MD<//iv>
+                                <div style="text-align:right;padding:5px;">' . $p[10] . '</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="tb">
+                                <div style=text-align:left;float:left;padding:5px;">Director </div>
+                                <div style="text-align:right;padding:5px;">' . $p[11] . '</div>
+                            </td>
+                        </tr>
+                        ';
+                            // echo "<p><b>CEO - </b>" . $p[9] . "</p>";
+                            // echo "<p><b>MD - </b>" . $p[10] . "</p>";
+                            // echo "<p><b>Director - </b>" . $p[11] . "</p>";
                         }
-                        echo "<br><br><br>";
                         ?>
-                    </div>
+                    </table>
                     <div>
                         <h4>Address:</h4>
                         <?php
