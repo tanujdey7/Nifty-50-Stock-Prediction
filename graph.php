@@ -48,6 +48,41 @@ if (empty($row6)) {
     fseek($file, 0);
     goto a;
 }
+$s11 = "SELECT wishlist FROM user WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
+$result11 = $con->query($s11);
+$row11 = mysqli_fetch_row($result11);
+$wishlist = explode(' ',$row11[0]);
+//echo "<script>alert('" . $wishlist[1] . "');</script>";
+if(isset($_POST["wish"]))
+{
+    if($_POST["wish"] == "true")
+    {
+        $fl = false;
+        if(empty($wishlist))
+        {
+            $wishlist[0] = $id;
+        }
+        else {
+            $l = 0;
+            foreach($wishlist as $value)
+            {
+                if($value == $id)
+                {
+                    unset($wishlist[$l]);
+                    $fl = true;
+                }
+                $l++;
+            }
+            if($fl == false)
+            {
+                $wishlist[sizeof($wishlist)] = $id;
+            }
+        }
+        $wish = implode(" ",$wishlist);
+        $s12 = "UPDATE user SET wishlist = '" . $wish . "' WHERE (Username = '" . $_SESSION["username"] . "' OR Email='" . $_SESSION["username"] . "')" . " AND Password='" . $_SESSION["password"] . "';";
+        $con->query($s12);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -165,6 +200,7 @@ if (empty($row6)) {
             evt.currentTarget.className += " active";
         }
     </script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,200,300,400&display=swap" rel="stylesheet">
     <style type="text/css">
         .modebar {
@@ -718,7 +754,19 @@ if (empty($row6)) {
                                     <tr>
                                         <td>
                                             <div class="name"><?php echo $comp_name; ?> &nbsp;
-                                                <a href="#" class="wish wish1">
+                                                <button onclick="wish()" class="wish wish1" id="wish1">
+                                                <?php
+                                                foreach($wishlist as $value)
+                                                {
+                                                    if($value == $id)
+                                                    {
+                                                        echo "<script>
+                                                        document.getElementById('wish1').style.backgroundColor = '#0088a9';
+                                                        document.getElementById('wish1').style.color = 'white';
+                                                        </script>";
+                                                    }
+                                                }
+                                                ?>
                                                     <style>
                                                         .name {
                                                             font-weight: bold;
@@ -751,8 +799,26 @@ if (empty($row6)) {
                                                             color: white;
                                                         }
                                                     </style>
+                                                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+                                                    <script>
+                                                    function wish()
+                                                    {
+                                                        <?php $url  = "graph.php?id=" . $id; ?>
+                                                        document.getElementById('wish1').style.backgroundColor = '#0088a9';
+                                                        document.getElementById('wish1').style.color = 'white';
+                                                        $.ajax({
+                                                            type: "POST",
+                                                            url:  "<?php echo $url; ?>",
+                                                            data: {
+                                                                'wish': true
+                                                            },
+                                                            success: function(data) { window.location.reload(); },
+                                                            error: function(ts) { alert(ts.responseText) }
+                                                        });
+                                                    }
+                                                    </script>
                                                     <i class="fa fa-star"></i> Add to favorites
-                                                </a>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>

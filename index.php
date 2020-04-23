@@ -235,19 +235,19 @@ if (isset($_SESSION["username"])) {
         <center>
         <div class="footer"  style="font-size:2.5vh;padding-left:15%;">
             <div class="footer-content">
-                <div class="footer-section">
+                <div class="footer-section" style="color:black;">
                     <h3 style="font-weight:bold;">Predictors</h3>
                     <hr style="background: #00834B;">
                     <p>Business is about people and relationships. That is why we try to outperform ourselves every time.</p>
                 </div>
-                <div class="footer-section">
+                <div class="footer-section"style="color:black;">
                     <h3 style="font-weight:bold;">Contact Info</h3>
                     <hr style="background: #00834B;">
                     <p><a href="https://goo.gl/maps/Dmpwd46gJQGh7ZmB9" target="blank"><img src="resources/img/location.png">Ahmedabad, Gujarat, India</a></p>
                     <p><a href="mailto: contact@predictors.com"><img src="resources/img/mail.png">contact@predictors.com</a></p>
                 </div>
             </div>
-            <div class="footer-section">
+            <div class="footer-section" style="color:black;">
                 <h3 style="font-weight:bold;">Useful Links</h3>
                 <hr style="background: #00834B;">
                 <p><a href="news.php">News</a></p>

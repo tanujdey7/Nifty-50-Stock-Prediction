@@ -303,7 +303,7 @@ if (isset($_POST["submit"])) {
                                                         cache: false,
                                                         success: function(response) {
                                                             Swal.fire(
-                                                                "Sccess!",
+                                                                "Success!",
                                                                 "Poof! Your Password has been reset!",
                                                                 "success"
                                                             ).then(function() {
