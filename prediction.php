@@ -907,17 +907,50 @@ if (empty($row6)) {
                         <tr>
                         <tr>
                             <td class='tb' style='background-color:#5f5f5f;'>
-                                <div style='text-align:left;float:left;padding:5px;'>12456</div>
+                                <div style='text-align:left;float:left;padding:5px;'>8711.49</div>
                                 <div style='text-align:right;padding:5px;color:#23D537;'>Sell</div>
                                 <div style='text-align:right;padding:5px;color:#FF586D;'></div>
                             </td>
                         </tr>
                         <tr>
-
                             <td class='tb' style='background-color:#5f5f5f;'>
-                                <div style='text-align:left;float:left;padding:5px;'>8545</div>
+                                <div style='text-align:left;float:left;padding:5px;'>8671.9</div>
                                 <div style='text-align:right;padding:5px;color:#23D537;'></div>
                                 <div style='text-align:right;padding:5px;color:#FF586D;'>Buy</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='tb' style='background-color:#5f5f5f;'>
+                                <div style='text-align:left;float:left;padding:5px;'>8677.196</div>
+                                <div style='text-align:right;padding:5px;color:#23D537;'>Sell</div>
+                                <div style='text-align:right;padding:5px;color:#FF586D;'></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='tb' style='background-color:#5f5f5f;'>
+                                <div style='text-align:left;float:left;padding:5px;'>8660</div>
+                                <div style='text-align:right;padding:5px;color:#23D537;'></div>
+                                <div style='text-align:right;padding:5px;color:#FF586D;'>Buy</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='tb' style='background-color:#5f5f5f;'>
+                                <div style='text-align:left;float:left;padding:5px;'>8623.23</div>
+                                <div style='text-align:right;padding:5px;color:#23D537;'></div>
+                                <div style='text-align:right;padding:5px;color:#FF586D;'>Buy</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class='tb' style='background-color:#5f5f5f;'>
+                                <div style='text-align:left;float:left;padding:5px;'>8627</div>
+                                <div style='text-align:right;padding:5px;color:#23D537;'></div>
+                                <div style='text-align:right;padding:5px;color:#FF586D;'>Buy</div>
+                            </td>
+                        <tr>
+                            <td class='tb' style='background-color:#5f5f5f;'>
+                                <div style='text-align:left;float:left;padding:5px;'>8717</div>
+                                <div style='text-align:right;padding:5px;color:#23D537;'>Sell</div>
+                                <div style='text-align:right;padding:5px;color:#FF586D;'></div>
                             </td>
                         </tr>
                     </table>

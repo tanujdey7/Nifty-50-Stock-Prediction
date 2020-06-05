@@ -11,10 +11,6 @@
 					<td><a href="login.php">Login</a></td>
 					<td><?=counting("login", "id")?></td>
 				</tr>
-				<tr>
-					<td><a href="prediction.php">Prediction</a></td>
-					<td><?=counting("prediction", "id")?></td>
-				</tr>
 				
 				<tr>
 					<td><a href="s_c_details.php">Stock Company Details</a></td>
@@ -32,7 +28,7 @@
 				</tr>
 				
 				<tr>
-					<td><a href="users.php">Users</a></td>
+					<td><a href="users.php">Update	</a></td>
 					<td><?=counting("users", "id")?></td>
 				</tr>
 				</table>
