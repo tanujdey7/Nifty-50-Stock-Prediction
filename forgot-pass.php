@@ -79,12 +79,12 @@
                 $mail->isSMTP();                                             
                 $mail->Host       = 'smtp.gmail.com';                     
                 $mail->SMTPAuth   = true;                              
-                $mail->Username   = 'developer.predictor@gmail.com';                  
-                $mail->Password   = 'predictor@5511';                         
+                $mail->Username   = 'email';                  
+                $mail->Password   = 'pass';                         
                 $mail->SMTPSecure = 'tls';                               
                 $mail->Port       = 587;   
             
-                $mail->setFrom('developer.predictor@gmail.com', 'Stock Predictor');            
+                $mail->setFrom('email', 'Stock Predictor');            
                 $mail->addAddress($email);  
                 
                 $mail->isHTML(true);                                   
